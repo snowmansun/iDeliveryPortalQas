@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="userlist_product" FileName="User Sale List - Product">
+  <Columns>
+    <Column FieldName="name" DisplayName="User Sales List" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>User sale list name</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="code" DisplayName="Product Code" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>1001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="productname" DisplayName="Product Name" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description>Ollie Product</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="Valid" Required="true" Width="15">
+      <Sample>
+        <Comment>1 Valid, 0 Invalid</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="Error Message" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

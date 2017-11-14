@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="product" FileName="产品主数据">
+  <Columns>
+    <Column FieldName="productcode" DisplayName="产品编号" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>1001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="name" DisplayName="产品名称" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description>奥利奥夹心</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="shortname" DisplayName="产品简称" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description>奥利奥</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="CSPrice" DisplayName="箱价" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="EAPrice" DisplayName="支价" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="Multiple" DisplayName="转换因子" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field1" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field2" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field3" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field4" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field5" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field6" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field7" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field8" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field9" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="type" DisplayName="产品类型" Required="true" Width="15">
+      <Sample>
+        <Comment>0本品，1竞品</Comment>
+        <Description>0</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="是否有效" Required="true" Width="15">
+      <Sample>
+        <Comment>1有效，0无效</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="错误信息" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b50dd45adea4496da40105681cfb40dc" Name="关系图1" ZoomLevel="80">
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_DeliveryHeader" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_DeliveryItem" Width="1.5" PointX="10.5" PointY="13.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_DeliveryOrder" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_OrgSystemConfig" Width="1.5" PointX="6" PointY="5.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_ShipmentFinance" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_ShipmentHeader" Width="1.5" PointX="3" PointY="13.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_ShipmentHelper" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_ShipmentItem" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_ShipmentVanSalesRoute" Width="1.5" PointX="8.25" PointY="17.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_SystemConfig" Width="1.5" PointX="3.75" PointY="20.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_Truck" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_TruckCheckAssign" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_TruckCheckList" Width="1.5" PointX="3" PointY="7.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_M_TruckDriver" Width="1.5" PointX="3" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ARCollection" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ARInvoice" Width="1.5" PointX="8" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_DayTimeTracking" Width="1.5" PointX="3" PointY="11.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_DeliveryBilling" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_DeliveryHeader" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_DeliveryItem" Width="1.5" PointX="10.5" PointY="7.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_Invoice" Width="1.5" PointX="10.5" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_InvoiceItem" Width="1.5" PointX="12.75" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_OdometerTracking" Width="1.5" PointX="5.75" PointY="4.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_Payment" Width="1.5" PointX="8" PointY="2.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ShipmentAssign" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ShipmentFinance" Width="1.5" PointX="7.5" PointY="20.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ShipmentHeader" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ShipmentHelper" Width="1.5" PointX="3" PointY="18.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ShipmentItem" Width="1.5" PointX="7.5" PointY="19.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_TruckCheckResult" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_TruckStock" Width="1.5" PointX="10.5" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_TruckStockTracking" Width="1.5" PointX="8.25" PointY="13.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Account" Width="1.5" PointX="3.75" PointY="5.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_AccountAR" Width="1.5" PointX="7.75" PointY="4.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Company" Width="1.5" PointX="1.5" PointY="19.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Contact" Width="1.5" PointX="6" PointY="21.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Dictionary" Width="1.5" PointX="9.75" PointY="4.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Organization" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Person" Width="1.5" PointX="3" PointY="9.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_ProdListConfig" Width="1.5" PointX="3" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Product" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_ProductUOM" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_User" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.MD_Warehouse" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.SyncLog" Width="1.5" PointX="10.75" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.Sys_Module" Width="1.5" PointX="10.75" PointY="9.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.Sys_ModuleConfiguration" Width="1.5" PointX="11.75" PointY="3.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.Sys_Role" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.Sys_UserRoleLink" Width="1.5" PointX="6" PointY="11.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="iDeliveryModel.sysdiagram" Width="1.5" PointX="11.75" PointY="5.5" IsExpanded="false" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DELI_REFERENCE_DSD_DELI1" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DELI_REFERENCE_DSD_SHIP" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DeliveryHeader_Account" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_INVO_REFERENCE_DSD_DELI" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DELI_REFERENCE_MD_PRODU" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_M_OrgSystemConfig_ConfigID" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_M_OrgSystemConfig_org" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_M_ShipmentFinance_ShipmentNO" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DELI_REFERENCE_DSD_SHIP2" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_DSD_SHIP" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_DSD_SHIP11" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_DSD_SHIP8" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_MD_WAREH" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFSHIPME_DSD_SHIP" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentAssign_ShipmentNO" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentHeader_Diver1" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentHeader_Diver2" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_T_TruckStockTracking_DSD_M_ShipmentHeader" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_MD_USER" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_MD_PRODU" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentVanSalesRoute_Account" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DAYT_REFERENCE_DSD_TRUC" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentAssign_Truck" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_T_TruckStockTracking_DSD_M_Truck" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_TRUC_REFERENCE_DSD_TRUC13" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_TRUC_REFERENCE_DSD_TRUC" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_TRUC_REFERENCE_DSD_TRUC12" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_M_TruckDriver_Driver" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_T_ARInvoice_DSD_T_ARInvoice" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_T_Payment_DSD_T_ARCollection" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DAYT_REFERENCE_MD_USER" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_TRUC_REFERENCE_DSD_DAYT" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DeliveryTransHeader_Account" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DELI_REFERENCE_MD_PRODU6" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_INVO_REFERENCE_DSD_INVO" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_INVO_REFERENCE_MD_PRODU" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentAssign_Dirver" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_T_ShipmentFinance_DSD_T_ShipmentHeader" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_MD_WAREH7" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentHeader_Diver" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_T_ShipmentItem_DSD_T_ShipmentHeader" />
+        <AssociationConnector Association="iDeliveryModel.DSD_ShipmentHelperConfirm_Helper" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_TRUC_REFERENCE_MD_PRODU" />
+        <AssociationConnector Association="iDeliveryModel.FK_MD_Contact_Account" />
+        <AssociationConnector Association="iDeliveryModel.FK_MD_WAREH_REFERENCE_MD_COMPA2" />
+        <AssociationConnector Association="iDeliveryModel.FK_MD_Person_MD_Organization" />
+        <AssociationConnector Association="iDeliveryModel.FK_MD_PRODL_REFERENCE_MD_ORGAN" />
+        <AssociationConnector Association="iDeliveryModel.FK_MD_Person_UserCode" />
+        <AssociationConnector Association="iDeliveryModel.FK_MD_PRODU_REFERENCE_MD_PRODU" />
+        <AssociationConnector Association="iDeliveryModel.FK_Sys_PersonRoleLink_MD_User" />
+        <AssociationConnector Association="iDeliveryModel.FK_Sys_PersonRoleLink_Sys_Role" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_ShipmentVanSalesRoute" Width="1.5" PointX="0.75312840601109365" PointY="27.487305862590347" />
+        <EntityTypeShape EntityType="iDeliveryModel.DSD_T_Visit" Width="1.5" PointX="4.9454733566127125" PointY="3.2035074248926283" IsExpanded="false" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_SHIP_REFERENCE_DSD_SHIP2" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_DELI_REFERENCE_DSD_VISI" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_ShipmentVanSalesRoute_Account2" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_Visit_Account" />
+        <AssociationConnector Association="iDeliveryModel.FK_DSD_Visit_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,140 @@
+﻿@model Mde.Model.DataModel.MD_Company
+@{
+    ViewBag.Title = "Warehouse";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+
+            var url = "@Url.Action("GetCompanyComboboxData", "Shipment")" + "?NeedAll=true";
+            InitCombobox($("#SCompanyCode"), url, "");
+
+            InitGrid();
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+        });
+
+        function InitGrid()
+        {
+            var queryData = {
+                WarehouseCode: $("#SWarehouseCode").val(),
+                WarehouseName: $("#SWarehouseName").val(),
+                CompanyCode: $("#SCompanyCode").combobox("getValue"),
+                Status: $("#SStatus").combobox("getValue")
+            };
+
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetWarehouseList","Master")',
+                idField: 'CompanyCode',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'CompanyCode', title: '@Resources.Language.txt_CompanyCode', width: 60 },
+                        { field: 'CompanyName', title: '@Resources.Language.txt_CompanyName', width: 100 },
+                        { field: 'WarehouseCode', title: '@Resources.Language.txt_WarehouseCode', width: 70 },
+                        { field: 'WarehouseName', title: '@Resources.Language.txt_WarehouseName', width: 100 },
+                        { field: 'Barcode', title: '@Resources.Language.txt_Barcode', width: 50 },
+                        { field: 'Sequence', title: '@Resources.Language.txt_Sequence', width: 50. },
+                        { field: 'Remark', title: '@Resources.Language.txt_Description', width: 100 },
+                        {
+                            field: 'Valid', title: '@Resources.Language.txt_Status', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                else {
+                                    return "N";
+                                }
+                            }
+                        }
+                    ]]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+
+        function RefreshGrid() {
+            var queryData = {
+                WarehouseCode: $("#SWarehouseCode").val(),
+                WarehouseName: $("#SWarehouseName").val(),
+                CompanyCode: $("#SCompanyCode").combobox("getValue"),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetWarehouseList","Master")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+
+        //绑定combobox
+        function InitCombobox(Control, Url, DefaultValue) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (DefaultValue == "") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", DefaultValue);
+                    }
+                }
+            });
+        }
+    </script> 
+}
+
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_WarehouseCode:
+                    <input class="easyui-validatebox" id="SWarehouseCode" name="SWarehouseCode">
+                </label>
+                <label>@Resources.Language.txt_WarehouseName:
+                    <input class="easyui-validatebox" id="SWarehouseName" name="SWarehouseName">
+                </label>
+                <label>@Resources.Language.txt_Company:
+                    <select class="easyui-combobox" id="SCompanyCode" name="SCompanyCode" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 150px;" data-options="editable:false,panelHeight:'auto'">
+                        <option value="">@Resources.Language.txt_All</option>
+                        <option value="1" selected="selected">@Resources.Language.txt_Active</option>
+                        <option value="0">@Resources.Language.txt_InActive</option>
+                    </select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            $('html').removeClass("panel-fit");
+            $('body').removeClass("easyui-layout layout panel-noscroll");
+
+            $(".card").each(function () {
+                $(this).click(function () {
+                    var title = $(this).attr("title");
+                    var url = $(this).attr("rel");
+                    window.parent.addTab(title, url, "");
+                });
+            });
+        });
+    </script>
+}
+
+<body style="margin: 0;">
+    <div class="dashboard" style="overflow-x: auto; overflow-y: auto;">
+        @if (ViewBag.Customer || ViewBag.User || ViewBag.Product)
+        {
+            <div class="section">
+                <div class="heading">
+                    @Resources.Language.txt_InitInformation
+                </div>
+                <div class="content">
+                    <table border="0" cellspacing="0" cellpadding="0" class="cardview">
+                        <tr>
+                            <td width="25%" class="next" />
+                            <td width="25%" class="next" />
+                            <td width="25%" class="next" />
+                            <td width="25%" />
+                        </tr>
+                        <tr>
+                            @if (ViewBag.User)
+                            {
+                                <td class="next">
+                                    <a href="#" class="card" rel="/User/UserManager" title="@Resources.Module.Menu_User">
+                                        <span class="icon quicklinks2"></span>
+                                        <span class="title">@Resources.Module.Menu_User</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.Customer)
+                            {
+                                <td class="next">
+                                    <a href="#" class="card" rel="/Customer/Customer" title="@Resources.Module.Menu_Customer">
+                                        <span class="icon quicklinks1"></span>
+                                        <span class="title">@Resources.Module.Menu_Customer</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.CustomerCoverage)
+                            {
+                                <td class="next">
+                                    <a href="#" class="card" rel="/Customer/RoutePlan" title="@Resources.Module.Menu_CustomerCoverage">
+                                        <span class="icon quicklinks10"></span>
+                                        <span class="title">@Resources.Module.Menu_CustomerCoverage</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.Product)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/Product/Product" title="@Resources.Module.Menu_Product">
+                                        <span class="icon quicklinks3"></span>
+                                        <span class="title">@Resources.Module.Menu_Product</span>
+                                    </a>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+        @if (ViewBag.SaleRecord || ViewBag.SaleOrder || ViewBag.CustomerAudit)
+        {
+            <div class="section">
+                <div class="heading">
+                    @Resources.Language.txt_QuickEntry
+                </div>
+                <div class="content">
+                    <table border="0" cellspacing="0" cellpadding="0" class="cardview">
+                        <tr>
+                            <td width="25%" />
+                            <td width="25%" />
+                            <td width="25%" />
+                            <td width="25%" />
+                        </tr>
+                        <tr>
+                            @if (ViewBag.SaleRecord)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/Order/Confirm" title="@Resources.Module.Menu_OrderConfirm">
+                                        <span class="icon quicklinks4"></span>
+                                        <span class="title">@Resources.Module.Menu_OrderConfirm</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.SaleOrder)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/Order/NewOrder" title="@Resources.Module.Menu_SalesOrder">
+                                        <span class="icon quicklinks5"></span>
+                                        <span class="title">@Resources.Module.Menu_SalesOrder</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.CustomerAudit)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/Customer/ApproveCustomer" title="@Resources.Module.Menu_CustomerAudit">
+                                        <span class="icon quicklinks6"></span>
+                                        <span class="title">@Resources.Module.Menu_CustomerAudit</span>
+                                    </a>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+        @if (ViewBag.PhotoView || ViewBag.VisitResult || ViewBag.SalesVolumeReport)
+        {
+            <div class="section">
+                <div class="heading">
+                    @Resources.Language.txt_QuickView
+                </div>
+                <div class="content">
+                    <table border="0" cellspacing="0" cellpadding="0" class="cardview">
+                        <tr>
+                            <td width="25%" />
+                            <td width="25%" />
+                            <td width="25%" />
+                            <td width="25%" />
+                        </tr>
+                        <tr>
+                            @if (ViewBag.PhotoView)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/PhotoView/PhotoView" title="@Resources.Module.Menu_PhotoView">
+                                        <span class="icon quicklinks7"></span>
+                                        <span class="title">@Resources.Module.Menu_PhotoView</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.VisitResult)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/Visit/ViewVisit" title="@Resources.Module.Menu_VisitResult">
+                                        <span class="icon quicklinks8"></span>
+                                        <span class="title">@Resources.Module.Menu_VisitResult</span>
+                                    </a>
+                                </td>
+                            }
+                            @if (ViewBag.SalesVolumeReport)
+                            {
+                                <td>
+                                    <a href="#" class="card" rel="/Report/SalesVolume" title="@Resources.Module.Menu_SalesVolumeReport">
+                                        <span class="icon quicklinks9"></span>
+                                        <span class="title">@Resources.Module.Menu_SalesVolumeReport</span>
+                                    </a>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</body>

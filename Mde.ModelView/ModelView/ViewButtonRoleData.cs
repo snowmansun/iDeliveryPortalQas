@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Mde.ModelView.ModelView
+{
+    public class ViewButtonRoleData
+    {
+        public string ModuleID { get; set; }
+        public string Action { get; set; }
+        public string ButtonRole { get; set; }
+    }
+}

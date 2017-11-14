@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{879ED4A6-2322-4339-95A0-07BF3A728FCD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mde.Model</RootNamespace>
+    <AssemblyName>Mde.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mde.Common\Mde.Common.csproj">
+      <Project>{ed15cf96-acde-4bb5-803a-c5ee84e00f62}</Project>
+      <Name>Mde.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataModel\DSD_M_DeliveryHeader.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_DeliveryItem.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_DeliveryOrder.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_OrgSystemConfig.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_ShipmentFinance.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_ShipmentHeader.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_ShipmentHelper.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_ShipmentItem.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_ShipmentVanSalesRoute.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_SystemConfig.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_Truck.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_TruckCheckAssign.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_TruckCheckList.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_M_TruckDriver.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ARCollection.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ARInvoice.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_DayTimeTracking.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_DeliveryBilling.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_DeliveryHeader.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_DeliveryItem.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_Invoice.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_InvoiceItem.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_OdometerTracking.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_Payment.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ShipmentAssign.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ShipmentFinance.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ShipmentHeader.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ShipmentHelper.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ShipmentItem.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_ShipmentVanSalesRoute.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_TruckCheckResult.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_TruckStock.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_TruckStockTracking.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DSD_T_Visit.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\iDeliveryEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliveryEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\iDeliveryEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\iDeliveryEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliveryEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Account.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_AccountAR.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Company.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Contact.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Dictionary.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Organization.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Person.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_ProdListConfig.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Product.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_ProductUOM.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_User.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\MD_Warehouse.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SyncLog.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sysdiagram.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Sys_Module.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Sys_ModuleConfiguration.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Sys_Role.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Sys_UserRoleLink.cs">
+      <DependentUpon>iDeliveryEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetModelQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DataModel\iDeliveryEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iDeliveryEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModel\iDeliveryEntity.edmx.diagram">
+      <DependentUpon>iDeliveryEntity.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\iDeliveryEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliveryEntity.edmx</DependentUpon>
+      <LastGenOutput>iDeliveryEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModel\iDeliveryEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliveryEntity.edmx</DependentUpon>
+      <LastGenOutput>iDeliveryEntity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

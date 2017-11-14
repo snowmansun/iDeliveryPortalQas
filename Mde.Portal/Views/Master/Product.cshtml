@@ -1,0 +1,322 @@
+﻿@model Mde.Model.DataModel.MD_Product
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section style{
+    <style>
+        .table-input {
+            font-size:14px;
+            vertical-align:top;
+            padding: 10px 0;
+        }
+    </style>    
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            InitComboboxData($("#SBrand"),  "Brand");
+            InitComboboxData($("#SPackSize"), "Pack");
+
+            InitGrid();
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+        });
+
+        function RefreshGrid() {
+            var queryData = {
+                Product: $("#SProduct").val(),
+                Brand: $("#SBrand").combobox("getValue"),
+                Pack: $("#SPackSize").combobox("getValue"),
+                Status:$("#SStatus").combobox("getValue"),
+                IsEmpty: $("#SIsEmpty").is(':checked'),
+                Equipment: $("#SEquipment").is(':checked')
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetProductList","Master")",//'/Master/GetUserDataList',
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                Product: $("#SProduct").val(),
+                Brand: $("#SBrand").combobox("getValue"),
+                Pack: $("#SPackSize").combobox("getValue"),
+                Status: $("#SStatus").combobox("getValue"),
+                IsEmpty: $("#SIsEmpty").is(':checked'),
+                Equipment: $("#SEquipment").is(':checked')
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetProductList","Master")',//'/Master/GetUserDataList',
+                idField: 'ProductCode',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'ProductName', title: '@Resources.Language.txt_ProductName', width: 150 },
+                        { field: 'ProductCode', title: '@Resources.Language.txt_ProductCode', width: 50 },
+                        { field: 'Category', title: '@Resources.Language.txt_Category', width: 100 },
+                        { field: 'Brand', title: '@Resources.Language.txt_Brand', width: 100 },
+                        { field: 'Pack', title: '@Resources.Language.txt_PackSize', width: 100 },
+                        { field: 'PackType', title: '@Resources.Language.txt_PackType', width: 50 },
+                        {
+                            field: 'IsEmpty', title: '@Resources.Language.txt_IsEmpty', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                else {
+                                    return "N";
+                                }
+                            }
+                        }
+                    ]],
+                toolbar: [{
+                    id: 'btnView_1',
+                    text: '@Resources.Language.btn_View',
+                    iconCls: 'icon-search',
+                    handler: function () {
+                        ShowDetail();
+                    }
+                }]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function ShowDetail() {
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            else {
+                $("#tdName").html(row.ProductName);
+                $("#tdCode").html(row.ProductCode);
+                $("#tdGroup").html(row.ProductGroup);
+                $("#tdBrand").html(row.Brand);
+                $("#tdPack").html(row.Pack);
+                $("#tdCategory").html(row.Category);
+                $("#tdPackType").html(row.PackType);
+                $("#tdBaseUom").html(row.BaseUom);
+                $("#tdFlavor").html(row.Flavor);
+                $("#IsEmpty").attr("checked", row.IsEmpty);
+                $("#tdPackage").html(row.Package);
+                $("#tdDescription").html(row.Description);
+                $("#Active").attr("checked", row.Status);
+                $("#tdCreateBy").html(row.CreateBy);
+                $("#tdModifiedBy").html(row.LastModifiedBy);
+            }
+            $("#UpdateDialog").dialog({ title: "View" });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Category) {
+            var Url = "@Url.Action("GetDictionCodeComboxData","Configuration")";
+            Url = Url + "?Category=" + Category + "&NeedAll=true";
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (val.length > 0)
+                        $(this).combobox("select", val[0].value);
+                }
+            });
+        }
+    </script>    
+}
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" >
+                <table style="width:800px">
+                    <tr>
+                        <td style="text-align:right">@Resources.Language.txt_Product:</td>
+                        <td>
+                            <input class="easyui-validatebox" id="SProduct" name="SProduct" style="width: 148px;">
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_Brand:
+                        </td>
+                        <td>
+                            <select class="easyui-combobox" id="SBrand" name="SBrand" style="width: 150px;" data-options="editable:false,panelHeight:'300'"></select>
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_IsEmpty:
+                        </td>
+                        <td>
+                            <input type="checkbox" name="SIsEmpty" id="SIsEmpty" />
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right">@Resources.Language.txt_Status:</td>
+                        <td>
+                            <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 150px;" data-options="editable:false,panelHeight:'auto'">
+                                <option value="">@Resources.Language.txt_All</option>
+                                <option value="1" selected="selected">@Resources.Language.txt_Active</option>
+                                <option value="0">@Resources.Language.txt_InActive</option>
+                            </select>
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_PackSize:
+                        </td>
+                        <td>
+                            <select class="easyui-combobox" id="SPackSize" name="SPackSize" style="width: 150px;" data-options="editable:false,panelHeight:'300'"></select>
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_Equipment:
+                        </td>
+                        <td>
+                            <input type="checkbox" name="SEquipment" id="SEquipment" />
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 700px; height: 350px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                    <div  style="padding: 0 20px;">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="text-align: right;width:120px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ProductName:</label>
+                                </td>
+                                <td style="width:200px;font-weight:100" id="tdName">
+                                </td>
+                                <td style="text-align: right;width:120px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ProductCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; font-weight:100" id="tdCode">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ProductGroup:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdGroup">
+                                </td>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Brand:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdBrand">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PackSize:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdPack">
+                                </td>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Category:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdCategory">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PackType:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdPackType">
+                                </td>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_BaseUom:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdBaseUom">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Flavor:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdFlavor">
+                                </td>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_IsEmpty:</label>
+                                </td>
+                                <td style="font-weight:100">
+                                    <input type="checkbox" name="IsEmpty" id="IsEmpty" />
+                                </td>
+                            </tr>
+                            <tr id="trLoginInfo">
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Package:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdPackage">
+                                </td>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Description:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdDescription">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Active:</label>
+                                </td>
+                                <td style="font-weight:100">
+                                    <input type="checkbox" name="Active" id="Active" />
+                                </td>
+                                <td style="text-align: right; ">
+                                    &nbsp;
+                                </td>
+                                <td style="font-weight:100">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CreateBy:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdCreateBy">
+                                </td>
+                                <td style="text-align: right; ">
+                                    <label style="display: inline-block;">@Resources.Language.txt_LastModifiedBy:</label>
+                                </td>
+                                <td style="font-weight:100" id="tdModifiedBy">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>
+

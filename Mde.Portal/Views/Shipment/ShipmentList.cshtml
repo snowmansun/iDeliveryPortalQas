@@ -1,0 +1,375 @@
+﻿@model Mde.Model.DataModel.DSD_M_ShipmentHeader
+@{
+    ViewBag.Title = "ShipmentList";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    
+}
+@section script{
+    <script src="~/Scripts/datagrid-detailview.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var data, json;
+            var nextDay = AddDays(new Date(), 1);
+            json = '[{"id":"' + formatterDate(new Date()) + '","text":"' + formatterDate(new Date()) + '","selected":true},{"id":"' + nextDay + '","text":"' + nextDay + '"}]';
+            data = $.parseJSON(json);
+            $("#SDate").combobox("loadData", data);
+
+
+            var Url = "@Url.Action("GetWarehouseComboboxData","Shipment")";
+            Url = Url + "?NeedAll=true";
+            InitCombobox($("#SWarehouse"), Url,"");
+
+
+            Url = "@Url.Action("GetDictionCodeComboxData","Configuration")";
+            Url = Url + "?Category=ShipmentStatus&NeedAll=true";
+            InitCombobox($("#SStatus"), Url,"");
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            InitGrid();
+
+            $("#btnOK").click(function () {
+                var newDriver = $("#NDriver").combobox('getValue');
+                if (newDriver == "")
+                    return;
+                var newTruck = $("#NTruckNo").combobox('getValue');
+                if (newTruck == "0")
+                    return;
+
+                var jsonData = {
+                    NewDriver: newDriver,
+                    NewTruck: newTruck,
+                    ShipmentNo: $("#HidShipmentNo").val()
+                };
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("ChangeDriverAndTruck","Shipment")",
+                    success: function (data) {
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+        });
+        
+        function RefreshGrid() {
+            var queryData = {
+                ShipmentDate: $("#SDate").combobox("getValue"),
+                ShipmentNo: $("#SShipmentNo").val(),
+                Warehouse: $("#SWarehouse").combobox("getValue"),
+                Driver: $("#SDriver").val(),
+                TruckNo: $("#STruckNo").val(),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetShipmentList","Shipment")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                ShipmentDate: $("#SDate").combobox("getValue"),
+                ShipmentNo: $("#SShipmentNo").val(),
+                Warehouse: $("#SWarehouse").combobox("getValue"),
+                Driver: $("#SDriver").val(),
+                TruckNo: $("#STruckNo").val(),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetShipmentList","Shipment")',
+                idField: 'ShipmentNo',
+                queryParams: queryData,
+                view: detailview,
+                columns:
+                    [[
+                        { field: 'ShipmentNo', title: '@Resources.Language.txt_ShipmentNo', width: 100 },
+                        { field: 'WarehouseName', title: '@Resources.Language.txt_Warehouse', width: 100 },
+                        { field: 'Driver', title: '@Resources.Language.txt_Driver', width: 50 },
+                        { field: 'TruckCode', title: '@Resources.Language.txt_TruckNo', width: 100 },
+                        { field: 'ShipmentType', title: '@Resources.Language.txt_Type', width: 50 },
+                        { field: 'ProductNum', title: '@Resources.Language.txt_Proudcts', width: 50 },
+                        { field: 'ProductQty', title: '@Resources.Language.txt_ProductQty', width: 60 },
+                        { field: 'CustomerNum', title: '@Resources.Language.txt_Customers', width: 50 },
+                        { field: 'StatusDesc', title: '@Resources.Language.txt_Status', width: 50 }
+                    ]],
+                toolbar: [{
+                    id: 'btnReassign_1',
+                    text: '@Resources.Language.btn_Reassign',
+                    iconCls: 'icon-reassign',
+                    handler: function () {
+                        ShowAssign();
+                    }
+                },
+                {
+                    id: 'btnDetail_2',
+                    text: '@Resources.Language.btn_Detail',
+                    iconCls: 'icon-detail',
+                    handler: function () {
+                        ShowDelivery();
+                    }
+                }
+                ],
+                detailFormatter: function (index, row) {
+                    return '<div style="padding:2px;text-align:center"><table class="ddv" style="width:700px"></table></div>';
+                },
+                onExpandRow: function (index, row) {
+                    var ddv = $(this).datagrid('getRowDetail', index).find('table.ddv');
+                    var query = { ShipmentNo: row.ShipmentNo };
+                    ddv.datagrid({
+                        url: "@Url.Action("GetShipmentItemList","Shipment")",
+                        method: 'post',
+                        fitColumns: true,
+                        singleSelect: true,
+                        rownumbers: true,
+                        loadMsg: '',
+                        height: 'auto',
+                        queryParams: query,
+                        columns: [[
+                          { field: 'ProductName', title: '@Resources.Language.txt_ProductName', width: 200 },
+                          { field: 'ProductCode', title: '@Resources.Language.txt_ProductCode', width: 200 },
+                          { field: 'ProductUnit', title: '@Resources.Language.txt_ProductUnit', width: 100 },
+                          { field: 'PlanQty', title: '@Resources.Language.txt_Quantity', width: 100, align: 'right' }
+                        ]],
+                        onResize: function () {
+                            $('#grid').datagrid('fixDetailRowHeight', index);
+                        },
+                        onLoadSuccess: function () {
+                            setTimeout(function () {
+                                $('#grid').datagrid('fixDetailRowHeight', index);
+                            }, 0);
+                        }
+                    });
+                }
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function ShowDelivery() {
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            var ShipmentNo = row.ShipmentNo;
+            var tabTitle = self.parent.$("#tabTitle").val();
+            var CurrentUrl = self.parent.$("#CurrentUrl").val();
+            var Url = "@Url.Action("DeliveryNote","Shipment")";
+            Url = Url + "?ShipmentNo=" + ShipmentNo + "&CurrentUrl=" + CurrentUrl + "&tabTitle=" + tabTitle;
+            parent.addTab("DeliveryNote", Url);
+        }
+
+        function ShowAssign() {
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            if (row.StatusValue != 'RELE') {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_ShipmentCannotReassign");
+                return;
+            }
+            console.log(row.StatusValue);
+            $("#CDriver").val(row.Driver);
+            $('#CDriver').attr('disabled', 'disabled');
+            $("#CTruckNo").val(row.TruckCode);
+            $('#CTruckNo').attr('disabled', 'disabled');
+            $("#HidShipmentNo").val(row.ShipmentNo);
+
+            var Url = "@Url.Action("GetPersonList","Shipment")";
+            Url = Url + "?UserType=1&NeedSel=false&NeedSum=true";
+            InitCombobox($("#NDriver"), Url, row.Driver);
+
+            Url = "@Url.Action("GetTruckList","Shipment")";
+            Url = Url + "?NeedSel=false";
+            InitCombobox($("#NTruckNo"), Url, row.TruckID);
+
+
+            $("#UpdateDialog").dialog({ title: "Reassign" });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        //绑定combobox
+        function InitCombobox(Control,Url,DefaultValue)
+        {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (DefaultValue == "") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", DefaultValue);
+                    }
+                }
+            });
+        }
+
+        //获取当前时间
+        function formatterDate(date) {
+            var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
+            + (date.getMonth() + 1);
+            var hor = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            return date.getFullYear() + '-' + month + '-' + day;//+ " " + hor + ":" + min + ":" + sec;
+        };
+        function AddDays(date, days) {
+            var nd = new Date(date);
+            nd = nd.valueOf();
+            nd = nd + days * 24 * 60 * 60 * 1000;
+            nd = new Date(nd);
+            //alert(nd.getFullYear() + "年" + (nd.getMonth() + 1) + "月" + nd.getDate() + "日");
+            var y = nd.getFullYear();
+            var m = nd.getMonth() + 1;
+            var d = nd.getDate();
+            if (m <= 9) m = "0" + m;
+            if (d <= 9) d = "0" + d;
+            var cdate = y + "-" + m + "-" + d;
+            return cdate;
+        }
+    </script>
+}
+
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 70px;">
+                <table>
+                    <tr>
+                        <td style="text-align:right">@Resources.Language.txt_ShipmentDate:</td>
+                        <td>
+                            @*<input id="SDate" type="text" class="easyui-datebox">*@
+                            @*<select class="easyui-combobox" id="SDate" name="SDate" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>*@
+                            <input class="easyui-combobox" id="SDate" name="SDate" style="width:150px" data-options="valueField:'id', textField:'text', panelHeight:'auto'" >  
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_ShipmentNo:
+                        </td>
+                        <td>
+                            <input class="easyui-validatebox" id="SShipmentNo" style="width: 150px;" name="SShipmentNo">
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_Warehouse:
+                        </td>
+                        <td>
+                            <select class="easyui-combobox" id="SWarehouse" name="SWarehouse" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_Driver:
+                        </td>
+                        <td>
+                            <input class="easyui-validatebox" id="SDriver" style="width: 150px;" name="SDriver">
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_TruckNo:
+                        </td>
+                        <td>
+                            <input class="easyui-validatebox" id="STruckNo" style="width: 150px;" name="STruckNo">
+                        </td>
+                        <td style="text-align:right">
+                            @Resources.Language.txt_Status:
+                        </td>
+                        <td>
+                            <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 530px; height: 300px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <div style="padding: 0 20px;">
+                    <h3 class="title"><label style="display: inline-block;">@Resources.Language.txt_Current:</label></h3>
+                    <div style="padding: 0 20px;">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Driver:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" class="easyui-validatebox" style="width: 145px;" name="CDriver" id="CDriver" data-options="disabled:true" />
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0 0 20px; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Truck:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" class="easyui-validatebox" style="width: 145px;" name="CTruckNo" id="CTruckNo" data-options="disabled:true" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h3 class="title"><label style="display: inline-block;">@Resources.Language.txt_New:</label></h3>
+                    <div style="padding: 0 20px;">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Driver:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select class="easyui-combobox" id="NDriver" name="NDriver" style="width: 150px;" data-options="required:true,editable:false"></select>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0 0 20px; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Truck:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select class="easyui-combobox" id="NTruckNo" name="NTruckNo" style="width: 150px;" data-options="editable:false,editable:false"></select>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" id="HidShipmentNo" />
+                    </div>
+                </div>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>
+
+

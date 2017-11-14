@@ -1,0 +1,417 @@
+﻿@model Mde.Model.DataModel.MD_Dictionary
+@{
+    ViewBag.Title = "Dictionary";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section script{
+    <script src="~/Scripts/datagrid-dnd.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //查询事件
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+            var url = "@Url.Action("GetDisctionaryCategoryComboxData","Base")" + "?NeedAll=false";
+            InitCategory($("#SCategory"), url,"");
+
+            $("#btnOK").click(function () {
+                if (!$("#FormUpdate").form("validate"))
+                    return;
+
+                var Category = $("#Category").combobox("getValue");
+                if (Category == "") {
+                    Category = $("#txtCategory").val();
+                }
+                var ID = $("#ID").val();
+                var jsonData = {
+                    ID: ID,
+                    Category: Category,
+                    Value: $("#Value").val(),
+                    Description: $("#Description").val(),
+                    Valid: $("#Valid").is(":checked")
+                };
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("SaveDictionary","Configuration")",
+                    success: function (data) {
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            if (ID == "") {
+                                var url = "@Url.Action("GetDisctionaryCategoryComboxData","Base")" + "?NeedAll=false";
+                                InitCategory($("#SCategory"), url,Category);
+                            }
+                            else
+                                RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+        });
+
+        //禁用和恢复form表单验证
+        $.extend($.fn.validatebox.methods, {
+            remove: function (jq, newposition) {
+                return jq.each(function () {
+                    $(this).removeClass("validatebox-text validatebox-invalid").unbind('focus.validatebox').unbind('blur.validatebox');
+                });
+            },
+            reduce: function (jq, newposition) {
+                return jq.each(function () {
+                    var opt = $(this).data().validatebox.options;
+                    $(this).addClass("validatebox-text").validatebox(opt);
+                });
+            }
+        });
+
+
+        //初始化Category下拉框数据
+        function InitCategory(Control, url,Value) {
+            Control.combobox({
+                url: url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (val.length > 0) {
+                        if (Value != "") {
+                            $(this).combobox("select", Value);
+                        }
+                        else {
+
+                            $(this).combobox("select", val[0].value);
+                        }
+                        InitGrid();
+                    }
+                }
+            });
+        }
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Type, Value, Url) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (Type == "1") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", Value);
+                    }
+                }
+            });
+        }
+
+        function InitGrid() {
+            var editRow = undefined;
+            var queryData = {
+                Category: $("#SCategory").combobox("getValue"),
+                Description: $("#SDescription").val(),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#CurrentCategory").val($("#SCategory").combobox("getValue"));
+            $("#grid").datagrid({
+                collapsible: true,
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                //pagination: true,
+                //pageSize: 30,
+                //pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetDictionaryList","Configuration")',
+                idField: 'ID',
+                queryParams: queryData,
+                columns: [[
+                    { field: 'ID', title: 'ID', width: 100,hidden:true },
+                    { field: 'Category', title: '@Resources.Language.txt_Category', width: 100 },
+                    { field: 'Value', title: '@Resources.Language.txt_Value', width: 100 },
+                    { field: 'Sequence', title: '@Resources.Language.txt_Sequence', width: 100 },
+                    //{ field: 'Value', title: 'Value', width: 100, align: 'left', editor: { type: 'text', options: { required: true } } },
+                    { field: 'Description', title: 'Description', width: 100, align: 'left', editor: { type: 'text', options: { required: true } } },
+                    {
+                        field: 'Valid', title: 'Status', width: 100, align: 'left', editor: { type: 'checkbox', options: { on: 1, off: 0 } },
+                        formatter: function (value, row, index) {
+                            if (value == 1) {
+                                return "Y";
+                            }
+                            else {
+                                return "<font color='red'>N</font>";
+                            }
+                        }
+                    },
+                ]],
+                toolbar: [
+                    {
+                        id:'btnAdd_1',
+                        text: '@Resources.Language.btn_New',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            ShowDialog(1);
+                        }
+                    },
+                    {
+                        id: 'btnEdit_2',
+                        text: '@Resources.Language.btn_Edit',
+                        iconCls: 'icon-edit',
+                        handler: function () {
+                            ShowDialog(2);
+                        }
+                    }
+                ],
+                onLoadSuccess: function () {
+                    if($("#SDescription").val()=="")
+                        $(this).datagrid('enableDnd');
+                },
+                onBeforeEdit: function (row) {
+                    $(this).datagrid('disableDnd');
+                },
+                @*//edit row
+                onAfterEdit: function (rowIndex, rowData, changes) {
+                    var rows = $("#grid").datagrid('getChanges');
+                    if (rows.length > 0) {
+                        var rowstr = JSON.stringify(rows);
+                        $.post('@Url.Action("EditData","Configuration")', rowstr, function (data) {
+                            data = eval("(" + data + ")");
+                            if (data.result == "succeed") {
+                                ChangeSequence();
+                            }
+                        });
+                    }
+                    editRow = undefined;
+                    $(this).treegrid('enableDnd');
+                },*@
+                ////启用edit row
+                //onDblClickRow: function (rowIndex, rowData) {
+                //    $(this).datagrid('disableDnd')
+                //    if (editRow != undefined) {
+                //        if (endEditing()) {
+                //            $('#grid').datagrid('selectRow', rowIndex)
+                //                    .datagrid('beginEdit', rowIndex);
+                //            editIndex = rowIndex;
+                //        } else {
+                //            $('#grid').datagrid('selectRow', editIndex);
+                //        } 
+                //    }
+                //    if (editRow == undefined) {
+                //        $("#grid").datagrid('beginEdit', rowIndex);
+                //        editRow = rowIndex;
+                //    }
+                //},
+                onClickRow: function (rowIndex, rowData) {
+                    if (editRow != undefined) {
+                        $("#grid").datagrid('endEdit', editRow);
+                    }
+                },
+                //拖拽更新sequence
+                onDrop: function (targetRow, sourceRow, point) {
+                    if (editRow != undefined) {
+                        $("#grid").datagrid('endEdit', editRow);
+                    }
+                    editRow = undefined;
+                    ChangeSequence("@Url.Action("GetRoleFromCache","Base")");
+                }
+            });
+            CheckButtonRole();
+        }
+
+        function ChangeSequence() {
+            var rows = $("#grid").datagrid('getData').rows;
+            var rowstr = JSON.stringify(rows);
+            $.messager.progress({
+                title: 'Please waiting',
+                msg: 'Changing sequence...'
+            });
+            $.post('@Url.Action("ChangeSequence","Configuration")', rowstr, function (data) {
+                data = eval("(" + data + ")");
+                $.messager.progress('close');
+                if (data.result == "succeed") {
+                    RefreshGrid();
+                }
+            });
+        }
+
+
+        //显示弹出层
+        function ShowDialog(type) {
+            var title;
+
+            $("#UpdateDialog").find("form").form("clear");
+            $("#UpdateDialog").find("form").form("reset");
+
+            if (type == 1) {
+                title = "@Resources.Language.btn_New";
+
+
+                $("#Category").combobox({ disabled: false });
+                $("#Value").validatebox({
+                    required: true
+                });
+                $("#Value").attr("disabled", false);
+                $("[name = Valid]:checkbox").attr("checked", true);
+
+                $("#Category").combobox({
+                    url: "@Url.Action("GetDisctionaryCategoryComboxData","Base")" + "?NeedAdd=true",
+                    valueField: "value",
+                    textField: "name",
+                    editable: false,
+                    onLoadSuccess: function () { //加载完成后,设置选中第一项
+                        var val = $(this).combobox("getData");
+                        if (val.length > 0) {
+                            //$(this).combobox("select", val[0].value);
+                            $(this).combobox("select", $("#CurrentCategory").val());
+                        }
+                    },
+                    onSelect: function (row) {
+                        if (row != null) {
+                            if (row.value == "") {
+                                $("#txtCategory").show();
+                                $("#divCategory").hide();
+                                $('#txtCategory').validatebox('reduce');
+                            }
+                            else {
+                                $("#txtCategory").hide();
+                                $("#divCategory").show();
+                                $('#txtCategory').validatebox('remove');
+                            }
+                        }
+                    }
+                });
+            }
+            else {
+                //判断是否选中行
+                var row = $("#grid").datagrid('getSelected');
+                if (!row) {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                    return;
+                }
+                else {
+                    title = "@Resources.Language.btn_Edit";
+                    $("#Category").combobox("setValue", row.Category);
+                    $("#Category").combobox({ disabled: true });
+                    $("#txtCategory").hide();
+                    $('#Value').validatebox('remove');
+                    $('#txtCategory').validatebox('remove');
+                    $("#Value").attr("disabled", true);
+                    //$("#UpdateDialog").find("form").form("load", row);
+                    $('#Value').val(row.Value);
+                    $("#Description").val(row.Description);
+                    $("[name = Valid]:checkbox").attr("checked", row.Valid);
+                    $("#ID").val(row.ID);
+                }
+            }
+            $("#UpdateDialog").dialog({ title: title });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        //刷新数据
+        function RefreshGrid() {
+            var queryData = {
+                Category: $("#SCategory").combobox("getValue"),
+                Description: $("#SDescription").val(),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#CurrentCategory").val($("#SCategory").combobox("getValue"));
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: '@Url.Action("GetDictionaryList","Configuration")',
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+    </script>
+}
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_Category:
+                    <select class="easyui-combobox" id="SCategory" name="SCategory" style="width: 150px;" data-options="editable:false,panelHeight:'300'"></select>
+                </label>
+                <label>@Resources.Language.txt_Description:
+                    <input type="text" style="width: 150px" class="easyui-validatebox" name="SDescription" id="SDescription" />
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 150px;" data-options="editable:false,panelHeight:'auto'">
+                        <option value="">@Resources.Language.txt_All</option>
+                        <option value="1" selected="selected">@Resources.Language.txt_Active</option>
+                        <option value="0">@Resources.Language.txt_InActive</option>
+                    </select>
+                </label>
+                <input type="hidden" id="CurrentCategory" />
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 380px; height: 250px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" class="easyui-layout"  method="post" data-options="fit:true">
+                    <div data-options="region:'north',border:false" style="padding:5px 5px">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;width:125px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Category:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <div id="divCategory">
+                                        <select class="easyui-combobox" id="Category" name="Category" style="width: 180px;" data-options="required:true,editable:false"></select>
+                                    </div>
+                                    <input type="text" style="width: 180px" class="easyui-validatebox" name="txtCategory" id="txtCategory" data-options="required:true,validType:['length[0,50]']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Value:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 180px" class="easyui-validatebox" name="Value" id="Value" data-options="required:true,validType:['length[0,200]','isBlank']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Description:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <textarea id="Description" rows="10" name="Description" style="width: 178px; height: 50px" class="textarea easyui-validatebox"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Active:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="checkbox" name="Valid" id="Valid" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="hidden" id="ID" name="ID" value="" />
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>

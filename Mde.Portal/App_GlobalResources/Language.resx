@@ -1,0 +1,1704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btn_AddSubOrganization" xml:space="preserve">
+    <value>添加子部门</value>
+  </data>
+  <data name="btn_Approve" xml:space="preserve">
+    <value>通过</value>
+  </data>
+  <data name="btn_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="btn_ChangePassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="btn_Clear" xml:space="preserve">
+    <value>清空</value>
+  </data>
+  <data name="btn_CloseAll" xml:space="preserve">
+    <value>关闭所有标签</value>
+  </data>
+  <data name="btn_CloseOther" xml:space="preserve">
+    <value>关闭其它标签</value>
+  </data>
+  <data name="btn_Edit" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="btn_Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="btn_GenerateRouteDetail" xml:space="preserve">
+    <value>生成路线</value>
+  </data>
+  <data name="btn_Import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="btn_Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="btn_New" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="btn_Query" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="btn_Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="btn_Reject" xml:space="preserve">
+    <value>拒绝</value>
+  </data>
+  <data name="btn_Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="btn_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="btn_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="btn_ViewInMap" xml:space="preserve">
+    <value>在地图查看</value>
+  </data>
+  <data name="btn_ViewOrder" xml:space="preserve">
+    <value>订单</value>
+  </data>
+  <data name="btn_ViewPhoto" xml:space="preserve">
+    <value>照片</value>
+  </data>
+  <data name="btn_ViewSurvey" xml:space="preserve">
+    <value>查看调查问卷</value>
+  </data>
+  <data name="txt_Active" xml:space="preserve">
+    <value>有效</value>
+  </data>
+  <data name="txt_All" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="txt_AnswerType" xml:space="preserve">
+    <value>回答类型</value>
+  </data>
+  <data name="txt_ArtificialPerson" xml:space="preserve">
+    <value>法人代表</value>
+  </data>
+  <data name="txt_Assigned" xml:space="preserve">
+    <value>已分配</value>
+  </data>
+  <data name="txt_AttendanceType" xml:space="preserve">
+    <value>考勤类型</value>
+  </data>
+  <data name="txt_BasicInformation" xml:space="preserve">
+    <value>基础信息</value>
+  </data>
+  <data name="txt_BusinessOwner" xml:space="preserve">
+    <value>业务负责人</value>
+  </data>
+  <data name="txt_Channel" xml:space="preserve">
+    <value>销售渠道</value>
+  </data>
+  <data name="txt_CheckInLocation" xml:space="preserve">
+    <value>上班打卡</value>
+  </data>
+  <data name="txt_CheckOutLocation" xml:space="preserve">
+    <value>下班打卡</value>
+  </data>
+  <data name="txt_CloseTime" xml:space="preserve">
+    <value>停业时间</value>
+  </data>
+  <data name="txt_Code" xml:space="preserve">
+    <value>编号</value>
+  </data>
+  <data name="txt_Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="txt_ConfirmPassword" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="txt_Contact" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="txt_Copyright1" xml:space="preserve">
+    <value>版权所有：上海意鹰信息技术有限公司</value>
+  </data>
+  <data name="txt_CurrentDomain" xml:space="preserve">
+    <value>当前公司</value>
+  </data>
+  <data name="txt_Customer" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="txt_CustomerAddress" xml:space="preserve">
+    <value>客户地址</value>
+  </data>
+  <data name="txt_CustomerCode" xml:space="preserve">
+    <value>客户编号</value>
+  </data>
+  <data name="txt_CustomerLevel" xml:space="preserve">
+    <value>客户等级</value>
+  </data>
+  <data name="txt_CustomerList" xml:space="preserve">
+    <value>客户列表</value>
+  </data>
+  <data name="txt_CustomerName" xml:space="preserve">
+    <value>客户名称</value>
+  </data>
+  <data name="txt_CustomerPhoto" xml:space="preserve">
+    <value>门头照</value>
+  </data>
+  <data name="txt_CustProductList" xml:space="preserve">
+    <value>产品分销列表</value>
+  </data>
+  <data name="txt_Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="txt_DeliveryAddress" xml:space="preserve">
+    <value>送货地址</value>
+  </data>
+  <data name="txt_DirectSupervisor" xml:space="preserve">
+    <value>直接主管</value>
+  </data>
+  <data name="txt_DisplaySequence" xml:space="preserve">
+    <value>显示顺序</value>
+  </data>
+  <data name="txt_Distributor" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="txt_DistributorCode" xml:space="preserve">
+    <value>经销商编号</value>
+  </data>
+  <data name="txt_DistributorName" xml:space="preserve">
+    <value>经销商名称</value>
+  </data>
+  <data name="txt_Domain" xml:space="preserve">
+    <value>公司代码</value>
+  </data>
+  <data name="txt_Email" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="txt_EndDate" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="txt_EntryDate" xml:space="preserve">
+    <value>入职日期</value>
+  </data>
+  <data name="txt_ExitDate" xml:space="preserve">
+    <value>离职日期</value>
+  </data>
+  <data name="txt_Friday" xml:space="preserve">
+    <value>周五</value>
+  </data>
+  <data name="txt_GenerateRouteDetail" xml:space="preserve">
+    <value>路线生成</value>
+  </data>
+  <data name="txt_HomePage" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="txt_InActive" xml:space="preserve">
+    <value>无效</value>
+  </data>
+  <data name="txt_InRoute" xml:space="preserve">
+    <value>线内</value>
+  </data>
+  <data name="txt_InStoreTime" xml:space="preserve">
+    <value>进店时间</value>
+  </data>
+  <data name="txt_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="txt_Linked" xml:space="preserve">
+    <value>已挂接</value>
+  </data>
+  <data name="txt_Loading" xml:space="preserve">
+    <value>加载中......</value>
+  </data>
+  <data name="txt_LocationTime" xml:space="preserve">
+    <value>定位时间</value>
+  </data>
+  <data name="txt_LoginName" xml:space="preserve">
+    <value>帐号</value>
+  </data>
+  <data name="txt_Manager" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="txt_Minutes" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="txt_MobileRole" xml:space="preserve">
+    <value>手机端权限</value>
+  </data>
+  <data name="txt_MobileUser" xml:space="preserve">
+    <value>手机用户</value>
+  </data>
+  <data name="txt_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="txt_Navigation" xml:space="preserve">
+    <value>导航菜单</value>
+  </data>
+  <data name="txt_NeedPhoto" xml:space="preserve">
+    <value>拍照</value>
+  </data>
+  <data name="txt_NewPassword" xml:space="preserve">
+    <value>新密码</value>
+  </data>
+  <data name="txt_No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="txt_NonPhoto" xml:space="preserve">
+    <value>暂无照片</value>
+  </data>
+  <data name="txt_CurrentPassword" xml:space="preserve">
+    <value>当前密码</value>
+  </data>
+  <data name="txt_OpenTime" xml:space="preserve">
+    <value>开业时间</value>
+  </data>
+  <data name="txt_Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="txt_OptionalFields" xml:space="preserve">
+    <value>选填项</value>
+  </data>
+  <data name="txt_OutRoute" xml:space="preserve">
+    <value>线外</value>
+  </data>
+  <data name="txt_OutStoreTime" xml:space="preserve">
+    <value>离店时间</value>
+  </data>
+  <data name="txt_ParentOrganization" xml:space="preserve">
+    <value>上级组织</value>
+  </data>
+  <data name="txt_Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="txt_Pending" xml:space="preserve">
+    <value>待审核</value>
+  </data>
+  <data name="txt_PhotoList" xml:space="preserve">
+    <value>照片列表</value>
+  </data>
+  <data name="txt_PortalRole" xml:space="preserve">
+    <value>后台权限</value>
+  </data>
+  <data name="txt_PostalCode" xml:space="preserve">
+    <value>邮政编码</value>
+  </data>
+  <data name="txt_Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="txt_ProductCode" xml:space="preserve">
+    <value>产品编号</value>
+  </data>
+  <data name="txt_ProductName" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="txt_ProductShortName" xml:space="preserve">
+    <value>产品简称</value>
+  </data>
+  <data name="txt_ProductType" xml:space="preserve">
+    <value>产品类型</value>
+  </data>
+  <data name="txt_QueryCondition" xml:space="preserve">
+    <value>查询条件</value>
+  </data>
+  <data name="txt_RealTimeLocation" xml:space="preserve">
+    <value>实时定位</value>
+  </data>
+  <data name="txt_RefreshSecurityCode" xml:space="preserve">
+    <value>点击刷新</value>
+  </data>
+  <data name="txt_Region" xml:space="preserve">
+    <value>行政区域</value>
+  </data>
+  <data name="txt_Rejected" xml:space="preserve">
+    <value>审核未通过</value>
+  </data>
+  <data name="txt_RequiredFields" xml:space="preserve">
+    <value>必填项</value>
+  </data>
+  <data name="txt_RouteActual" xml:space="preserve">
+    <value>实际路线</value>
+  </data>
+  <data name="txt_RoutePlan" xml:space="preserve">
+    <value>计划路线</value>
+  </data>
+  <data name="txt_SalesRep" xml:space="preserve">
+    <value>业务代表</value>
+  </data>
+  <data name="txt_Saturday" xml:space="preserve">
+    <value>周六</value>
+  </data>
+  <data name="txt_SecurityCode" xml:space="preserve">
+    <value>验证码</value>
+  </data>
+  <data name="txt_Select" xml:space="preserve">
+    <value>请选择</value>
+  </data>
+  <data name="txt_StartDate" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="txt_Sunday" xml:space="preserve">
+    <value>周日</value>
+  </data>
+  <data name="txt_SurveyName" xml:space="preserve">
+    <value>问卷名称</value>
+  </data>
+  <data name="txt_TaskFeedback" xml:space="preserve">
+    <value>任务反馈</value>
+  </data>
+  <data name="txt_TaskName" xml:space="preserve">
+    <value>任务名称</value>
+  </data>
+  <data name="txt_Telephone" xml:space="preserve">
+    <value>联系电话</value>
+  </data>
+  <data name="txt_Thursday" xml:space="preserve">
+    <value>周四</value>
+  </data>
+  <data name="txt_TitleAddDistributor" xml:space="preserve">
+    <value>新增经销商</value>
+  </data>
+  <data name="txt_TitleEditDistributor" xml:space="preserve">
+    <value>编辑经销商</value>
+  </data>
+  <data name="txt_Tuesday" xml:space="preserve">
+    <value>周二</value>
+  </data>
+  <data name="txt_Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="txt_UnAssigned" xml:space="preserve">
+    <value>未分配</value>
+  </data>
+  <data name="txt_UnCompleted" xml:space="preserve">
+    <value>未完成</value>
+  </data>
+  <data name="txt_UnLinked" xml:space="preserve">
+    <value>未挂接</value>
+  </data>
+  <data name="txt_UploadInterval" xml:space="preserve">
+    <value>上传间隔</value>
+  </data>
+  <data name="txt_UploadTime" xml:space="preserve">
+    <value>上传时间</value>
+  </data>
+  <data name="txt_User" xml:space="preserve">
+    <value>人员</value>
+  </data>
+  <data name="txt_UserLogin" xml:space="preserve">
+    <value>用户登录</value>
+  </data>
+  <data name="txt_UserName" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="txt_UserPosition" xml:space="preserve">
+    <value>用户职位</value>
+  </data>
+  <data name="txt_UserProductList" xml:space="preserve">
+    <value>用户分销列表</value>
+  </data>
+  <data name="txt_UserRole" xml:space="preserve">
+    <value>用户角色</value>
+  </data>
+  <data name="txt_Value" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="txt_VisitNum" xml:space="preserve">
+    <value>拜访编号</value>
+  </data>
+  <data name="txt_VisitRemark" xml:space="preserve">
+    <value>拜访备注</value>
+  </data>
+  <data name="txt_VisitSequence" xml:space="preserve">
+    <value>拜访顺序</value>
+  </data>
+  <data name="txt_Wednesday" xml:space="preserve">
+    <value>周三</value>
+  </data>
+  <data name="txt_Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="btn_Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="btn_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="txt_AnswerOption" xml:space="preserve">
+    <value>回答选项</value>
+  </data>
+  <data name="txt_EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="txt_MultiChoice" xml:space="preserve">
+    <value>多选</value>
+  </data>
+  <data name="txt_Numeric" xml:space="preserve">
+    <value>数字</value>
+  </data>
+  <data name="txt_SingleChoice" xml:space="preserve">
+    <value>单选</value>
+  </data>
+  <data name="txt_StartTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="txt_Survey" xml:space="preserve">
+    <value>问卷</value>
+  </data>
+  <data name="txt_SurveyGroup" xml:space="preserve">
+    <value>问卷组</value>
+  </data>
+  <data name="txt_TaskDetail" xml:space="preserve">
+    <value>任务明细</value>
+  </data>
+  <data name="txt_TaskGrouup" xml:space="preserve">
+    <value>任务组</value>
+  </data>
+  <data name="txt_Text" xml:space="preserve">
+    <value>文本</value>
+  </data>
+  <data name="txt_TotalUsers" xml:space="preserve">
+    <value>共 {0} 人</value>
+  </data>
+  <data name="btn_Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="txt_InputType" xml:space="preserve">
+    <value>输入类型</value>
+  </data>
+  <data name="txt_MobilePart" xml:space="preserve">
+    <value>手机端</value>
+  </data>
+  <data name="txt_PortalPart" xml:space="preserve">
+    <value>Web端</value>
+  </data>
+  <data name="btn_Assign" xml:space="preserve">
+    <value>分派</value>
+  </data>
+  <data name="txt_PriorityLevel" xml:space="preserve">
+    <value>优先级</value>
+  </data>
+  <data name="txt_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="txt_Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="txt_Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="txt_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="txt_OrderDate" xml:space="preserve">
+    <value>订单日期</value>
+  </data>
+  <data name="txt_To" xml:space="preserve">
+    <value>至</value>
+  </data>
+  <data name="btn_Print" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="btn_Verify" xml:space="preserve">
+    <value>审核</value>
+  </data>
+  <data name="txt_DeliveryDate" xml:space="preserve">
+    <value>发货日期</value>
+  </data>
+  <data name="txt_OrderNo" xml:space="preserve">
+    <value>订单编号</value>
+  </data>
+  <data name="txt_StatusAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="txt_StatusCancel" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="txt_StatusConfirm" xml:space="preserve">
+    <value>已确认</value>
+  </data>
+  <data name="txt_StatusUnconfirm" xml:space="preserve">
+    <value>未确认</value>
+  </data>
+  <data name="txt_TotalDistributor" xml:space="preserve">
+    <value>共 {0} 个</value>
+  </data>
+  <data name="txt_Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="txt_CSQuantity" xml:space="preserve">
+    <value>箱数</value>
+  </data>
+  <data name="txt_EAQuantity" xml:space="preserve">
+    <value>支数</value>
+  </data>
+  <data name="btn_CancelOrder" xml:space="preserve">
+    <value>取消订单</value>
+  </data>
+  <data name="btn_ConfirmOrder" xml:space="preserve">
+    <value>确认订单</value>
+  </data>
+  <data name="btn_AddSubChannel" xml:space="preserve">
+    <value>添加子渠道</value>
+  </data>
+  <data name="txt_ParentChannel" xml:space="preserve">
+    <value>上级渠道</value>
+  </data>
+  <data name="txt_DeliveryOrder" xml:space="preserve">
+    <value>送货单</value>
+  </data>
+  <data name="txt_PickingOrder" xml:space="preserve">
+    <value>拣货单</value>
+  </data>
+  <data name="btn_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="btn_Quote" xml:space="preserve">
+    <value>引用</value>
+  </data>
+  <data name="txt_VisitProcess" xml:space="preserve">
+    <value>拜访流程</value>
+  </data>
+  <data name="txt_VisitTemplate" xml:space="preserve">
+    <value>拜访流程模板</value>
+  </data>
+  <data name="txt_NotRelateProduct" xml:space="preserve">
+    <value>产品无关</value>
+  </data>
+  <data name="txt_PlaceOrder" xml:space="preserve">
+    <value>下订单</value>
+  </data>
+  <data name="txt_RelateProduct" xml:space="preserve">
+    <value>产品相关</value>
+  </data>
+  <data name="txt_Chain" xml:space="preserve">
+    <value>连锁集团</value>
+  </data>
+  <data name="txt_Decimal" xml:space="preserve">
+    <value>小数</value>
+  </data>
+  <data name="txt_DropDown" xml:space="preserve">
+    <value>下拉框</value>
+  </data>
+  <data name="txt_Integer" xml:space="preserve">
+    <value>整数</value>
+  </data>
+  <data name="txt_FeedbackType" xml:space="preserve">
+    <value>反馈类型</value>
+  </data>
+  <data name="txt_Option" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="txt_VisitTask" xml:space="preserve">
+    <value>拜访任务</value>
+  </data>
+  <data name="txt_NeedFeedback" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="txt_ProductDimension" xml:space="preserve">
+    <value>产品维度</value>
+  </data>
+  <data name="txt_Template" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="txt_InProcess" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="txt_NotStart" xml:space="preserve">
+    <value>未开始</value>
+  </data>
+  <data name="txt_Answer" xml:space="preserve">
+    <value>回答</value>
+  </data>
+  <data name="txt_PhotoPreview" xml:space="preserve">
+    <value>照片预览</value>
+  </data>
+  <data name="btn_DropDown" xml:space="preserve">
+    <value>下拉选项</value>
+  </data>
+  <data name="btn_ViewTaskVisit" xml:space="preserve">
+    <value>拜访流程</value>
+  </data>
+  <data name="btn_ChangeSequence" xml:space="preserve">
+    <value>调整顺序</value>
+  </data>
+  <data name="btn_MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="btn_MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="btn_Lock" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="btn_Unlock" xml:space="preserve">
+    <value>解锁</value>
+  </data>
+  <data name="txt_Dimission" xml:space="preserve">
+    <value>离职</value>
+  </data>
+  <data name="txt_Locked" xml:space="preserve">
+    <value>已锁定</value>
+  </data>
+  <data name="txt_BigDeviationVisit" xml:space="preserve">
+    <value>GPS偏差大</value>
+  </data>
+  <data name="txt_NormalVisit" xml:space="preserve">
+    <value>正常拜访</value>
+  </data>
+  <data name="txt_NoSignalVisit" xml:space="preserve">
+    <value>GPS无信号</value>
+  </data>
+  <data name="txt_VisitFrequency" xml:space="preserve">
+    <value>拜访频率</value>
+  </data>
+  <data name="txt_VisitModel" xml:space="preserve">
+    <value>拜访模式</value>
+  </data>
+  <data name="txt_VisitType" xml:space="preserve">
+    <value>拜访类型</value>
+  </data>
+  <data name="txt_CheckInOut" xml:space="preserve">
+    <value>上下班打卡</value>
+  </data>
+  <data name="txt_Expired" xml:space="preserve">
+    <value>已过期</value>
+  </data>
+  <data name="txt_AssignedUsers" xml:space="preserve">
+    <value>已分派人员列表</value>
+  </data>
+  <data name="txt_OptionalUsers" xml:space="preserve">
+    <value>备选人员列表</value>
+  </data>
+  <data name="txt_TaskAssign" xml:space="preserve">
+    <value>任务分派</value>
+  </data>
+  <data name="txt_TaskList" xml:space="preserve">
+    <value>任务列表</value>
+  </data>
+  <data name="btn_SaveAllPage" xml:space="preserve">
+    <value>保存所有页</value>
+  </data>
+  <data name="btn_SaveCurrentPage" xml:space="preserve">
+    <value>保存当前页</value>
+  </data>
+  <data name="btn_ApprovalOK" xml:space="preserve">
+    <value>批准</value>
+  </data>
+  <data name="btn_Logout" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="txt_AbandonVisit" xml:space="preserve">
+    <value>放弃拜访</value>
+  </data>
+  <data name="txt_Add7Itmes" xml:space="preserve">
+    <value>添加（最多7项）</value>
+  </data>
+  <data name="txt_Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="txt_CompetitiveProduct" xml:space="preserve">
+    <value>竞品</value>
+  </data>
+  <data name="txt_ConfirmTime" xml:space="preserve">
+    <value>确认时间</value>
+  </data>
+  <data name="txt_ConfirmUser" xml:space="preserve">
+    <value>确认人</value>
+  </data>
+  <data name="txt_CreateTime" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="txt_Creator" xml:space="preserve">
+    <value>创建人</value>
+  </data>
+  <data name="txt_CS" xml:space="preserve">
+    <value>箱</value>
+  </data>
+  <data name="txt_CustomerOnly" xml:space="preserve">
+    <value>客户覆盖</value>
+  </data>
+  <data name="txt_CustomerTransfer" xml:space="preserve">
+    <value>客户移交</value>
+  </data>
+  <data name="txt_DeliveredDate" xml:space="preserve">
+    <value>出货日期</value>
+  </data>
+  <data name="txt_DepartmentManager" xml:space="preserve">
+    <value>部门负责人</value>
+  </data>
+  <data name="txt_DocumentDate" xml:space="preserve">
+    <value>制单日期</value>
+  </data>
+  <data name="txt_DocumentMaker" xml:space="preserve">
+    <value>制单人</value>
+  </data>
+  <data name="txt_EA" xml:space="preserve">
+    <value>支</value>
+  </data>
+  <data name="txt_Executed" xml:space="preserve">
+    <value>已生效</value>
+  </data>
+  <data name="txt_HigherOrganization" xml:space="preserve">
+    <value>上级组织</value>
+  </data>
+  <data name="txt_Notes" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="txt_NoVisit" xml:space="preserve">
+    <value>未拜访</value>
+  </data>
+  <data name="txt_OrderInformation" xml:space="preserve">
+    <value>订单信息</value>
+  </data>
+  <data name="txt_OrderNotes" xml:space="preserve">
+    <value>订单备注</value>
+  </data>
+  <data name="txt_OrderSource" xml:space="preserve">
+    <value>订单来源</value>
+  </data>
+  <data name="txt_Organization" xml:space="preserve">
+    <value>组织架构</value>
+  </data>
+  <data name="txt_OwnProduct" xml:space="preserve">
+    <value>我品</value>
+  </data>
+  <data name="txt_ProductList" xml:space="preserve">
+    <value>产品列表</value>
+  </data>
+  <data name="txt_SorterSignature" xml:space="preserve">
+    <value>拣货员签名</value>
+  </data>
+  <data name="txt_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="txt_Total" xml:space="preserve">
+    <value>合计</value>
+  </data>
+  <data name="txt_TransferScope" xml:space="preserve">
+    <value>移交业务范围</value>
+  </data>
+  <data name="txt_VisitPlan" xml:space="preserve">
+    <value>拜访规则</value>
+  </data>
+  <data name="txt_NoAddress" xml:space="preserve">
+    <value>暂无地址</value>
+  </data>
+  <data name="txt_SaleList" xml:space="preserve">
+    <value>分销列表</value>
+  </data>
+  <data name="txt_BlockReason" xml:space="preserve">
+    <value>阻止原因</value>
+  </data>
+  <data name="txt_lgEN" xml:space="preserve">
+    <value>lang:'zh-cn'</value>
+  </data>
+  <data name="txt_Monday" xml:space="preserve">
+    <value>周一</value>
+  </data>
+  <data name="txt_RegisteredAddress" xml:space="preserve">
+    <value>注册地址</value>
+  </data>
+  <data name="btn_Transfer" xml:space="preserve">
+    <value>移交</value>
+  </data>
+  <data name="txt_CollectionDimension" xml:space="preserve">
+    <value>采集维度</value>
+  </data>
+  <data name="txt_CollectionItem" xml:space="preserve">
+    <value>采集项</value>
+  </data>
+  <data name="txt_DistributorDetail" xml:space="preserve">
+    <value>经销商明细</value>
+  </data>
+  <data name="txt_OrderDetail" xml:space="preserve">
+    <value>订单详情</value>
+  </data>
+  <data name="txt_Title1" xml:space="preserve">
+    <value>云销售管理平台</value>
+  </data>
+  <data name="txt_Title2" xml:space="preserve">
+    <value>Mobile Delivery Execution</value>
+  </data>
+  <data name="txt_UserList" xml:space="preserve">
+    <value>用户列表</value>
+  </data>
+  <data name="txt_DailyReport" xml:space="preserve">
+    <value>日报</value>
+  </data>
+  <data name="txt_MonthlyReport" xml:space="preserve">
+    <value>月报</value>
+  </data>
+  <data name="txt_ReportType" xml:space="preserve">
+    <value>报表类型</value>
+  </data>
+  <data name="txt_WeeklyReport" xml:space="preserve">
+    <value>周报</value>
+  </data>
+  <data name="txt_PhotoType" xml:space="preserve">
+    <value>照片类型</value>
+  </data>
+  <data name="txt_QuickEntry" xml:space="preserve">
+    <value>快捷入口</value>
+  </data>
+  <data name="txt_QuickView" xml:space="preserve">
+    <value>快速查看</value>
+  </data>
+  <data name="txt_MapView" xml:space="preserve">
+    <value>地图显示</value>
+  </data>
+  <data name="txt_Department" xml:space="preserve">
+    <value>部门名称</value>
+  </data>
+  <data name="txt_HigherDepartment" xml:space="preserve">
+    <value>上级部门</value>
+  </data>
+  <data name="txt_ParentDepartment" xml:space="preserve">
+    <value>父部门</value>
+  </data>
+  <data name="txt_Copyright2" xml:space="preserve">
+    <value>上海市虹漕路461号漕河泾软件大厦19楼</value>
+  </data>
+  <data name="txt_Copyright3" xml:space="preserve">
+    <value>电话：86-21-64682167</value>
+  </data>
+  <data name="txt_InitInformation" xml:space="preserve">
+    <value>初始化设置</value>
+  </data>
+  <data name="btn_ResetPassword" xml:space="preserve">
+    <value>重置密码</value>
+  </data>
+  <data name="btn_SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="txt_Comment" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="txt_MakeComment" xml:space="preserve">
+    <value>发表评论</value>
+  </data>
+  <data name="txt_ReportDate" xml:space="preserve">
+    <value>上报日期</value>
+  </data>
+  <data name="txt_ReportName" xml:space="preserve">
+    <value>上报人</value>
+  </data>
+  <data name="txt_OrderReturn" xml:space="preserve">
+    <value>退货</value>
+  </data>
+  <data name="txt_OrderSelling" xml:space="preserve">
+    <value>销货</value>
+  </data>
+  <data name="txt_OrderType" xml:space="preserve">
+    <value>订单类型</value>
+  </data>
+  <data name="txt_iOrder" xml:space="preserve">
+    <value>店老板</value>
+  </data>
+  <data name="txt_Portal" xml:space="preserve">
+    <value>网页录入</value>
+  </data>
+  <data name="txt_DiscountAmount" xml:space="preserve">
+    <value>折后金额</value>
+  </data>
+  <data name="txt_ReceiptsRefund" xml:space="preserve">
+    <value>已收款/已退款</value>
+  </data>
+  <data name="txt_TotalPayment" xml:space="preserve">
+    <value>销售金额</value>
+  </data>
+  <data name="btn_BatchConfirm" xml:space="preserve">
+    <value>批量确认</value>
+  </data>
+  <data name="btn_Modify" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="txt_Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="btn_Open" xml:space="preserve">
+    <value>开通</value>
+  </data>
+  <data name="btn_Opened" xml:space="preserve">
+    <value>已开通</value>
+  </data>
+  <data name="txt_SelfOrdering" xml:space="preserve">
+    <value>店老板账号</value>
+  </data>
+  <data name="txt_Customers" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="txt_OrderConfirmedCustomerAmount" xml:space="preserve">
+    <value>有订单客户数</value>
+  </data>
+  <data name="txt_SalesVolumn" xml:space="preserve">
+    <value>销量</value>
+  </data>
+  <data name="txt_VisitedCustomerAmount" xml:space="preserve">
+    <value>拜访客户数</value>
+  </data>
+  <data name="txt_CurrentDay" xml:space="preserve">
+    <value>当日</value>
+  </data>
+  <data name="txt_CurrentMonth" xml:space="preserve">
+    <value>当月</value>
+  </data>
+  <data name="txt_SelectPeriod" xml:space="preserve">
+    <value>选择时段</value>
+  </data>
+  <data name="txt_SevenDay" xml:space="preserve">
+    <value>7天内</value>
+  </data>
+  <data name="txt_ThreeMonth" xml:space="preserve">
+    <value>3月内</value>
+  </data>
+  <data name="txt_Barcode" xml:space="preserve">
+    <value>条形码</value>
+  </data>
+  <data name="txt_CSPrice" xml:space="preserve">
+    <value>箱价</value>
+  </data>
+  <data name="txt_Discount" xml:space="preserve">
+    <value>折扣额</value>
+  </data>
+  <data name="txt_DiscountRate" xml:space="preserve">
+    <value>折扣率</value>
+  </data>
+  <data name="txt_EAPrice" xml:space="preserve">
+    <value>支价</value>
+  </data>
+  <data name="txt_SalesAmount" xml:space="preserve">
+    <value>销售金额</value>
+  </data>
+  <data name="txt_ReceiptsAmount" xml:space="preserve">
+    <value>已收款</value>
+  </data>
+  <data name="txt_RefundAmount" xml:space="preserve">
+    <value>已退款</value>
+  </data>
+  <data name="txt_DeliveryPerson" xml:space="preserve">
+    <value>送货人</value>
+  </data>
+  <data name="txt_FeeType" xml:space="preserve">
+    <value>费用类型</value>
+  </data>
+  <data name="txt_Month" xml:space="preserve">
+    <value>月份</value>
+  </data>
+  <data name="txt_SalesFee" xml:space="preserve">
+    <value>销售费用</value>
+  </data>
+  <data name="txt_PaymentType" xml:space="preserve">
+    <value>付款方式</value>
+  </data>
+  <data name="txt_SalesOrder" xml:space="preserve">
+    <value>销售单</value>
+  </data>
+  <data name="txt_HalfYear" xml:space="preserve">
+    <value>半年</value>
+  </data>
+  <data name="txt_ThisYear" xml:space="preserve">
+    <value>今年</value>
+  </data>
+  <data name="txt_OrderQuantity" xml:space="preserve">
+    <value>订单数量</value>
+  </data>
+  <data name="txt_VisitDate" xml:space="preserve">
+    <value>拜访日期</value>
+  </data>
+  <data name="txt_VisitTime" xml:space="preserve">
+    <value>拜访时长</value>
+  </data>
+  <data name="txtAccountPayable" xml:space="preserve">
+    <value>应付款</value>
+  </data>
+  <data name="txtAccountReceivable" xml:space="preserve">
+    <value>应收款</value>
+  </data>
+  <data name="btn_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="txt_FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="txt_LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="btn_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="txt_LastLoginTime" xml:space="preserve">
+    <value>Last Login Time</value>
+  </data>
+  <data name="txt_LoginFailed" xml:space="preserve">
+    <value>Login Failed</value>
+  </data>
+  <data name="txt_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="txt_RoleName" xml:space="preserve">
+    <value>Role Name</value>
+  </data>
+  <data name="txtNeedChangePwd" xml:space="preserve">
+    <value>Need Change Password</value>
+  </data>
+  <data name="txt_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="txt_KeyName" xml:space="preserve">
+    <value>Key Name</value>
+  </data>
+  <data name="txt_NewConfig" xml:space="preserve">
+    <value>New Config</value>
+  </data>
+  <data name="txt_NewKeyName" xml:space="preserve">
+    <value>New Key Name</value>
+  </data>
+  <data name="btn_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="txtConfigration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="txt_Sequence" xml:space="preserve">
+    <value>Sequence</value>
+  </data>
+  <data name="txt_Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="txt_Equipment" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="txt_IsEmpty" xml:space="preserve">
+    <value>Is Empty</value>
+  </data>
+  <data name="txt_PackSize" xml:space="preserve">
+    <value>Pack Size</value>
+  </data>
+  <data name="txt_PackType" xml:space="preserve">
+    <value>Pack Type</value>
+  </data>
+  <data name="txt_BaseUom" xml:space="preserve">
+    <value>Base Uom</value>
+  </data>
+  <data name="txt_CreateBy" xml:space="preserve">
+    <value>Create By</value>
+  </data>
+  <data name="txt_Flavor" xml:space="preserve">
+    <value>Flavor</value>
+  </data>
+  <data name="txt_LastModifiedBy" xml:space="preserve">
+    <value>Last Moify By</value>
+  </data>
+  <data name="txt_Package" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="txt_ProductGroup" xml:space="preserve">
+    <value>Product Group</value>
+  </data>
+  <data name="txt_Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="txt_Driver" xml:space="preserve">
+    <value>Driver</value>
+  </data>
+  <data name="txt_ShipmentDate" xml:space="preserve">
+    <value>Shipment Date</value>
+  </data>
+  <data name="txt_ShipmentNo" xml:space="preserve">
+    <value>Shipment No</value>
+  </data>
+  <data name="txt_TruckNo" xml:space="preserve">
+    <value>Truck No</value>
+  </data>
+  <data name="txt_Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="txt_ProductQty" xml:space="preserve">
+    <value>Product Qty(CS)</value>
+  </data>
+  <data name="txt_Proudcts" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="txt_Current" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="txt_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="txt_Truck" xml:space="preserve">
+    <value>Truck</value>
+  </data>
+  <data name="txt_DeliveryNo" xml:space="preserve">
+    <value>Delivery NO</value>
+  </data>
+  <data name="txt_Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="txt_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="txt_ProductUnit" xml:space="preserve">
+    <value>Product Unit</value>
+  </data>
+  <data name="txt_Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="txt_AccountName" xml:space="preserve">
+    <value>Account Name</value>
+  </data>
+  <data name="txt_AccountNumber" xml:space="preserve">
+    <value>Account Number</value>
+  </data>
+  <data name="txt_InvoiceCalendar" xml:space="preserve">
+    <value>Invoice Calendar</value>
+  </data>
+  <data name="txt_SalesGroup" xml:space="preserve">
+    <value>Sales Group</value>
+  </data>
+  <data name="txt_SalesOrg" xml:space="preserve">
+    <value>Sales Org</value>
+  </data>
+  <data name="txt_SalesRoute" xml:space="preserve">
+    <value>Sales Route</value>
+  </data>
+  <data name="txt_ShippingCondition" xml:space="preserve">
+    <value>Shipping Condition</value>
+  </data>
+  <data name="txt_SubChannel" xml:space="preserve">
+    <value>Sub Channel</value>
+  </data>
+  <data name="txt_DistributionChannel" xml:space="preserve">
+    <value>Distribution Channel</value>
+  </data>
+  <data name="txt_AccountGroup" xml:space="preserve">
+    <value>Account Group</value>
+  </data>
+  <data name="txt_AccountName1" xml:space="preserve">
+    <value>Account Name 1</value>
+  </data>
+  <data name="txt_AccountName2" xml:space="preserve">
+    <value>Account Name 2</value>
+  </data>
+  <data name="txt_AccountOwner" xml:space="preserve">
+    <value>Account Owner</value>
+  </data>
+  <data name="txt_AccountPartner" xml:space="preserve">
+    <value>Account Partner</value>
+  </data>
+  <data name="txt_BillTo" xml:space="preserve">
+    <value>Bill To</value>
+  </data>
+  <data name="txt_BlockByCredit" xml:space="preserve">
+    <value>Block By Credit</value>
+  </data>
+  <data name="txt_BusinessType" xml:space="preserve">
+    <value>Business Type</value>
+  </data>
+  <data name="txt_BusinessTypeExtension" xml:space="preserve">
+    <value>Business Type Extension</value>
+  </data>
+  <data name="txt_Classification" xml:space="preserve">
+    <value>Classification</value>
+  </data>
+  <data name="txt_CompanyCode" xml:space="preserve">
+    <value>Company Code</value>
+  </data>
+  <data name="txt_ContactPersonFunction" xml:space="preserve">
+    <value>Contact Person Function</value>
+  </data>
+  <data name="txt_Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="txt_CustomerConditionGroup" xml:space="preserve">
+    <value>Customer Condition Group</value>
+  </data>
+  <data name="txt_DeliveringPlant" xml:space="preserve">
+    <value>DeliveringPlant</value>
+  </data>
+  <data name="txt_DeliveryDay" xml:space="preserve">
+    <value>Delivery Day</value>
+  </data>
+  <data name="txt_DeliveryDays" xml:space="preserve">
+    <value>Delivery Days</value>
+  </data>
+  <data name="txt_DiscountIndicator" xml:space="preserve">
+    <value>Discount Indicator</value>
+  </data>
+  <data name="txt_ERPAccountNumber" xml:space="preserve">
+    <value>ERP Account Number</value>
+  </data>
+  <data name="txt_HasUpdateAR" xml:space="preserve">
+    <value>HasUpdateAR</value>
+  </data>
+  <data name="txt_IsPush" xml:space="preserve">
+    <value>IsPush</value>
+  </data>
+  <data name="txt_Last3MonthsVolume" xml:space="preserve">
+    <value>Last 3 Months Volume</value>
+  </data>
+  <data name="txt_MEPCustomerNumber" xml:space="preserve">
+    <value>MEP Customer Number</value>
+  </data>
+  <data name="txt_OperationalMarketType" xml:space="preserve">
+    <value>Operational Market Type</value>
+  </data>
+  <data name="txt_OperationalTrade" xml:space="preserve">
+    <value>Operational Trade Channel</value>
+  </data>
+  <data name="txt_OwnerShip" xml:space="preserve">
+    <value>OwnerShip</value>
+  </data>
+  <data name="txt_P3MAVGSales" xml:space="preserve">
+    <value>P3MAVGSales</value>
+  </data>
+  <data name="txt_ParentAccount" xml:space="preserve">
+    <value>Parent Account</value>
+  </data>
+  <data name="txt_PartnerFunction" xml:space="preserve">
+    <value>Partner Function</value>
+  </data>
+  <data name="txt_PriceGroup" xml:space="preserve">
+    <value>Price Group</value>
+  </data>
+  <data name="txt_PriceListType" xml:space="preserve">
+    <value>Price List Type</value>
+  </data>
+  <data name="txt_PricingProcedure" xml:space="preserve">
+    <value>Pricing Procedure</value>
+  </data>
+  <data name="txt_RecordType" xml:space="preserve">
+    <value>Account Record Type</value>
+  </data>
+  <data name="txt_RedIndicator" xml:space="preserve">
+    <value>Red Indicator</value>
+  </data>
+  <data name="txt_SalesDistrict" xml:space="preserve">
+    <value>Sales District</value>
+  </data>
+  <data name="txt_SalesOffice" xml:space="preserve">
+    <value>Sales Office</value>
+  </data>
+  <data name="txt_SalesOrgCode" xml:space="preserve">
+    <value>Sales Org Code</value>
+  </data>
+  <data name="txt_ShippingConditionCode" xml:space="preserve">
+    <value>Shipping Condition Code</value>
+  </data>
+  <data name="txt_SubTradeChannel" xml:space="preserve">
+    <value>Sub Channel</value>
+  </data>
+  <data name="txt_SuppressionReason" xml:space="preserve">
+    <value>Suppression Reason</value>
+  </data>
+  <data name="txt_SuspressionCode" xml:space="preserve">
+    <value>Suspression Code</value>
+  </data>
+  <data name="txt_TaxNumber" xml:space="preserve">
+    <value>Tax Number</value>
+  </data>
+  <data name="txt_TradeChannel" xml:space="preserve">
+    <value>Trade Channel</value>
+  </data>
+  <data name="txt_TradeGroup" xml:space="preserve">
+    <value>Trade Group</value>
+  </data>
+  <data name="txt_TradeName" xml:space="preserve">
+    <value>Trade Name</value>
+  </data>
+  <data name="txt_VATNumber" xml:space="preserve">
+    <value>VAT Number</value>
+  </data>
+  <data name="txt_VendorNo" xml:space="preserve">
+    <value>Vendor No</value>
+  </data>
+  <data name="txt_AccountSource" xml:space="preserve">
+    <value>Account Source</value>
+  </data>
+  <data name="txt_CityCode" xml:space="preserve">
+    <value>City Code</value>
+  </data>
+  <data name="txt_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="txt_CountryCode" xml:space="preserve">
+    <value>Country Code</value>
+  </data>
+  <data name="txt_District" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="txt_GeoCode" xml:space="preserve">
+    <value>Geo Code</value>
+  </data>
+  <data name="txt_HouseNumber" xml:space="preserve">
+    <value>House Number</value>
+  </data>
+  <data name="txt_Postal" xml:space="preserve">
+    <value>Postal</value>
+  </data>
+  <data name="txt_Region1" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="txt_Street" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="txt_Street4" xml:space="preserve">
+    <value>Street4</value>
+  </data>
+  <data name="txt_Street5" xml:space="preserve">
+    <value>Street5</value>
+  </data>
+  <data name="txt_StreetNumber" xml:space="preserve">
+    <value>Street Number</value>
+  </data>
+  <data name="txt_CreditDays" xml:space="preserve">
+    <value>Credit Days</value>
+  </data>
+  <data name="txt_CreditExposure" xml:space="preserve">
+    <value>Credit Exposure</value>
+  </data>
+  <data name="txt_CreditLimit" xml:space="preserve">
+    <value>Credit Limit</value>
+  </data>
+  <data name="txt_OpenItemsAgingStart" xml:space="preserve">
+    <value>Open Items Aging Start</value>
+  </data>
+  <data name="txt_PaymentTerms" xml:space="preserve">
+    <value>Payment Terms</value>
+  </data>
+  <data name="txt_TotalOpenBalance" xml:space="preserve">
+    <value>Total Open Balance</value>
+  </data>
+  <data name="txt_Capacity" xml:space="preserve">
+    <value>Capacity</value>
+  </data>
+  <data name="txt_TruckNumber" xml:space="preserve">
+    <value>TruckNumber</value>
+  </data>
+  <data name="txt_TruckType" xml:space="preserve">
+    <value>Truck Type</value>
+  </data>
+  <data name="txt_Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="txt_CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="txt_WarehouseCode" xml:space="preserve">
+    <value>Warehouse Code</value>
+  </data>
+  <data name="txt_WarehouseName" xml:space="preserve">
+    <value>Warehouse Name</value>
+  </data>
+  <data name="txt_Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="txt_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="txt_UserProfile" xml:space="preserve">
+    <value>User Profile</value>
+  </data>
+  <data name="txt_ProfileName" xml:space="preserve">
+    <value>Profile Name</value>
+  </data>
+  <data name="btn_Reassign" xml:space="preserve">
+    <value>Reassign</value>
+  </data>
+  <data name="btn_Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="txt_ParentOrg" xml:space="preserve">
+    <value>Parent Organization</value>
+  </data>
+  <data name="txt_BlockByCredit1" xml:space="preserve">
+    <value>Block By Credit</value>
+  </data>
+  <data name="txt_InvoiceAmount" xml:space="preserve">
+    <value>Invoice Amount</value>
+  </data>
+  <data name="txt_InvoiceDate" xml:space="preserve">
+    <value>Invoice Date</value>
+  </data>
+  <data name="txt_InvoiceNumber" xml:space="preserve">
+    <value>Invoice Number</value>
+  </data>
+  <data name="txt_OpenAmount" xml:space="preserve">
+    <value>Open Amount</value>
+  </data>
+  <data name="txt_TotalOpenAmount" xml:space="preserve">
+    <value>Total Open Amount</value>
+  </data>
+  <data name="txt_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="txt_DriverCodeOrName" xml:space="preserve">
+    <value>Driver Code/Name</value>
+  </data>
+  <data name="txt_CheckTime" xml:space="preserve">
+    <value>Check Time</value>
+  </data>
+  <data name="txt_ActualQty" xml:space="preserve">
+    <value>Actual Qty(CS/EA)</value>
+  </data>
+  <data name="txt_Difference" xml:space="preserve">
+    <value>Difference(CS/EA)</value>
+  </data>
+  <data name="txt_DiffReason" xml:space="preserve">
+    <value>Diff Reason</value>
+  </data>
+  <data name="txt_PlanQty" xml:space="preserve">
+    <value>Plan Qty(CS/EA)</value>
+  </data>
+  <data name="txt_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="txt_Signature" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="txt_Cashier" xml:space="preserve">
+    <value>Cashier</value>
+  </data>
+  <data name="txt_Checker" xml:space="preserve">
+    <value>Checker</value>
+  </data>
+  <data name="txt_Gatekeeper" xml:space="preserve">
+    <value>Gatekeeper</value>
+  </data>
+  <data name="txt_StockQty" xml:space="preserve">
+    <value>Stock Qty(CS/EA)</value>
+  </data>
+  <data name="txt_ChangeAction" xml:space="preserve">
+    <value>Change Action</value>
+  </data>
+  <data name="txt_ChangeQty" xml:space="preserve">
+    <value>Change Qty</value>
+  </data>
+  <data name="txt_FromQty" xml:space="preserve">
+    <value>From Qty</value>
+  </data>
+  <data name="txt_ToQty" xml:space="preserve">
+    <value>To Qty</value>
+  </data>
+  <data name="txt_Odometer" xml:space="preserve">
+    <value>Odometer</value>
+  </data>
+  <data name="txt_TrackingTime" xml:space="preserve">
+    <value>Tracking Time</value>
+  </data>
+  <data name="txt_ProductQtyCSEA" xml:space="preserve">
+    <value>Product Qty(CS/EA)</value>
+  </data>
+  <data name="txt_DeliveryType" xml:space="preserve">
+    <value>Delivery Type</value>
+  </data>
+  <data name="txt_ShipmentType" xml:space="preserve">
+    <value>Shipment Type</value>
+  </data>
+  <data name="txt_ActionTime" xml:space="preserve">
+    <value>Action Time</value>
+  </data>
+  <data name="txt_Card" xml:space="preserve">
+    <value>Card</value>
+  </data>
+  <data name="txt_CarsMaterial" xml:space="preserve">
+    <value>CarsMaterial</value>
+  </data>
+  <data name="txt_Cash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="txt_Cred" xml:space="preserve">
+    <value>Cred</value>
+  </data>
+  <data name="txt_DevRate" xml:space="preserve">
+    <value>Delivery Accomplish Rate</value>
+  </data>
+  <data name="txt_DriverId" xml:space="preserve">
+    <value>DriverId</value>
+  </data>
+  <data name="txt_DriverName" xml:space="preserve">
+    <value>DriverName</value>
+  </data>
+  <data name="txt_MaterialCheckOutCnt" xml:space="preserve">
+    <value>CheckOut</value>
+  </data>
+  <data name="txt_MaterialDelivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="txt_MaterialPlanDeliver" xml:space="preserve">
+    <value>PlanDeliver</value>
+  </data>
+  <data name="txt_MaterialPlanReturn" xml:space="preserve">
+    <value>PlanReturn</value>
+  </data>
+  <data name="txt_MaterialReturn" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="txt_MaterialSale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
+  <data name="txt_MaterialSurplus" xml:space="preserve">
+    <value>Surplus</value>
+  </data>
+  <data name="txt_MaterialType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="txt_PlateNumber" xml:space="preserve">
+    <value>PlateNumber</value>
+  </data>
+  <data name="txt_Visited" xml:space="preserve">
+    <value>Visited</value>
+  </data>
+  <data name="txt_Visited1" xml:space="preserve">
+    <value>Visited</value>
+  </data>
+  <data name="txt_VisitStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="txt_ActualVisit" xml:space="preserve">
+    <value>Actual Visit</value>
+  </data>
+  <data name="txt_FinancialList" xml:space="preserve">
+    <value>Financial List</value>
+  </data>
+  <data name="txt_PlannedVisit" xml:space="preserve">
+    <value>Planned Visit</value>
+  </data>
+  <data name="txt_Return" xml:space="preserve">
+    <value>Store of Return</value>
+  </data>
+  <data name="txt_Sales" xml:space="preserve">
+    <value>Store of Sales</value>
+  </data>
+  <data name="txt_StockOnTrack" xml:space="preserve">
+    <value>Stock On Truck</value>
+  </data>
+  <data name="txt_VehicleTotal" xml:space="preserve">
+    <value>Vehicle Total</value>
+  </data>
+  <data name="txt_CustomerAndVisited" xml:space="preserve">
+    <value>Customer/Visited</value>
+  </data>
+  <data name="txt_Finance" xml:space="preserve">
+    <value>Finance</value>
+  </data>
+  <data name="txt_ShipmentCount" xml:space="preserve">
+    <value>Shipments</value>
+  </data>
+</root>

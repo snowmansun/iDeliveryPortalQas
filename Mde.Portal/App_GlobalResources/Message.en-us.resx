@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="msg_AlertTitle" xml:space="preserve">
+    <value>Operation Tips</value>
+  </data>
+  <data name="msg_CloseLeft" xml:space="preserve">
+    <value>No can be closed option on the Left Side.</value>
+  </data>
+  <data name="msg_CloseRight" xml:space="preserve">
+    <value>No can be closed option on the Right Side.</value>
+  </data>
+  <data name="msg_DateRequired" xml:space="preserve">
+    <value>Please select Date.</value>
+  </data>
+  <data name="msg_DomainRequired" xml:space="preserve">
+    <value>Company Code can not be empty.</value>
+  </data>
+  <data name="msg_IsNull" xml:space="preserve">
+    <value>Text Box can not be left blank.</value>
+  </data>
+  <data name="msg_LoginFailed" xml:space="preserve">
+    <value>Login Failed: Wrong User Name or Password.</value>
+  </data>
+  <data name="msg_LoginNameRequired" xml:space="preserve">
+    <value>User Name can not be empty.</value>
+  </data>
+  <data name="msg_LogOut" xml:space="preserve">
+    <value>Are you really sure you want to logout? </value>
+  </data>
+  <data name="msg_NewPasswordRequired" xml:space="preserve">
+    <value>New Password can not be empty.</value>
+  </data>
+  <data name="msg_Organization" xml:space="preserve">
+    <value>The orgnization name can not be the same as the upper one.</value>
+  </data>
+  <data name="msg_OrganizationRequired" xml:space="preserve">
+    <value>Please select Organization.</value>
+  </data>
+  <data name="msg_PasswordRequired" xml:space="preserve">
+    <value>Password can not be empty.</value>
+  </data>
+  <data name="msg_PwdConsistent" xml:space="preserve">
+    <value>New Password and Confirm Password is not consistent.</value>
+  </data>
+  <data name="msg_SalesRepRequired" xml:space="preserve">
+    <value>Please select Sales Rep.</value>
+  </data>
+  <data name="msg_SaveFailed" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+  <data name="msg_SelAdd" xml:space="preserve">
+    <value>Please select the text need to be inserted.</value>
+  </data>
+  <data name="msg_SelectRecord" xml:space="preserve">
+    <value>Please select a record.</value>
+  </data>
+  <data name="msg_SelUpdate" xml:space="preserve">
+    <value>Please select the text need to be modified. </value>
+  </data>
+  <data name="msg_Succeed" xml:space="preserve">
+    <value>Operation successfully completed </value>
+  </data>
+  <data name="msg_topTitle" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="msg_Update" xml:space="preserve">
+    <value>Currently selected text is not allowed to modify.</value>
+  </data>
+  <data name="msg_ValidateCodeRequired" xml:space="preserve">
+    <value>The Security Code can not be empty.</value>
+  </data>
+  <data name="msg_LoginLocked" xml:space="preserve">
+    <value>User has been locked</value>
+  </data>
+  <data name="msg_ValidateCodeError" xml:space="preserve">
+    <value>wrong validate code</value>
+  </data>
+  <data name="msg_SelectSalesList" xml:space="preserve">
+    <value>Please select sales list</value>
+  </data>
+  <data name="msg_RoleRequired" xml:space="preserve">
+    <value>Please select the role</value>
+  </data>
+  <data name="msg_StartTimeEndTime" xml:space="preserve">
+    <value>start time must later then end time</value>
+  </data>
+  <data name="msg_PasswordStrong" xml:space="preserve">
+    <value>The password by 6-10 characters, at least including digital and lowercase letters</value>
+  </data>
+  <data name="msg_OldPasswordError" xml:space="preserve">
+    <value>Current password error</value>
+  </data>
+  <data name="msg_CancelAlert" xml:space="preserve">
+    <value>Please confirm if you really want to cancel it?</value>
+  </data>
+  <data name="msg_ModifyOrderQty" xml:space="preserve">
+    <value>The Order Quantity does not be modify.</value>
+  </data>
+  <data name="msg_NameRequired" xml:space="preserve">
+    <value>The Name can not be empty.</value>
+  </data>
+  <data name="msg_ChannelRequired" xml:space="preserve">
+    <value>The Channel can not be empty.</value>
+  </data>
+  <data name="msg_DeleteAlert" xml:space="preserve">
+    <value>are you sure to delete?</value>
+  </data>
+  <data name="msg_NotVisitTaskInOrdre" xml:space="preserve">
+    <value>can not add task in order process</value>
+  </data>
+  <data name="msg_SelectDimension" xml:space="preserve">
+    <value>Please select dimension</value>
+  </data>
+  <data name="msg_DeleteVisitTask" xml:space="preserve">
+    <value>Task details will be deleted, continue?</value>
+  </data>
+  <data name="msg_DeleteVisitProcess" xml:space="preserve">
+    <value>The relational tasks and details will be deleted after deleting the visit process, do you continue?</value>
+  </data>
+  <data name="msg_OneOrderInTaskProcess" xml:space="preserve">
+    <value>only have one order in task process</value>
+  </data>
+  <data name="msg_FrequencyRequired" xml:space="preserve">
+    <value>The visit frequency can not be empty</value>
+  </data>
+  <data name="msg_SequenceRequired" xml:space="preserve">
+    <value>The visit sequence can not be empty</value>
+  </data>
+  <data name="msg_StartDateRequired" xml:space="preserve">
+    <value>The start date can not be empty</value>
+  </data>
+  <data name="msg_DataRequired" xml:space="preserve">
+    <value>Please input the valid visit information</value>
+  </data>
+  <data name="msg_SameProcessInVisitTask" xml:space="preserve">
+    <value>The visit process name can not be duplicate</value>
+  </data>
+  <data name="msg_SameTaskInVisitTask" xml:space="preserve">
+    <value>The visit task name can not be duplicate</value>
+  </data>
+  <data name="msg_SameSettingInVisitTask" xml:space="preserve">
+    <value>The visit template name can not be duplicate</value>
+  </data>
+  <data name="msg_InputNewProcessName" xml:space="preserve">
+    <value>Please input the new process name</value>
+  </data>
+  <data name="msg_InputNewTaskName" xml:space="preserve">
+    <value>Please input the new task name</value>
+  </data>
+  <data name="msg_LoginTimeout" xml:space="preserve">
+    <value>Login Timeout, please relogin</value>
+  </data>
+  <data name="msg_SelectUser" xml:space="preserve">
+    <value>Please select the user</value>
+  </data>
+  <data name="msg_VisitSequenceDuplicateValues" xml:space="preserve">
+    <value>There are duplicate values in the current visit sequence</value>
+  </data>
+  <data name="msg_AddMultiOptions" xml:space="preserve">
+    <value>Each row is an item, you can add multiple items</value>
+  </data>
+  <data name="msg_AllTransfer" xml:space="preserve">
+    <value>Please confirm that the all users and customers and distributors have been transfered in the organization</value>
+  </data>
+  <data name="msg_ConfirmCancelOrder" xml:space="preserve">
+    <value>Are you sure you want to cancel the order?</value>
+  </data>
+  <data name="msg_NoData" xml:space="preserve">
+    <value>There is no data</value>
+  </data>
+  <data name="msg_SelectSurveyGroup" xml:space="preserve">
+    <value>Please select survey group</value>
+  </data>
+  <data name="msg_SelectUploadInterval" xml:space="preserve">
+    <value>Please the upload interval</value>
+  </data>
+  <data name="msg_SelectValidParentDepartment" xml:space="preserve">
+    <value>Please select the valid parent department</value>
+  </data>
+  <data name="msg_StarRequired" xml:space="preserve">
+    <value>Can not be empty for *</value>
+  </data>
+  <data name="msg_VerifyMessage" xml:space="preserve">
+    <value>The customers which have not been approved will be keep here only 3 days， after 3 days system will delete those customers, please confirm.</value>
+  </data>
+  <data name="msg_ExistDistributor" xml:space="preserve">
+    <value>The same distributor has existed</value>
+  </data>
+  <data name="msg_ExistSameCode" xml:space="preserve">
+    <value>The same code has existed</value>
+  </data>
+  <data name="msg_ExistSameID" xml:space="preserve">
+    <value>The login code has existed</value>
+  </data>
+  <data name="msg_ExistSameItem" xml:space="preserve">
+    <value>The item has existed</value>
+  </data>
+  <data name="msg_ExistSameTask" xml:space="preserve">
+    <value>The task has existed</value>
+  </data>
+  <data name="msg_FailedCustomer" xml:space="preserve">
+    <value>It was failed to hook the customer</value>
+  </data>
+  <data name="msg_FailedUser" xml:space="preserve">
+    <value>It was failed to hook the manager</value>
+  </data>
+  <data name="msg_NameExisted" xml:space="preserve">
+    <value>The name has existed</value>
+  </data>
+  <data name="msg_OrderEdited" xml:space="preserve">
+    <value>The order had been edited</value>
+  </data>
+  <data name="msg_RoleExist" xml:space="preserve">
+    <value>The role has existed</value>
+  </data>
+  <data name="msg_StartDateNotLessToday" xml:space="preserve">
+    <value>The start date can be not less than today</value>
+  </data>
+  <data name="msg_CustomerApproval" xml:space="preserve">
+    <value>The approved customers will be in "customer" module, please confirm it.</value>
+  </data>
+  <data name="msg_ExecutedSurveyNotModify" xml:space="preserve">
+    <value>The effective survey is not allowed to modify, as it will influence the record from mobile app</value>
+  </data>
+  <data name="msg_AllTransferChannel" xml:space="preserve">
+    <value>Please confirm that the all users and customers and distributors have been transfered in the channel</value>
+  </data>
+  <data name="msg_CancelAllRecord" xml:space="preserve">
+    <value>Cancel the selected {0} records, do you continue?</value>
+  </data>
+  <data name="msg_CancelOrder" xml:space="preserve">
+    <value>Are you sure to cancel the order?</value>
+  </data>
+  <data name="msg_ConnectionFailed" xml:space="preserve">
+    <value>Connection Failed</value>
+  </data>
+  <data name="msg_EndDateRequired" xml:space="preserve">
+    <value>The end date can not be empty</value>
+  </data>
+  <data name="msg_NoSupport" xml:space="preserve">
+    <value>No supporting</value>
+  </data>
+  <data name="msg_SaveSelectedRecord" xml:space="preserve">
+    <value>Save the selected {0} records, do you continue?</value>
+  </data>
+  <data name="msg_SelectRole" xml:space="preserve">
+    <value>Please select the role</value>
+  </data>
+  <data name="msg_SelectTaskGroup" xml:space="preserve">
+    <value>Please select task group</value>
+  </data>
+  <data name="msg_SelectTransferScope" xml:space="preserve">
+    <value>Please select the transfer scope</value>
+  </data>
+  <data name="msg_SelectValidParentChannel" xml:space="preserve">
+    <value>Please select the valid parent channel</value>
+  </data>
+  <data name="msg_TemplateError" xml:space="preserve">
+    <value>Template Error, please download it again</value>
+  </data>
+  <data name="msg_SelectPhotoType" xml:space="preserve">
+    <value>Please select photo type</value>
+  </data>
+  <data name="msg_SelectParentDepartment" xml:space="preserve">
+    <value>Please select the parent department</value>
+  </data>
+  <data name="msg_AddSubChannelFail" xml:space="preserve">
+    <value>The parent channel has been used by the customer, do not allow to add sub channel</value>
+    <comment>父销售渠道已被客户引用，不应该允许添加子渠道</comment>
+  </data>
+  <data name="msg_SelectNodeChannel" xml:space="preserve">
+    <value>Please select node channel</value>
+  </data>
+  <data name="msg_DepartmentNameExist" xml:space="preserve">
+    <value>The department name has existed</value>
+  </data>
+  <data name="msg_MakeCommentSuccessed" xml:space="preserve">
+    <value>Make comment successfully</value>
+  </data>
+  <data name="msg_SureResetPassword" xml:space="preserve">
+    <value>Are you sure to reset password?</value>
+  </data>
+  <data name="msg_ResetPasswordSuccess" xml:space="preserve">
+    <value>Reset password successfully</value>
+  </data>
+  <data name="msg_MobileUsedOtherAccount" xml:space="preserve">
+    <value>this mobile has been usered another account</value>
+  </data>
+  <data name="msg_MobileEmpty" xml:space="preserve">
+    <value>Mobile is empty</value>
+  </data>
+  <data name="msg_BatchConfirmOrder" xml:space="preserve">
+    <value>Are you sure to confirm batch order?</value>
+  </data>
+  <data name="msg_CustProdListNameExist" xml:space="preserve">
+    <value>The name has existed</value>
+  </data>
+  <data name="msg_OrderSaveSuccess" xml:space="preserve">
+    <value>The order submit successfully</value>
+  </data>
+  <data name="msg_FillBlankDate" xml:space="preserve">
+    <value>Please input in the blank fields</value>
+  </data>
+  <data name="msg_FillOrderDetail" xml:space="preserve">
+    <value>Please input the order details</value>
+  </data>
+  <data name="msg_ProductDupliacte" xml:space="preserve">
+    <value>There are duplicate products in the order</value>
+  </data>
+  <data name="msg_FeeTypeRequired" xml:space="preserve">
+    <value>Please select the fee type</value>
+  </data>
+  <data name="msg_MonthRequired" xml:space="preserve">
+    <value>Please select the month</value>
+  </data>
+  <data name="msg_PaymentTypeRequired" xml:space="preserve">
+    <value>Please select the payment type</value>
+  </data>
+  <data name="msg_DeliveryDateOrderDate" xml:space="preserve">
+    <value>The delivery date can be not less than the order date</value>
+  </data>
+  <data name="msg_SelectCustomer" xml:space="preserve">
+    <value>Please select the customer</value>
+  </data>
+  <data name="msg_CustomerNotExist" xml:space="preserve">
+    <value>The customer does not exist</value>
+  </data>
+  <data name="msg_SalesFeeRequired" xml:space="preserve">
+    <value>Please input the sales fee</value>
+  </data>
+  <data name="msg_VisitDateNotLessToday" xml:space="preserve">
+    <value>The visit date can be not less than today</value>
+  </data>
+  <data name="msg_NoRole" xml:space="preserve">
+    <value>User has no role</value>
+  </data>
+  <data name="msg_HasbeenDeleted" xml:space="preserve">
+    <value>Data has been Deleted</value>
+  </data>
+  <data name="msg_AdminCanNotDelete" xml:space="preserve">
+    <value>Admin Profile can not remove!</value>
+  </data>
+  <data name="txt_StockQty" xml:space="preserve">
+    <value>Stock Qty(CS/EA)</value>
+  </data>
+  <data name="txt_ChangeAction" xml:space="preserve">
+    <value>Change Action</value>
+  </data>
+  <data name="txt_ChangeQty" xml:space="preserve">
+    <value>Change Qty(CS/EA)</value>
+  </data>
+  <data name="txt_FromQty" xml:space="preserve">
+    <value>From Qty(CS/EA)</value>
+  </data>
+  <data name="txt_ToQty" xml:space="preserve">
+    <value>To Qty(CS/EA)</value>
+  </data>
+  <data name="msg_OrgRequired" xml:space="preserve">
+    <value>Please select an organization.</value>
+  </data>
+  <data name="msg_ShipmentCannotReassign" xml:space="preserve">
+    <value>The shipment can't be reassign</value>
+  </data>
+</root>

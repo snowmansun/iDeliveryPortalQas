@@ -1,0 +1,107 @@
+﻿@model Mde.Model.DataModel.MD_Company
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            InitGrid();
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+        });
+
+        function InitGrid()
+        {
+            var queryData = {
+                CompanyCode: $("#SCompanyCode").val(),
+                CompanyName: $("#SCompanyName").val(),
+                Status: $("#SStatus").combobox("getValue")
+            };
+
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetCompanyList","Master")',
+                idField: 'CompanyCode',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'CompanyCode', title: '@Resources.Language.txt_CompanyCode', width: 50 },
+                        { field: 'CompanyName', title: '@Resources.Language.txt_CompanyName', width: 100 },
+                        { field: 'Remark', title: '@Resources.Language.txt_Description', width: 100 },
+                        {
+                            field: 'IsActive', title: '@Resources.Language.txt_Status', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                else {
+                                    return "N";
+                                }
+                            }
+                        }
+                    ]]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+
+        function RefreshGrid() {
+            var queryData = {
+                CompanyCode: $("#SCompanyCode").val(),
+                CompanyName: $("#SCompanyName").val(),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetCompanyList","Master")",//'/Master/GetUserDataList',
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+    </script> 
+}
+
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_CompanyCode:
+                    <input class="easyui-validatebox" id="SCompanyCode" name="SCompanyCode">
+                </label>
+                <label>@Resources.Language.txt_CompanyName:
+                    <input class="easyui-validatebox" id="SCompanyName" name="SCompanyName">
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 150px;" data-options="editable:false,panelHeight:'auto'">
+                        <option value="">@Resources.Language.txt_All</option>
+                        <option value="1" selected="selected">@Resources.Language.txt_Active</option>
+                        <option value="0">@Resources.Language.txt_InActive</option>
+                    </select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

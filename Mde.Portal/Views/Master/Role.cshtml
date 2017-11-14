@@ -1,0 +1,632 @@
+﻿@model Mde.Model.DataModel.Sys_Role
+
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section style{
+    <style>
+        .authority-list, .authority-list li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .authority-list li {
+                height: 24px;
+                line-height: 24px;
+                padding: 0 4px;
+                border-bottom: 1px dotted #ccc;
+            }
+
+                .authority-list li:hover {
+                    background: #eaf2ff;
+                }
+
+                .authority-list li:active, .authority-list li.active {
+                    background: #fbec88;
+                }
+
+        .authority-sub-list {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            padding-left: 90px;
+        }
+
+            .authority-sub-list dt {
+                position: absolute;
+                width: 90px;
+                text-align: left;
+                left: 0;
+                top: 0;
+                height: 24px;
+                line-height: 24px;
+                margin: 0;
+                padding: 0 4px;
+            }
+
+            .authority-sub-list dd {
+                margin: 0;
+                padding: 0;
+                border: 1px dotted #ccc;
+                border-width: 0 0 1px 1px;
+            }
+
+                .authority-sub-list dd ul, .authority-sub-list dd li {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+            .authority-sub-list .title {
+                height: 24px;
+                line-height: 24px;
+                padding: 0 4px;
+                border-bottom: 1px solid #ddd;
+                background: #f4f4f4;
+            }
+
+            .authority-sub-list .content {
+                padding-left: 2em;
+                line-height: 24px;
+            }
+
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            text-overflow: ellipsis;
+        }
+    </style>
+}
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            //保存提交事件
+            $("#btnOK").click(function () {
+                if (!$("#FormUpdate").form("validate"))
+                    return;
+                $("#FormUpdate").form("submit", {
+                    url: "@Url.Action("SaveRoleData", "Master")",
+                    success: function (data) {
+                        data = eval('(' + data + ')');
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+
+            $("#btn_Search").click(function () {
+                InitUser(GetSelectedRoleID());
+            });
+
+            //关闭事件
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+
+            //初始化用户组
+            InitRole();
+
+            //初始化User
+            InitUser("");
+        });
+
+        //初始化User
+        function InitUser(role_id) {
+            var UserCode = $("#UserCode").val();
+            var queryData = {
+                RoleId: role_id,
+                UserCode: UserCode
+            };
+            $("#grid_user").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: false,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                checkOnSelect: false,
+                striped: true,
+                url: '@Url.Action("GetUserForRole", "Master")',
+                idField: 'UserCode',
+                queryParams: queryData,
+                columns:
+                    [[
+                        {
+                            field: 'checked', title: ' ',
+                            formatter: function (value, row, index) {
+                                if (row.HaveRole)
+                                    return "<input type=\"checkbox\" checked='checked' onclick=\"ClickUser(this,'" + row.UserCode + "')\" name=\"user_list\">";
+                                else
+                                    return "<input type=\"checkbox\" onclick=\"ClickUser(this,'" + row.UserCode + "')\" name=\"user_list\">";
+                            }
+                        },
+                        { field: 'UserCode', title: '@Resources.Language.txt_Code', width: 50 },
+                        { field: 'FirstName', title: '@Resources.Language.txt_FirstName', width: 50 },
+                        { field: 'LastName', title: '@Resources.Language.txt_LastName', width: 50 },
+                        { field: 'TypeDesc', title: '@Resources.Language.txt_Type', width: 50 }
+                    ]],
+                onLoadSuccess: function (data) {
+                    if (data) {
+                        $.each(data.rows, function (index, item) {
+                            if (item.HaveRole) {
+                                $('#grid_user').datagrid('checkRow', index);
+                            }
+                            else {
+                                $('#grid_user').datagrid('uncheckRow', index);
+                            }
+                        });
+                    }
+                }
+            })
+        }
+
+        function ClickUser(obj, usercode) {
+            var jsonData = { UserCode: usercode, RoleID: GetSelectedRoleID, IsChecked: $(obj).is(":checked") };
+            $.ajax({
+                type: "post",
+                data: jsonData,
+                dataType: "json",
+                url: "@Url.Action("SaveUserRoleLink", "Master")",
+                success: function (data) {
+                    if (data.result == "succeed") {
+                        ReloadUser(GetSelectedRoleID());
+                    }
+                    else
+                        $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                }
+            });
+        }
+
+        //全选
+        function ClickAll(obj) {
+            if ($(obj).is(":checked")) {
+                $("input[name='user_list']").attr("checked", 'checked');
+            } else {
+                $("input[name='user_list']").removeAttr("checked");
+            }
+        }
+
+
+        //刷新Role数据
+        function RefreshGrid() {
+            $("#grid_role").datagrid({
+                url: '@Url.Action("GetAllRole", "Master")',
+            });
+        }
+
+        //无效化选中行数据
+        function DeleteProcess(RoleId) {
+            @*if (RoleId == 1) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_AdminCanNotDelete", "info");
+                return;
+            }*@
+            $.messager.confirm("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_DeleteAlert", function (r) {
+                if (r) {
+                    $.messager.progress();
+                    $.post("@Url.Action("DeleteRoleData", "Master")", { RoleId: RoleId }, function (data) {
+                        $.messager.progress('close');
+                        data = eval("(" + data + ")");
+                        if (data.result == "succeed") {
+                            $("#grid_role").datagrid('load');
+                            $(this).datagrid("selectRow", 0);
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                    });
+                }
+            });
+        }
+
+        //恢复选中行数据
+        function ReValid(RoleId) {
+            $.post("@Url.Action("ReValidRoleData", "Master")", { RoleId: RoleId }, function (data) {
+                data = eval("(" + data + ")");
+                if (data.result == "succeed") {
+                    $("#grid_role").datagrid('load');
+                    $(this).datagrid("selectRow", 0);
+                }
+                else {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                }
+            })
+        }
+
+        //获取当前行RoleId
+        function GetRoleId(index) {
+            if (index == null)
+                var row = $("#grid_role").datagrid('getSelected');
+            else
+                var row = $("#grid_role").data().datagrid.data.rows[index];
+            if (row)
+                return row.RoleID;
+            else
+                return 0;
+        }
+
+        //显示弹出层
+        function ShowDialog(type) {
+            var title;
+            $("#UpdateDialog").find("form").form("clear");
+            $("#UpdateDialog").find("form").form("reset");
+            if (type == "1")            //Create
+            {
+                title = "@Resources.Language.btn_New";
+            }
+            else if (type == "2")            //Update
+            {
+                //判断是否选中行
+                var row = $("#grid_role").datagrid('getSelected');//$("#grid_role").data().datagrid.data.rows[rowIndex];
+                if (!row) {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                    return;
+                }
+                else {
+                    title = "@Resources.Language.btn_Edit";
+                    $("#UpdateDialog").find("form").form("load", row);
+                }
+            }
+
+        $("#UpdateDialog").dialog({ title: title });
+        $("#UpdateDialog").dialog('open');
+        $("#Name").focus();
+    }
+    var selectedIndex = 0;
+    function InitRole() {
+        $("#grid_role").datagrid({
+            singleSelect: true,
+            striped: true,
+            fit: true,
+            //fitColumns: true,
+            url: '@Url.Action("GetAllRole", "Master")',//'/Master/GetAllRole',
+            border: false,
+            remoteSort: false,//未启用后台分页
+            showHeader: true,
+            idField: 'RoleID',
+            method: 'post',
+            columns: [[
+                { field: 'Name', title: '@Resources.Language.txt_RoleName', width: 120 },
+                { field: 'Description', title: '@Resources.Language.txt_Description', width: 400 }
+            ]],
+
+            onLoadSuccess: function (data) {
+                $(this).datagrid("selectRow", selectedIndex);
+            },
+            onSelect: function (rowIndex, rowData) {
+                selectedIndex = rowIndex;
+                ShowRemoveOrReloadBtn(rowData.DeleteFlag,rowData.RoleID);
+                SelectRole(GetSelectedRoleID());
+            },
+            rowStyler: function (index, row) {
+                if (row.DeleteFlag == true) {
+                    return "color:Red";
+                }
+            },
+            toolbar:
+                [
+                    {
+                        id: 'btnAdd_1',
+                        text: '@Resources.Language.btn_New',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            ShowDialog(1);
+                        }
+                    },
+                    {
+                        id: 'btnEdit_2',
+                        text: '@Resources.Language.btn_Edit',
+                        iconCls: 'icon-edit',
+                        handler: function () { ShowDialog(2) }
+                    },
+                    {
+                        id: 'btnDel_3',
+                        text: '@Resources.Language.btn_Delete',
+                        iconCls: 'icon-remove',
+                        handler: function () { DelOrReload() }
+                    }
+                ]
+        });
+    }
+        function DelOrReload() {
+            var row = $("#grid_role").datagrid('getSelected');
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord", "info");
+                return;
+            }
+            if (!row.DeleteFlag) {
+                DeleteProcess(row.RoleID);
+            }
+            else {
+                ReValid(row.RoleID);
+            }
+        }
+                //勾选模块
+                function CheckModule(obj) {
+                    var m_id = $(obj).attr("id");
+                    var default_key = $(obj).attr("data-default")
+                    var jq_default = "#" + m_id + "_" + default_key;
+                    //自动选择默认的action
+                    if ($(obj).is(":checked")) {
+                        //$(jq_default).prop("checked", true);
+                        //$("input[id^='" + m_id + "_']").each(function () {
+                        //    if (!$(this).is(":checked")) {
+                        //        $(this).prop("checked", true);
+                        //    }
+                        //});
+                    }
+                    else {
+                        $("input[id^='" + m_id + "']").each(function () {
+                            if ($(this).is(":checked")) {
+                                $(this).prop("checked", false);
+                            }
+                        });
+                    }
+
+                    SubmitModule(m_id);
+                }
+
+                //勾选功能
+                function CheckKey(obj) {
+                    var m_id = $(obj).attr("id").split("_")[0];
+
+                    //勾选Key所属的模块也自动勾选
+                    if ($(obj).is(":checked")) {
+                        console.log(m_id);
+                        $("#" + m_id + "_").prop("checked", true);
+                    }
+                    else {
+                        var len = $("input[id^='" + m_id + "']").length;
+                        $("input[id^='" + m_id + "']").each(function () {
+                            if (!$(this).is(":checked"))
+                                len--;
+                        });
+
+                        if (len == 0)
+                            $("#" + m_id + "_").prop("checked", false);
+                    }
+                    SubmitModule(m_id + "_");
+                }
+
+                //提交服务器
+                function SubmitModule(m_id) {
+                    var sum_value = "";
+
+                    //模块下面所有的Action选项数值的和
+                    $("input[id^='" + m_id + "']").each(function () {
+                        if ($(this).is(":checked")) {
+                            //sum_value += parseInt($(this).val());
+                            if (sum_value != "")
+                                sum_value += ",";
+                            sum_value = sum_value + $(this).val();
+                        }
+                    });
+                    var param = {
+                        RoleId: GetSelectedRoleID(),
+                        ModuleId: m_id.replace(/_/,""),
+                        Action: sum_value,
+                        IsValid: $("#" + m_id).is(":checked")
+                    }
+                    console.log(m_id);
+                    console.log($("#" + m_id).prop("checked"));
+                    $.post("@Url.Action("UpdateModuleConfiguration", "Master")", param, function (data) {
+                        data = eval("(" + data + ")");
+                        if (data.result != "succeed")
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", data.Message, "info");
+                    }).error(function () {
+                        $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_ConnectionFailed", "info");
+                    });
+                }
+
+                //选择的角色ID
+                function GetSelectedRoleID() {
+                    var row = $("#grid_role").datagrid("getSelected");
+                    if (row)
+                        return row.RoleID;
+                }
+
+                function ReloadUser(role_id) {
+                    var UserCode = $("#UserCode").val();
+                    var queryData = {
+                        RoleId: role_id,
+                        UserCode: UserCode
+                    };
+                    $("#grid_user").datagrid({
+                        pageNumber: 1,
+                        url: '@Url.Action("GetUserForRole", "Master")',//'/Master/GetUserForRole',
+                        queryParams: queryData
+                        //onLoadSuccess: function (data) {
+                        //    if (data) {
+                        //        $.each(data.rows, function (index, item) {
+                        //            if (item.HaveRole) {
+                        //                $('#grid_user').datagrid('checkRow', index);
+                        //            }
+                        //            else {
+                        //                $('#grid_user').datagrid('uncheckRow', index);
+                        //            }
+                        //        });
+                        //    }
+                        //}
+                    });
+                }
+
+
+        function ShowRemoveOrReloadBtn(DeleteFlag, RoleID) {
+            if (!DeleteFlag) {
+                var text = "@Resources.Language.btn_Delete";
+                $('#btnDel_3').html("<span class=\"l-btn-left l-btn-icon-left\"><span class=\"l-btn-text\">" + text + "</span><span class=\"l-btn-icon icon-remove\">&nbsp;</span></span>");
+            }
+            else {
+                var text = "@Resources.Language.btn_Reload";
+                $('#btnDel_3').html("<span class=\"l-btn-left l-btn-icon-left\"><span class=\"l-btn-text\">" + text + "</span><span class=\"l-btn-icon icon-reload\">&nbsp;</span></span>");
+            }
+            console.log(text);
+            if (RoleID == 1) {
+                $('div.datagrid div.datagrid-toolbar a').eq(1).hide();
+                $('div.datagrid div.datagrid-toolbar a').eq(2).hide();
+            }
+            else {
+                $('div.datagrid div.datagrid-toolbar a').eq(1).show();
+                $('div.datagrid div.datagrid-toolbar a').eq(2).show();
+                CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+            }
+
+        }
+        function SelectRole(role_id) {
+
+            //清空所有选择
+            $(".authority-sub-list").find(":checkbox").prop("checked", false);
+            $(".authority-sub-list").find(":radio").prop("checked", false);
+
+            ReloadUser(role_id);
+
+            //异步获取所有已选择的模块
+            $.get("@Url.Action("GetSelectedModule", "Master")", { RoleId: role_id }, function (data) {
+                var selected_module = eval("(" + data + ")");
+                for (i = 0; i < selected_module.length; i++) {
+                    var m_id = selected_module[i].module_id;
+                    var action_value = selected_module[i].action_value;
+                    var valueArr = action_value.split(',');
+                    for (j = 0; j < valueArr.length; j++) {
+
+                        if (valueArr[j] == "0")
+                            $("#" + m_id + "_").prop("checked", true);
+                        else
+                            $("input[id='" + m_id + "_" + valueArr[j] + "']").prop("checked", true);
+
+                        ////遍历所有的action的checkbox
+                        //$("input[id^='" + m_id + "_']").each(function () {
+                        //    if ($(this).val() & action_value)
+                        //        $(this).prop("checked", true);
+                        //});
+                    }
+                }
+                if (role_id == 1) {
+                    $("input[type=checkbox]").each(function () {
+                        $(this).attr("disabled", true);
+                    });
+                }
+                else {
+                    $("input[type=checkbox]").each(function () {
+                        $(this).removeAttr("disabled");
+                    });
+                }
+            });
+        }
+
+    </script>
+}
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'west', title:'', split:true, collapsible:false, border:true,title:'@Resources.Language.txt_UserProfile'" style="width: 450px;">
+                <table id="grid_role"></table>
+            </div>
+            <div style="overflow:auto" data-options="region:'center', collapsible:false, border:true, title:'@Resources.Language.txtConfigration'">
+
+                <div id="tt" class="easyui-tabs" style="height: 250px;" data-options="fit:true">
+                    <div title="Module" style="overflow: auto;">
+                        @using Mde.Portal.Model;
+                        @foreach (ModuleModel module in ViewBag.Module)
+                        {
+                            <dl class="authority-sub-list">
+                                <dt>@module.name:</dt>
+                                <dd>
+                                    <ul>
+                                        @foreach (ModuleModel subModule in module.children)
+                                        {
+                                            var pId=@subModule.id+"_";
+                                            <li>
+                                                <div class="title">
+                                                    <label style="display: inline-block; width: 240px;">
+                                                        <input type="checkbox" value="0" id="@pId" data-default="@subModule.action.default_key" onclick="CheckModule(this)" style="height: auto; margin: 0 4px; vertical-align: middle;">
+                                                        @subModule.name
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    @if (subModule.action != null)
+                                                    {
+                                                        if (subModule.action_mode == 1)
+                                                        {
+                                                            foreach (ModuleKeyValueModel keyValue in subModule.action.configuration)
+                                                            {
+                                                                var id = subModule.id + "_" + keyValue.key;
+                                                        <label style="margin-right: 2em">
+                                                            <input type="checkbox" id="@id" value="@keyValue.key" onclick="CheckKey(this)" style="height: auto; margin: 0 4px; vertical-align: middle;">@keyValue.value
+                                                        </label>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            foreach (ModuleKeyValueModel keyValue in subModule.action.configuration)
+                                                            {
+                                                                var id = subModule.id + "_" + keyValue.key;
+                                                        <label style="margin-right: 2em">
+                                                            <input type="radio" id="@id" value="@keyValue.key" name="@subModule.id" onclick="CheckKey(this)" style="height: auto; margin: 0 4px; vertical-align: middle;">@keyValue.value
+                                                        </label>
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </dd>
+                            </dl>
+                        }
+                    </div>
+                    <div title="User" data-options="closable:false,fit:true" style="overflow: auto;">
+                        <div class="easyui-layout" data-options="fit:true, border:false">
+                            <div data-options="region:'north',border:false" class="query-box">
+                                <label>@Resources.Language.txt_Code:
+                                    <input class="easyui-validatebox" id="UserCode" name="UserCode">
+                                </label>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+                            </div>
+                            <div data-options="region:'center',border:false">
+                                <table id="grid_user">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 330px; height: 220px; padding: 10px 20px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" method="post">
+                    <table border="0" class="table-input">
+                        <tr>
+                            <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                <label style="display: inline-block;">@Resources.Language.txt_ProfileName:</label>
+                            </td>
+                            <td style="vertical-align: top; padding: 5px 0;">
+                                <input type="text" class="easyui-validatebox" id="Name" style="width: 180px;" name="Name" data-options="required:true,validType:['length[0,50]']" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                <label style="display: inline-block;">@Resources.Language.txt_Description:</label>
+                            </td>
+                            <td style="vertical-align: top; padding: 5px 0;">
+                                <textarea id="Description" rows="10" name="Description" style="width: 180px; height: 60px" class="textarea easyui-validatebox"></textarea>
+                            </td>
+                        </tr>
+                        @Html.Hidden("RoleID")
+                    </table>
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>

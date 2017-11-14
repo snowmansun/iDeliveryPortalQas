@@ -1,0 +1,117 @@
+﻿@model Mde.Model.DataModel.MD_AccountAR
+@{
+    ViewBag.Title = "AccountAR";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section script{
+    <script type="text/javascript">
+        $(function () {
+
+            //查询事件
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            InitGrid();
+        });
+
+        //刷新数据
+        function RefreshGrid() {
+            var queryData = {
+                Account: $("#SAccount").val()
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetAccountARList", "Master")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = { Account: $("#SAccount").val() };
+
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetAccountARList", "Master")',
+                idField: 'InvoiceNumber',
+                queryParams: queryData,
+                columns:
+                    [[
+
+                        { field: 'AccountName', title: '@Resources.Language.txt_AccountName' ,width:350},
+                        { field: 'AccountNumber', title: '@Resources.Language.txt_AccountNumber' },
+                        { field: 'CreditLimit', title: '@Resources.Language.txt_CreditLimit' },
+                        { field: 'InvoiceNumber', title: '@Resources.Language.txt_InvoiceNumber' },
+                        { field: 'InvoiceAmount', title: '@Resources.Language.txt_InvoiceAmount' },
+                        {
+                            field: 'InvoiceDate', title: '@Resources.Language.txt_InvoiceDate', width: 100,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeDateFormat(value);
+                            }
+                        },
+                        { field: 'OpenAmount', title: '@Resources.Language.txt_OpenAmount' },
+                        { field: 'TotalOpenAmount', title: '@Resources.Language.txt_TotalOpenAmount' },
+                        {
+                            field: 'BlockByCredit', title: '@Resources.Language.txt_BlockByCredit', width: 100,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                if (value == 0) {
+                                    return "<font color='red'>N</font>";
+                                }
+                            }
+                        }
+                    ]
+                    ]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+        function ChangeDateFormat(jsondate) {
+            jsondate = jsondate.replace("/Date(", "").replace(")/", "");//替换  
+            if (jsondate.indexOf("+") > 0) {
+                jsondate = jsondate.substring(0, jsondate.indexOf("+"));//截取  
+            }
+            else if (jsondate.indexOf("-") > 0) {
+                jsondate = jsondate.substring(0, jsondate.indexOf("-"));//截取 
+            }
+            var date = new Date(parseInt(jsondate, 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;//月份  
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();//时间  
+            return date.getFullYear() + "-" + month + "-" + currentDate;//组合起来  
+        }
+    </script>    
+}
+
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_Account:
+                    <input class="easyui-validatebox" id="SAccount" name="SAccount">
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,367 @@
+﻿@{
+    ViewBag.Title = "DeliveryTracking";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+@section style{
+    <link href="~/Styles/viewer.min.css" rel="stylesheet" />
+    <style>
+        .imgDiv {
+            width: 98%;
+            overflow-x: scroll;
+            padding: 0 5px;
+        }
+
+        .imgUl {
+            float: left;
+        }
+
+        .imgli {
+            list-style-type: none;
+            padding: 3px 0;
+        }
+
+        .imgClass {
+            display: inline-block;
+            width: 32%;
+            margin-left: 1%;
+            padding-top: 1%;
+        }
+
+            .imgClass img {
+                width: 100%;
+            }
+    </style>
+}
+@section script{
+    <script src="~/Scripts/viewer.min.js"></script>
+    <script src="~/Scripts/viewer-jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#SDate").datebox("setValue", formatterDate(new Date()));
+            InitComboboxData($("#SStatus"), "DeliveryStatus");
+            InitComboboxData($("#SDeliveryType"), "DeliveryNoteType");
+            InitGrid();
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+            $("#btnCloseImg").click(function () {
+                $("#ImageDialog").dialog("close");
+            });
+        });
+
+        //获取当前时间
+        function formatterDate(date) {
+            var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
+            + (date.getMonth() + 1);
+            var hor = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            return date.getFullYear() + '-' + month + '-' + day;//+ " " + hor + ":" + min + ":" + sec;
+        };
+
+        function RefreshGrid() {
+            var queryData = {
+                ShipmentNo: $("#SShipmentNo").val(),
+                DeliveryNo: $("#SDeliveryNo").val(),
+                Account: $("#SAccount").val(),
+                DeliveryDate: $("#SDate").datebox("getValue"),
+                Status: $("#SStatus").combobox("getValue"),
+                DeliveryType: $("#SDeliveryType").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("LoadDelTrackingData", "Reports")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache", "Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                ShipmentNo: $("#SShipmentNo").val(),
+                DeliveryNo: $("#SDeliveryNo").val(),
+                Account: $("#SAccount").val(),
+                DeliveryDate: $("#SDate").datebox("getValue"),
+                Status: $("#SStatus").combobox("getValue"),
+                DeliveryType: $("#SDeliveryType").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("LoadDelTrackingData", "Reports")',
+                idField: 'DeliveryNo',
+                queryParams: queryData,
+                columns:
+                    [[
+                        {
+                            field: 'DeliveryDate', title: '@Resources.Language.txt_Date', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeDateFormat(value);
+                            }
+                        },
+                        { field: 'ShipmentNo', title: '@Resources.Language.txt_ShipmentNo', width: 50 },
+                        { field: "DeliveryType", title: '@Resources.Language.txt_DeliveryType', width: 50 },
+                        { field: 'DeliveryNo', title: '@Resources.Language.txt_DeliveryNo', width: 50 },
+                        { field: 'AccountNumber', title: '@Resources.Language.txt_AccountNumber', width: 50 },
+                        { field: 'AccountName', title: '@Resources.Language.txt_AccountName', width: 180 },
+                        { field: 'StatusDesc', title: '@Resources.Language.txt_Status', width: 50 },
+                        {
+                            field: 'CustomerSignDate', title: '@Resources.Language.txt_ActionTime', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeTimeFormat(value);
+                            }
+                        }
+                    ]
+                    ],
+                toolbar: [{
+                    id: 'btnDetail_1',
+                    text: '@Resources.Language.btn_Detail',
+                    iconCls: 'icon-search',
+                    handler: function () {
+                        ShowDialog();
+                    }
+                }],
+                rowStyler: function (index, row) {
+                    if (row.DeleteFlag == 1) {
+                        return "color:Red";
+                    }
+                },
+
+                onLoadSuccess: function (data) {
+                    console.log(data);
+                }
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache", "Base")");
+        }
+
+        //显示弹出层
+        function ShowDialog() {
+            var title;
+
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            else {
+                InitGridItem(row.DeliveryNo);
+                $("#ulCustomer").hide();
+                $("#ulDriver").hide();
+
+                //Customer
+                if (row.CustomerSignImg) {
+                    $("#ulCustomer").show();
+                    $('#imgCustomer').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    var url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.CustomerSignImg;
+                    $("#imgCustomer").attr('src', url);
+                    $("#imgCustomer").attr('data-original', url);
+                    $("#CustomerName").html(row.AccountName);
+                }
+                //Driver
+                if (row.DriverSignImg) {
+                    $("#ulDriver").show();
+                    $('#imgDriver').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.DriverSignImg;
+                    $("#imgDriver").attr('src', url);
+                    $("#imgDriver").attr('data-original', url);
+                    $("#DriverName").html(row.DriverName);
+                }
+            }
+            $("#UpdateDialog").dialog({ title: "Detail" });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        function InitGridItem(DeliveryNo) {
+            var queryData = {
+                DeliveryNo: DeliveryNo
+            };
+            $("#gridItem").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: true,
+                border: false,
+                singleSelect: true,
+                pagination: false,
+                //pageSize: 30,
+                //pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("LoadDelTrackingItemData", "Reports")',
+                //idField: 'AccountNumber',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'ProductCode', title: '@Resources.Language.txt_ProductCode', width: 50 },
+                        { field: 'ProductName', title: '@Resources.Language.txt_ProductName', width: 150 },
+                        { field: 'PlanQty', title: '@Resources.Language.txt_PlanQty', width: 55 },
+                        { field: 'ActualQty', title: '@Resources.Language.txt_ActualQty', width: 60 },
+                        { field: 'DifferenceQty', title: '@Resources.Language.txt_Difference', width: 60 },
+                        { field: 'DiffReason', title: '@Resources.Language.txt_DiffReason', width: 45 }
+                    ]
+                    ],
+                onLoadSuccess: function (data) {
+                    $(this).datagrid("fixRownumber");
+                }
+            });
+        }
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Category) {
+            var Url = "@Url.Action("GetDictionCodeComboxData", "Configuration")";
+            Url = Url + "?Category=" + Category + "&NeedAll=true";
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (val.length > 0)
+                        $(this).combobox("select", val[0].value);
+                }
+            });
+        }
+        $.extend($.fn.datagrid.methods, {
+            fixRownumber: function (jq) {
+                return jq.each(function () {
+                    var panel = $(this).datagrid("getPanel");
+                    //获取最后一行的number容器,并拷贝一份
+                    var clone = $(".datagrid-cell-rownumber", panel).last().clone();
+                    //由于在某些浏览器里面,是不支持获取隐藏元素的宽度,所以取巧一下
+                    clone.css({
+                        "position": "absolute",
+                        left: -1000
+                    }).appendTo("body");
+                    var width = clone.width("auto").width();
+                    //默认宽度是25,所以只有大于25的时候才进行fix
+                    if (width > 25) {
+                        //多加5个像素,保持一点边距
+                        $(".datagrid-header-rownumber,.datagrid-cell-rownumber", panel).width(width + 5);
+                        //修改了宽度之后,需要对容器进行重新计算,所以调用resize
+                        $(this).datagrid("resize");
+                        //一些清理工作
+                        clone.remove();
+                        clone = null;
+                    } else {
+                        //还原成默认状态
+                        $(".datagrid-header-rownumber,.datagrid-cell-rownumber", panel).removeAttr("style");
+                    }
+                });
+            }
+        });
+    </script>
+}
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 70px;">
+                <table>
+                    <tr>
+                        <td style="text-align: right">@Resources.Language.txt_ShipmentNo:</td>
+                        <td>
+                            <input class="easyui-validatebox" id="SShipmentNo" style="width: 130px" name="SShipmentNo"></td>
+                        <td style="text-align: right">@Resources.Language.txt_DeliveryNo:</td>
+                        <td>
+                            <input class="easyui-validatebox" id="SDeliveryNo" style="width: 130px" name="SDeliveryNo"></td>
+                        <td style="text-align: right">@Resources.Language.txt_Account:</td>
+                        <td>
+                            <input class="easyui-validatebox" id="SAccount" style="width: 130px" name="SAccount"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right">@Resources.Language.txt_Date:</td>
+                        <td>
+                            <input id="SDate" name="SDate" type="text" class="easyui-datebox" data-options="formatter:ww4" style="width: 130px;"></td>
+                        <td style="text-align: right">@Resources.Language.txt_Status:</td>
+                        <td>
+                            <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 130px" data-options="editable:false,panelHeight:'auto'"></select></td>
+                        <td style="text-align: right">@Resources.Language.txt_DeliveryType:</td>
+                        <td>
+                            <select class="easyui-combobox" id="SDeliveryType" name="SDeliveryType" style="width: 130px" data-options="editable:false,panelHeight:'auto'"></select></td>
+                        <td><a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a></td>
+                    </tr>
+                </table>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 850px; height: 490px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" class="easyui-layout" method="post" data-options="fit:true">
+                    <div data-options="region:'center',border:false">
+                        <h3 class="title">@Resources.Language.txt_Material</h3>
+                        <div style="height: 190px; width: 98%">
+                            <table id="gridItem"></table>
+                        </div>
+                        <h3 class="title">@Resources.Language.txt_Signature</h3>
+                        <div class="imgDiv">
+                            <ul id="ulCustomer" class="imgUl">
+                                <li class="imgli">
+                                    <span>@Resources.Language.txt_Customer</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgCustomer" alt="" style="width: 60px; height: 60px; border: inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="CustomerName"></span>
+                                </li>
+                            </ul>
+                            <ul id="ulDriver" class="imgUl">
+                                <li class="imgli">
+                                    <span>Driver</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgDriver" alt="" style="width: 60px; height: 60px; border: inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="DriverName"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>
+

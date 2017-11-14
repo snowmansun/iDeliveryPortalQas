@@ -1,0 +1,501 @@
+﻿@model Mde.Model.DataModel.DSD_M_SystemConfig
+@{
+    ViewBag.Title = "Configuration";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section style{
+    <style>
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            text-overflow: ellipsis;
+        }
+    </style>
+}
+@section script{
+    <script type="text/javascript">
+
+        $(function () {
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            InitCombobox(1,"");
+
+            //保存提交事件
+            $("#btnOK").click(function () {
+                if (!$("#FormUpdate").form("validate"))
+                    return;
+
+                var SystemConfigID = $("#SystemConfigID").val();
+                var nodes = $('#tOrg').tree('getChecked');
+                var OldOrgIDs = $("#HidOrgIds").val();
+                var OrgIDs = '';
+                for (var i = 0; i < nodes.length; i++) {
+                    if (OrgIDs != '')
+                        OrgIDs += ',';
+                    OrgIDs += nodes[i].id;
+                }
+                if (OrgIDs == '') {
+                    $.messager.alert('Warning', '@Resources.Message.msg_OrgRequired');
+                    return;
+                }
+                
+                var Category = $("#Category").combobox("getValue");
+                if (Category == "") {
+                    Category = $("#txtCategory").val();
+                }
+                var KeyName = $("#KeyName").combobox("getValue");
+                if (KeyName == "") {
+                    KeyName = $("#txtKeyName").val();
+                }
+                var Description = $("#Description").val();
+                var KeyValue = $("#Value").val();
+
+                var data = {
+                    SystemConfigID: SystemConfigID,
+                    OrgIDs: OrgIDs,
+                    Category: Category,
+                    KeyName: KeyName,
+                    Description: Description,
+                    KeyValue: KeyValue,
+                    OldOrgIDs: OldOrgIDs
+                };
+
+                $.ajax({
+                    type: "post",
+                    data: data,
+                    url: "@Url.Action("SaveConfigData","Configuration")",
+                    success: function (data) {
+                        data = eval("(" + data + ")");
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+
+                            if (SystemConfigID == "")
+                                InitCombobox(2,$("#CurrentCategory").val());
+                            else
+                                RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+        });
+
+        //加载查询条件
+        function InitCombobox(type, category) {
+            var url = "@Url.Action("GetCategoryComboxData","Base")";
+            $("#ddlCategory").combobox({
+                url: url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (category == "") {
+                        if (val.length > 0) {
+                            $(this).combobox("select", val[0].value);
+                        }
+                    }
+                    else {
+                        $(this).combobox("select", category);
+                    }
+                },
+                onSelect: function (row) {
+                    if (row != null) {
+                        $("#ddlKeyName").combobox({
+                            url: "@Url.Action("GetKeyNameComboxData","Base")" + "?Category=" + row.value + "&NeedAll=true",
+                            valueField: "value",
+                            textField: "name",
+                            editable: false,
+                            onLoadSuccess: function () { //加载完成后,设置选中第一项
+                                var val = $(this).combobox("getData");
+                                if (val.length > 0)
+                                    $(this).combobox("select", val[0].value);
+                                if (type == 1)
+                                    InitGrid();
+                                else
+                                    RefreshGrid();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        //禁用和恢复form表单验证
+        $.extend($.fn.validatebox.methods, {
+            remove: function (jq, newposition) {
+                return jq.each(function () {
+                    $(this).removeClass("validatebox-text validatebox-invalid").unbind('focus.validatebox').unbind('blur.validatebox');
+                });
+            },
+            reduce: function (jq, newposition) {
+                return jq.each(function () {
+                    var opt = $(this).data().validatebox.options;
+                    $(this).addClass("validatebox-text").validatebox(opt);
+                });
+            }
+        });
+
+        //显示弹出层
+        function ShowConfigDialog(Control, type) {
+            var title;
+            if (type == 1)
+                title = "@Resources.Language.txt_NewConfig";
+            else
+                title = "@Resources.Language.txt_NewKeyName";
+            Control.dialog({ title: title });
+            Control.dialog('open');
+        }
+
+
+        //刷新数据
+        function RefreshGrid() {
+            var queryData = {
+                Category: $("#ddlCategory").combobox("getValue"),
+                KeyName: $("#ddlKeyName").combobox("getValue")
+            };
+            $("#CurrentCategory").val($("#ddlCategory").combobox("getValue"));
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: '@Url.Action("GetSystemConfigData","Configuration")',
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                Category: $("#ddlCategory").combobox("getValue"),
+                KeyName: $("#ddlKeyName").combobox("getValue")
+            };
+            $("#CurrentCategory").val($("#ddlCategory").combobox("getValue"));
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                checkOnSelect: false,
+                striped: true,
+                url: '@Url.Action("GetSystemConfigData","Configuration")',
+                idField: '',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'Category', title: '@Resources.Language.txt_Category', width: 50 },
+                        { field: 'KeyName', title: '@Resources.Language.txt_Code', width: 50 },
+                        { field: 'KeyValue', title: '@Resources.Language.txt_Value', width: 50 },
+                        { field: 'Description', title: '@Resources.Language.txt_Description', width: 100 },
+                        { field: 'OrgNames', title: '@Resources.Language.txt_Organization', width: 150 }
+                    ]],
+                toolbar: [{
+                    id: 'btnAdd_1',
+                    text: '@Resources.Language.btn_New',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        ShowDialog(1);
+                    }
+                },
+                {
+                    id: 'btnEdit_2',
+                    text: '@Resources.Language.btn_Edit',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        ShowDialog(2);
+                    }
+                }
+                ]
+            });
+
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        //显示弹出层
+        function ShowDialog(type) {
+            $("#UpdateDialog").find("form").form("clear");
+            $("#UpdateDialog").find("form").form("reset");
+
+            var title;
+            var category = "";
+            var keyname = "";
+            var orgIds = "";
+            if (type == 1) {
+                title = "@Resources.Language.btn_New";
+
+                $("#HidOrgIds").val("");
+                $("#Description").val("");
+                $("#Value").val("");
+                $("#Category").combobox({ disabled: false });
+                $("#KeyName").combobox({ disabled: false });
+                $('#Category').combobox('clear');
+                $('#KeyName').combobox('clear');
+
+                category = $("#CurrentCategory").val();
+                IntiEditCombobox(category, "");
+            }
+            else {
+                //判断是否选中行
+                var row = $("#grid").datagrid("getSelected");
+                if (!row) {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                    return;
+                }
+                else {
+                    title = "@Resources.Language.btn_Edit";
+                    orgIds = row.OrgIDs;
+                    $("#HidOrgIds").val(orgIds);
+
+                    $("#Description").val(row.Description);
+                    $("#Value").val(row.KeyValue);
+
+                    category = row.Category;
+                    keyname = row.KeyName;
+                    
+                    IntiEditCombobox(category, keyname);
+
+                    $("#Category").combobox("disable");
+                    $("#SystemConfigID").val(row.SystemConfigID);
+                }
+            }
+            InitTree(orgIds);
+            setTimeout(function () {
+                $("#UpdateDialog").dialog({ title: title });
+                $("#UpdateDialog").dialog('open');
+            }, 500);
+        }
+
+        //加载Edit画面的Combobox
+        function IntiEditCombobox(category,keyname) {
+            $("#Category").combobox({
+                url: "@Url.Action("GetCategoryComboxData","Base")" + "?NeedAdd=true",
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () {
+                    var val = $(this).combobox("getData");
+                    $(this).combobox("select", category);
+                },
+                onSelect: function (row) {
+                    if (row != null) {
+                        if (row.value == "") {
+                            $("#txtCategory").show();
+                            $("#divCategory").hide();
+
+                            $("#txtKeyName").show();
+                            $("#divKeyName").hide();
+
+                            $("#KeyName").combobox("select", "");
+                            $('#txtCategory').validatebox('reduce');
+                            $('#txtKeyName').validatebox('reduce');
+                        }
+                        else {
+                            $("#txtCategory").hide();
+                            $("#divCategory").show();
+
+                            $("#txtKeyName").hide();
+                            $("#divKeyName").show();
+
+                            $('#txtCategory').validatebox('remove');
+                            $('#txtKeyName').validatebox('remove');
+
+                            var url = "@Url.Action("GetKeyNameComboxData","Base")" + "?NeedAdd=true&Category=" + category;
+                            $("#KeyName").combobox({
+                                url: url,
+                                valueField: "value",
+                                textField: "name",
+                                editable: false,
+                                onSelect: function (row) {
+                                    if (row.value == "") {
+                                        $("#txtKeyName").show();
+                                        $("#divKeyName").hide();
+                                        $('#txtKeyName').validatebox('reduce');
+                                    }
+                                    else {
+                                        $("#txtKeyName").hide();
+                                        $("#divKeyName").show();
+                                        $('#txtKeyName').validatebox('remove');
+                                    }
+                                },
+                                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                                    var val = $(this).combobox("getData");
+                                    if (keyname == "") {
+                                        if (val.length > 1)
+                                            $(this).combobox("select", val[1].value);
+                                        else {
+                                            $("#txtKeyName").show();
+                                            $("#divKeyName").hide();
+                                        }
+                                    }
+                                    else {
+                                        $(this).combobox("select", keyname);
+                                        $("#KeyName").combobox("disable");
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+
+        function InitTree(orgIds) {
+            var url = "@Url.Action("GetOrganizationTreeData","Configuration")" + "?OrgIDs=" + orgIds;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (result) {
+                    var myJson = eval('(' + result + ')');
+                    $('#tOrg').tree({
+                        data: myJson
+                    });
+                }
+            });
+        }
+
+        //初始化Category下拉框数据
+        function InitCategory(Control, ChildControl,url, Type, Value, KeyName, ChildNeedAll) {
+            Control.combobox({
+                url: url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (Type == "1") {
+                        if (val.length > 0) {
+                            $(this).combobox("select", val[0].value);
+                        }
+                    }
+                    else {
+                        $(this).combobox("select", Value);
+                    }
+                },
+                onSelect: function (row) {
+                    if (row != null) {
+                        if (KeyName != "") {
+                            InitComboboxData(ChildControl, "2", KeyName, "@Url.Action("GetKeyNameComboxData","Base")"+"?Category=" + row.value);
+                        }
+                        else
+                            InitComboboxData(ChildControl, "1", "", "@Url.Action("GetKeyNameComboxData","Base")"+"?Category=" + row.value + "&NeedAll=" + ChildNeedAll);
+                    }
+                }
+            });
+        }
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Type, Value, Url) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (Type == "1") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", Value);
+                        $("#KeyName").combobox("disable");
+                    }
+                }
+            });
+        }
+
+    </script>
+}
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_Category:
+                    <select class="easyui-combobox" id="ddlCategory" name="ddlCategory" style="width: 150px;" data-options="editable:false,panelHeight:'300'"></select>
+                </label>
+                <label>@Resources.Language.txt_KeyName:
+                    <select class="easyui-combobox" id="ddlKeyName" name="ddlKeyName" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <input type="hidden" id="CurrentCategory" />
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 750px; height: 480px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" method="post">
+                    <table border="0" class="table-input">
+                        <tr>
+                            <td style="width: 350px;">
+                                <div class="easyui-panel" style="padding: 5px;overflow-y:scroll;height:420px">
+                                    <ul id="tOrg" class="easyui-tree" data-options="checkbox:true"></ul>
+                                </div>
+                            </td>
+                            <td style="vertical-align:top">
+                                <table border="0" class="table-input">
+                                    <tr>
+                                        <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                            <label style="display: inline-block;">@Resources.Language.txt_Category:</label>
+                                        </td>
+                                        <td style="vertical-align: top; padding: 5px 0;">
+                                            <div id="divCategory">
+                                                <select class="easyui-combobox easyui-validatebox" id="Category" name="Category" style="width: 185px;" data-options="required:true,panelHeight:'auto'"></select>
+                                            </div>
+                                            <input type="text" style="width: 180px" class="easyui-validatebox" name="txtCategory" id="txtCategory" data-options="required:true,validType:['length[0,50]','isBlank']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                            <label style="display: inline-block;">@Resources.Language.txt_Code:</label>
+                                        </td>
+                                        <td style="vertical-align: top; padding: 5px 0;">
+                                            <div id="divKeyName">
+                                                <select class="easyui-combobox easyui-validatebox" id="KeyName" name="KeyName" style="width: 185px;" data-options="required:true,panelHeight:'auto'"></select>
+                                            </div>
+                                            <input type="text" style="width: 180px" class="easyui-validatebox" name="txtKeyName" id="txtKeyName" data-options="required:true,validType:['length[0,50]','isBlank']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                            <label style="display: inline-block;">@Resources.Language.txt_Description:</label>
+                                        </td>
+                                        <td style="vertical-align: top; padding: 5px 0;">
+                                            <textarea id="Description" rows="10" name="Description" style="width: 180px; height: 50px" class="textarea easyui-validatebox" data-options="validType:['length[0,100]']"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                            <label style="display: inline-block;">@Resources.Language.txt_Value:</label>
+                                        </td>
+                                        <td style="vertical-align: top; padding: 5px 0;">
+                                            <input style="width: 185px" class="easyui-validatebox textbox" name="Value" id="Value" data-options="required:true,validType:['length[0,50]','isBlank']" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="SystemConfigID" />
+                    <input type="hidden" id="HidOrgIds" />
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F10829E5-569D-42B5-81D8-848FC65EECBF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mde.ModelView</RootNamespace>
+    <AssemblyName>Mde.ModelView</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelView\BannerView.cs" />
+    <Compile Include="ModelView\MenuView.cs" />
+    <Compile Include="ModelView\PersonView.cs" />
+    <Compile Include="ModelView\StoreView.cs" />
+    <Compile Include="ModelView\TruckCheckListData.cs" />
+    <Compile Include="ModelView\UserView.cs" />
+    <Compile Include="ModelView\ViewAccountARData.cs" />
+    <Compile Include="ModelView\ViewAccountData.cs" />
+    <Compile Include="ModelView\ViewAccountOrderData.cs" />
+    <Compile Include="ModelView\ViewButtonRoleData.cs" />
+    <Compile Include="ModelView\ViewComboboxIntData.cs" />
+    <Compile Include="ModelView\ViewComboboxStringData.cs" />
+    <Compile Include="ModelView\ViewConfigData.cs" />
+    <Compile Include="ModelView\ViewDeliveryHeaderData.cs" />
+    <Compile Include="ModelView\ViewDeliveryItemData.cs" />
+    <Compile Include="ModelView\ViewDeliveryNoteData.cs" />
+    <Compile Include="ModelView\ViewDicTrackingData.cs" />
+    <Compile Include="ModelView\ViewDriverPosition.cs" />
+    <Compile Include="ModelView\ViewDriverRouteCustomerData.cs" />
+    <Compile Include="ModelView\ViewModuleData.cs" />
+    <Compile Include="ModelView\ViewOdometerTrackingData.cs" />
+    <Compile Include="ModelView\ViewOrganizationData.cs" />
+    <Compile Include="ModelView\ViewProductData.cs" />
+    <Compile Include="ModelView\ViewRouteMapInfo.cs" />
+    <Compile Include="ModelView\ViewShipmentInfo.cs" />
+    <Compile Include="ModelView\ViewShipmentItemData.cs" />
+    <Compile Include="ModelView\ViewShipmentListData.cs" />
+    <Compile Include="ModelView\ViewShipmentTrackingData.cs" />
+    <Compile Include="ModelView\ViewShipmentTrackingImgData.cs" />
+    <Compile Include="ModelView\ViewShipmentTrackingItemData.cs" />
+    <Compile Include="ModelView\ViewSignatureData.cs" />
+    <Compile Include="ModelView\ViewStockTrackingData.cs" />
+    <Compile Include="ModelView\ViewSystemConfigData.cs" />
+    <Compile Include="ModelView\ViewTreeData.cs" />
+    <Compile Include="ModelView\ViewTreeGridData.cs" />
+    <Compile Include="ModelView\ViewTruckCheckItemData.cs" />
+    <Compile Include="ModelView\ViewTruckCheckListData.cs" />
+    <Compile Include="ModelView\ViewTruckDriverData.cs" />
+    <Compile Include="ModelView\ViewTruckStockData.cs" />
+    <Compile Include="ModelView\ViewTruckTypeData.cs" />
+    <Compile Include="ModelView\ViewUserData.cs" />
+    <Compile Include="ModelView\ViewUserRoleData.cs" />
+    <Compile Include="ModelView\ViewWarehouseData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

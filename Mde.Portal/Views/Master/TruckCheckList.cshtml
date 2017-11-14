@@ -1,0 +1,628 @@
+﻿@model Mde.Model.DataModel.DSD_M_TruckCheckList
+@{
+    ViewBag.Title = "TruckCheckList";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section style{
+    <style>
+        ul, ol, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            list-style-type: none;
+            padding: 3px 0;
+        }
+
+        .cs-label {
+            display: inline-block;
+            min-width: 160px;
+            text-align: right;
+            padding: 0 5px 0 0;
+        }
+
+        .imgClass img {
+            vertical-align: middle;
+        }
+    </style>
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            //查询事件
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            var url = "@Url.Action("GetDictionaryComboxData", "Base")" + "?Category=TruckType&NeedAll=true";
+            InitComboboxData($("#STruckType"), 1, "", url);
+
+            InitGrid();
+
+
+            //保存Assign的TruckType==========================================================
+            $("#btnAssignOK").click(function () {
+                //获取选中的Truck Type-------------------------------------------------------
+                var types = [];
+                var selectedRow = $('#gridTruckType').datagrid('getChecked');
+                for (var i = 0; i < selectedRow.length; i++) {
+                    types.push(selectedRow[i].TruckType);
+                }
+                types = types.join(',');
+                //----------------------------------------------------------------------------
+                var ListId = $("#hidListId").val();
+                var jsonData = {
+                    types: types,
+                    ListId: ListId
+                };
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("SaveTruckCheckAssign", "Master")",
+                    success: function (data) {
+                        if (data.result == "succeed") {
+                            $("#AssignDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+
+            $("#btnAssignClose").click(function () {
+                $("#AssignDialog").dialog("close");
+            });
+            //=================================================================================
+
+            //添加new Question================
+            $("#btn_AddNew").click(function () {
+                var maxQIndex = $("#MaxQIndex").val();
+                maxQIndex = parseInt(maxQIndex) + 1;
+                var type = $("#SCheckType").combobox("getText");
+                var value = $("#SCheckType").combobox("getValue")
+                var newQuestion = $("#divModel").html().replace(/SingleSelect/g, type);//替换Check type
+                newQuestion = newQuestion.replace(/Question_0/g, 'Question_' + maxQIndex);//替换Question的name和id
+                newQuestion = newQuestion.replace(/MustToDo_0/g, 'MustToDo_' + maxQIndex);//替换MustToDo的name
+                newQuestion = newQuestion.replace(/CheckType_0/g, 'CheckType_' + maxQIndex);//替换显示的Checktype text
+                newQuestion = newQuestion.replace(/QuestionId_0/g, 'QuestionId_' + maxQIndex);//替换id的name
+                newQuestion = newQuestion.replace(/CheckTypeValue_0/, value);//保存CheckType的Value
+                newQuestion = newQuestion.replace(/addNewAnswer_0/g, 'addNewAnswer_' + maxQIndex);//替换add new answer按钮的id
+                newQuestion = newQuestion.replace(/CurQIndex_0/, maxQIndex);//保存当前Question的Index
+                $("#divItem").append(newQuestion);//ul会添加在元素里的最后
+                $("#MaxQIndex").val(maxQIndex)
+                if (value == 1) {
+                    console.log($("#addNewAnswer_" + maxQIndex));
+                    $("#addNewAnswer_" + maxQIndex).hide();
+                }
+
+                $.parser.parse($('#divItem'));
+            });
+            //=================================
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+
+            $("#btnOK").click(function () {
+                $("#Question_0").validatebox({
+                    required: false
+                });
+                $("#Question_0_Answer_0").validatebox({
+                    required: false
+                });
+                if (!$("#FormUpdate").form("validate")) {
+                    return;
+                }
+                $("#FormUpdate").form("submit", {
+                    url: "@Url.Action("SaveTruckCheckData", "Master")",
+                    success: function (data) {
+                        data = eval('(' + data + ')');
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+        });
+
+        //添加new Answer
+        function AddNewAnswer(obj,type) {
+            var CurQIndex;//获取当前question index
+            var MaxAIndex;//获取当前max answer index
+            var preObj;
+            if (type == 0) {
+                preObj = $(obj).parent();
+                CurQIndex = preObj.children("input[name='CurQIndex']").val();
+                MaxAIndex = preObj.children("input[name='MaxAIndex']").val();
+            }
+            else {
+                preObj = $(obj).parent().parent().parent().find("ul").first().find("li").first();
+                CurQIndex = preObj.children("input[name='CurQIndex']").val();
+                MaxAIndex = preObj.children("input[name='MaxAIndex']").val();
+            }
+            var newAnswer = $("#divAnswer").html().replace(/Question_0_Answer_0/g, 'Question_' + CurQIndex + '_Answer_' + MaxAIndex);
+            newAnswer = newAnswer.replace(/QuestionId_0_AnswerId_0/g, 'QuestionId_' + CurQIndex + '_AnswerId_' + MaxAIndex);
+            //$(obj).parent().parent().parent().append(newAnswer);
+            $(obj).parent().parent().after(newAnswer);
+            //保存max answer index
+            MaxAIndex = parseInt(MaxAIndex) + 1;
+            preObj.children("input[name='MaxAIndex']").val(MaxAIndex)
+            //重新渲染div
+            $.parser.parse($('#divItem'));
+        }
+
+        //删除Question
+        function DeleteQuestion(obj) {
+            $(obj).parent().parent().parent().remove();
+        }
+
+        //删除Answer
+        function DeleteAnswer(obj) {
+            $(obj).parent().parent().remove();
+        }
+
+        //刷新数据
+        function RefreshGrid() {
+            selectedIndex = 0;
+            var queryData = {
+                Content: $("#SContent").val(),
+                TruckType: $("#STruckType").combobox("getValue")
+            };
+
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetTruckCheckList", "Master")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        //隐藏BaseInfo
+        function ShowBaseInfo(divId) {
+            $("#" + divId).toggle();
+            
+            if (divId == "divBaseInfo") {
+                var isHide = $("#" + divId).is(":hidden")
+                if (isHide) {
+                    $("#divItem").height($("#divItem").height() + 90);
+                }
+                else {
+                    $("#divItem").height($("#divItem").height() - 90);
+                }
+            }
+        }
+        var selectedIndex = 0;
+        function InitGrid() {
+            var queryData = {
+                Content: $("#SContent").val(),
+                TruckType: $("#STruckType").combobox("getValue")
+            };
+
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetTruckCheckList", "Master")',
+                idField: 'Id',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'Content', title: "@Resources.Language.txt_Title", width: 150 },
+                        @*{ field: 'StartDate', title: '@Resources.Language.txt_StartDate', width: 100 },*@
+                        {
+                            field: 'StartDate', title: '@Resources.Language.txt_StartDate', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeDateFormat(value);
+                            }
+                        },
+                        {
+                            field: 'EndDate', title: '@Resources.Language.txt_EndDate', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeDateFormat(value);
+                            }
+                        },
+                        { field: 'Description', title: '@Resources.Language.txt_Description', width: 150 },
+                        { field: 'TruckTypeDesc', title: '@Resources.Language.txt_Assigned', width: 150 },
+                        {
+                            field: 'Valid', title: '@Resources.Language.txt_Status', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                if (value == 0) {
+                                    return "<font color='red'>N</font>";
+                                }
+                            }
+                        }
+                    ]],
+                onSelect: function (rowIndex, rowData) {
+                    selectedIndex = rowIndex;
+                    ShowRemoveOrReloadBtn(rowData.Valid);
+                },
+                onLoadSuccess: function (data) {
+                    $(this).datagrid("selectRow", selectedIndex);
+                },
+                toolbar: [{
+                    id:'btnAdd_1',
+                    text: '@Resources.Language.btn_New',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        ShowDialog(1);
+                    }
+                },
+                {
+                    id: 'btnEdit_2',
+                    text: '@Resources.Language.btn_Edit',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        ShowDialog(2);
+                    }
+                },
+                {
+                    id: 'btnDel_3',
+                    text: '@Resources.Language.btn_Delete',
+                    iconCls: 'icon-remove',
+                    handler: function () { DelOrReload() }
+                },
+                {
+                    id: 'btnAssign_4',
+                    text: '@Resources.Language.btn_Reassign',
+                    iconCls: 'icon-assign',
+                    handler: function () {
+                        EditAssign();
+                    }
+                }
+
+                ]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function ShowRemoveOrReloadBtn(isValid) {
+            if (isValid) {
+                var text = "@Resources.Language.btn_Delete";
+                $('#btnDel_3').html("<span class=\"l-btn-left l-btn-icon-left\"><span class=\"l-btn-text\">" + text + "</span><span class=\"l-btn-icon icon-remove\">&nbsp;</span></span>");
+            }
+            else {
+                var text = "@Resources.Language.btn_Reload";
+                $('#btnDel_3').html("<span class=\"l-btn-left l-btn-icon-left\"><span class=\"l-btn-text\">" + text + "</span><span class=\"l-btn-icon icon-reload\">&nbsp;</span></span>");
+            }
+        }
+
+        function ShowDialog(type) {
+            var title;
+            //$("#UpdateDialog").find("form").form("clear");
+            //$("#UpdateDialog").find("form").form("reset");
+            $("#Question_0").validatebox({
+                required: true
+            });
+            $("#Question_0_Answer_0").validatebox({
+                required: true
+            });
+
+            $("#MaxQIndex").val("0");
+            $("#divBaseInfo").show();
+            $("#divCheckItem").show();
+            $("#divItem").height(200);
+            if (type == "1")            //Create
+            {
+                title = "@Resources.Language.btn_New";
+                $("#Content").val("");
+                $("#Description").val("");
+                $("#StartDate").datebox("setValue", "");
+                $("#EndDate").datebox("setValue", "");
+                $("#divItem").html("");
+                $("#hidId").val("");
+            }
+            else {
+                //判断是否选中行
+                var row = $("#grid").datagrid("getSelected");
+                if (!row) {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                    return;
+                }
+                title = "@Resources.Language.btn_Edit";
+                $("#UpdateDialog").find("form").form("load", row);
+
+                $("#StartDate").datebox('setValue', ChangeDateFormat(row.StartDate));
+                $("#EndDate").datebox('setValue', ChangeDateFormat(row.EndDate));
+                $("#hidId").val(row.Id);
+
+                var jsonData = { id: row.Id };
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("GetTruckCheckDataById", "Master")",
+                    success: function (data) {
+                        var html = data.msg;
+                        $("#divItem").html(html);
+                        var maxQIndex = data.QuestionCount;
+                        $("#MaxQIndex").val(maxQIndex);
+                        $.parser.parse($('#divItem'));
+                    }
+                });
+            }
+            var url = "@Url.Action("GetDictionaryComboxData", "Base")" + "?Category=CheckType";
+            InitComboboxData($("#SCheckType"), 1, "", url);
+
+            $("#UpdateDialog").dialog({ title: title });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        function DelOrReload() {
+            var row = $("#grid").datagrid('getSelected');
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord", "info");
+                return;
+            }
+            if (row.Valid) {
+                DeleteProcess(row.Id);
+            }
+            else {
+                ReValid(row.Id);
+            }
+        }
+
+        //恢复选中行数据
+        function ReValid(Id) {
+            $.post("@Url.Action("ReValidTruckList", "Master")", { Id: Id }, function (data) {
+                data = eval("(" + data + ")");
+                if (data.result == "succeed") {
+                    $("#grid").datagrid('load');
+                }
+                else {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                }
+            })
+        }
+
+        function DeleteProcess(Id) {
+            $.messager.confirm("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_DeleteAlert", function (r) {
+                if (r) {
+                    $.post("@Url.Action("DeleteTruckList", "Master")", { Id: Id }, function (data) {
+                        $.messager.progress('close');
+                        data = eval("(" + data + ")");
+                        if (data.result == "succeed") {
+                            $("#grid").datagrid('load');
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                    });
+                }
+            });
+        }
+
+
+        function EditAssign() {
+            var title;
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            else {
+                title = "@Resources.Language.btn_Assign";
+                $("#hidListId").val(row.Id);
+                InitGridTruckType(row.Id);
+            }
+            $("#AssignDialog").dialog({ title: title });
+            $("#AssignDialog").dialog('open');
+        }
+
+        function InitGridTruckType(ListId) {
+            var queryData = { ListId: ListId };
+
+            $("#gridTruckType").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: false,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetTruckTypeList", "Master")',
+                idField: 'TruckType',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: " ", title: "", checkbox: true },
+                        { field: 'TruckType', title: "@Resources.Language.txt_TruckType", width: 100 },
+                        { field: 'Description', title: '@Resources.Language.txt_Description', width: 100 }
+                    ]],
+                onLoadSuccess: function (data) {
+                    if (data) {
+                        $.each(data.rows, function (index, item) {
+                            if (item.IsAssigned) {
+                                $('#gridTruckType').datagrid('checkRow', index);
+                            }
+                            else {
+                                $('#gridTruckType').datagrid('uncheckRow', index);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Type, Value, Url) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (Type == "1") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", Value);
+                    }
+                }
+            });
+        }
+
+        function onSelect(d) {
+            var issd = this.id == 'StartDate', sd = issd ? d : new Date($('#StartDate').datebox('getValue')), ed = issd ? new Date($('#EndDate').datebox('getValue')) : d;
+            if (ed < sd) {
+                parent.$.messager.alert("@Resources.Message.msg_topTitle", "@Resources.Message.msg_StartTimeEndTime");
+            //只要选择了日期，不管是开始或者结束都对比一下，如果结束小于开始，则清空结束日期的值并弹出日历选择框
+            $('#EndDate').datebox('setValue', '').datebox('showPanel');
+        }
+    }
+    </script>
+}
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 60px;">
+                <label>@Resources.Language.txt_Content:
+                    <input class="easyui-validatebox" id="SContent" style="width: 150px" name="SContent">
+                </label>
+                <label>@Resources.Language.txt_TruckType:
+                    <select class="easyui-combobox" id="STruckType" name="STruckType" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 650px; height: 480px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" class="easyui-layout" method="post" data-options="fit:true">
+                    <h3 class="title" onclick="ShowBaseInfo('divBaseInfo')" style="cursor:pointer">Base Info</h3>
+                    <div style="padding: 0 10px 0 20px;" id="divBaseInfo">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Title:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 300px" class="easyui-validatebox" name="Content" id="Content" data-options="required:true,validType:['length[0,200]']" />
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_StartDate:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input id="StartDate" name="StartDate" type="text" class="easyui-datebox" required="required" data-options="formatter:ww4,onSelect:onSelect" style="width: 130px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Description:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 300px" class="easyui-validatebox" name="Description" id="Description" data-options="validType:['length[0,100]']" />
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_EndDate:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input id="EndDate" name="EndDate" type="text" class="easyui-datebox" required="required" data-options="formatter:ww4,onSelect:onSelect" style="width: 130px;">
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <h3 class="title" onclick="ShowBaseInfo('divCheckItem')" style="cursor:pointer">Check Item</h3>
+                    <div style="padding: 0 10px;" id="divCheckItem">
+                        <div>
+                            <select class="easyui-combobox" id="SCheckType" name="SCheckType" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_AddNew" style="width: 100px; height: 22px; padding: 2px 0 0 0">Add New Item</a>
+                            <input type="hidden" id="MaxQIndex" name="MaxQIndex" value="0" />
+                        </div>
+                        <div style="overflow-y: scroll; height: 200px;" id="divItem">
+                        </div>
+                    </div>
+                    <div style="display: none;" id="divModel">
+                        <div style="border: 1px solid #ebe2e2; height: auto; padding: 5px 0 5px 20px; margin: 5px 0;">
+                            <ul>
+                                <li>
+                                    <label class="cs-label" style="display: inline-block;">Question(SingleSelect)</label>
+                                    <input type="text" style="width: 330px" class="easyui-validatebox" id="Question_0" name="Question_0" data-options="required:true,validType:['length[0,100]']" />
+                                    <a href="#" onclick="AddNewAnswer(this,0)" class="imgClass" id="addNewAnswer_0">
+                                        <img src="~/Images/icons/edit_add.png" /></a>
+                                    <a href="#" onclick="DeleteQuestion(this)" class="imgClass">
+                                        <img src="~/Images/icons/edit_del.png" /></a>
+                                    <input type="checkbox" name="MustToDo_0" title="@Resources.Language.txt_RequiredFields" />
+                                    <input type="hidden" id="CheckType_0" name="CheckType_0" value="CheckTypeValue_0" />
+                                    <input type="hidden" id="QuestionId_0" name="QuestionId_0" value="0" />
+                                    <input type="hidden" name="CurQIndex" value="CurQIndex_0" />
+                                    <input type="hidden" name="MaxAIndex" value="1" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="display: none" id="divAnswer">
+                        <ul>
+                            <li>
+                                <label class="cs-label" style="display: inline-block;">
+                                    Answer
+                                </label>
+                                <input type="text" style="width: 350px" class="easyui-validatebox" id="Question_0_Answer_0" name="Question_0_Answer_0" data-options="required:true,validType:['length[0,100]']" />
+                                <a href="#" onclick="AddNewAnswer(this,1)" class="imgClass">
+                                    <img src="~/Images/icons/edit_add.png" /></a>
+                                <a href="#" onclick="DeleteAnswer(this)" class="imgClass">
+                                    <img src="~/Images/icons/edit_del.png" /></a>
+                                <input type="hidden" id="QuestionId_0_AnswerId_0" name="QuestionId_0_AnswerId_0" value="0" />
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" id="hidId" name="hidId" /> 
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+            <!--Assign弹出层开始-->
+            <div id="AssignDialog" class="easyui-dialog" style="width: 650px; height: 500px;" data-options="buttons:'#dlg-buttons-assign',closed:true, modal:true">
+                <div id="FormAssign" class="easyui-layout" data-options="fit:true" style="overflow-y: scroll; height: 500px">
+                    <table id="gridTruckType"></table>
+                    <input id="hidListId" type="hidden" />
+                </div>
+            </div>
+            <div id="dlg-buttons-assign">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAssignOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAssignClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--Assign弹出层结束-->
+        </div>
+    </div>
+</div>

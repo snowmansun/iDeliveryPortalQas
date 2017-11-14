@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "StockTracking";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section script{
+    <script src="~/Scripts/datagrid-detailview.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#SDate").datebox("setValue", formatterDate(new Date()));
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            InitGrid();
+
+            $("#btnOK").click(function () {
+                var newDriver = $("#NDriver").combobox('getValue');
+                if (newDriver == "")
+                    return;
+                var newTruck = $("#NTruckNo").combobox('getValue');
+                if (newTruck == "0")
+                    return;
+
+                var jsonData = {
+                    NewDriver: newDriver,
+                    NewTruck: newTruck,
+                    ShipmentNo: $("#HidShipmentNo").val()
+                };
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("ChangeDriverAndTruck","Shipment")",
+                    success: function (data) {
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+        });
+
+        //获取当前时间
+        function formatterDate(date) {
+            var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
+            + (date.getMonth() + 1);
+            var hor = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            return date.getFullYear() + '-' + month + '-' + day;//+ " " + hor + ":" + min + ":" + sec;
+        };
+
+        function RefreshGrid() {
+            var queryData = {
+                Truck: $("#STruck").val(),
+                ShipmentNo: $("#SShipmentNo").val(),
+                Product: $("#SProduct").val(),
+                StockDate: $("#SDate").datebox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetTruckStockData","Shipment")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                Truck: $("#STruck").val(),
+                ShipmentNo: $("#SShipmentNo").val(),
+                Product: $("#SProduct").val(),
+                StockDate: $("#SDate").datebox("getValue")
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetTruckStockData","Shipment")',
+                //idField: 'ShipmentNo',
+                queryParams: queryData,
+                view: detailview,
+                columns:
+                    [[
+                        { field: 'TruckCode', title: '@Resources.Language.txt_TruckNo', width: 50 },
+                        { field: 'ShipmentNo', title: '@Resources.Language.txt_ShipmentNo', width: 50 },
+                        { field: 'ProductCode', title: '@Resources.Language.txt_ProductCode', width: 50 },
+                        { field: 'ProductName', title: '@Resources.Language.txt_ProductName', width: 120 },
+                        { field: 'StockQty', title: '@Resources.Language.txt_StockQty', width: 50 }
+                    ]],
+                detailFormatter: function (index, row) {
+                    return '<div style="padding:2px;text-align:center"><table class="ddv" style="width:700px"></table></div>';
+                },
+                onExpandRow: function (index, row) {
+                    var ddv = $(this).datagrid('getRowDetail', index).find('table.ddv');
+                    var query = {
+                        TruckId: row.TruckId,
+                        ShipmentNo: row.ShipmentNo,
+                        ProductCode: row.ProductCode
+                    };
+                    ddv.datagrid({
+                        url: "@Url.Action("GetTruckStockTrackingData","Shipment")",
+                        method: 'post',
+                        fitColumns: true,
+                        singleSelect: true,
+                        rownumbers: true,
+                        loadMsg: '',
+                        height: 'auto',
+                        queryParams: query,
+                        columns: [[
+                          { field: 'ProductCode', title: '@Resources.Language.txt_ProductCode', width: 50 },
+                          { field: 'ProductUnit', title: '@Resources.Language.txt_ProductUnit', width: 50 },
+                          { field: 'ChangeAction', title: '@Resources.Language.txt_ChangeAction', width: 50 },
+                          { field: 'FromQty', title: '@Resources.Language.txt_FromQty', width: 50 },
+                          { field: 'ToQty', title: '@Resources.Language.txt_ToQty', width: 50 },
+                          { field: 'ChangeQuantity', title: '@Resources.Language.txt_ChangeQty', width: 50 }
+                        ]],
+                        onResize: function () {
+                            $('#grid').datagrid('fixDetailRowHeight', index);
+                        },
+                        onLoadSuccess: function () {
+                            setTimeout(function () {
+                                $('#grid').datagrid('fixDetailRowHeight', index);
+                            }, 0);
+                        }
+                    });
+                }
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+    </script>
+}
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 70px;">
+                <label>@Resources.Language.txt_Truck:
+                    <input class="easyui-validatebox" id="STruck" name="STruck">
+                </label>
+                <label>@Resources.Language.txt_ShipmentNo:
+                    <input class="easyui-validatebox" id="SShipmentNo" name="SShipmentNo">
+                </label>
+                <label>@Resources.Language.txt_Product:
+                    <input class="easyui-validatebox" id="SProduct" name="SProduct">
+                </label>
+                <label>@Resources.Language.txt_Date:
+                    <input id="SDate" name="SDate" type="text" class="easyui-datebox" data-options="formatter:ww4" style="width: 130px;" />
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

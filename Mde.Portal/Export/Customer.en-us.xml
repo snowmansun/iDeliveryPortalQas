@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="customer" FileName="Customers">
+    <Columns>
+        <Column FieldName="code" DisplayName="Customer Code" Required="true" Width="20">
+            <Sample>
+                <Comment></Comment>
+                <Description>0001001</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="name" DisplayName="Customer Name" Required="true" Width="30">
+            <Sample>
+                <Comment></Comment>
+                <Description>Shanghai eBest Information Technology Co,Ltd</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="address" DisplayName="Customer Address" Required="true" Width="40">
+            <Sample>
+                <Comment></Comment>
+                <Description>19 Floor, Cao Hejing software building, 461#,Hong Cao road</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="postal_code" DisplayName="Zip Code" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description>200030</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="contact" DisplayName="Contact" Required="true" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description>Linda Lu</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="telphone" DisplayName="TEL" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description>021-64682167</Description>
+            </Sample>
+        </Column>
+      <Column FieldName="mobile" DisplayName="Mobile" Width="15">
+        <Sample>
+          <Comment></Comment>
+          <Description>13536880988</Description>
+        </Sample>
+      </Column>
+        <Column FieldName="channel" DisplayName="Channel" Required="true" Width="15">
+            <Sample>
+                <Comment>If have higher sales channel, then add higher sales channel, use"/" to divide,for example,MT/Super Market</Comment>
+                <Description>MT/Super Market</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="cust_level" DisplayName="Customer Type" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description></Description>
+            </Sample>
+        </Column>
+        <Column FieldName="cust_chain" DisplayName="Chain Group" Width="30">
+            <Sample>
+                <Comment></Comment>
+                <Description></Description>
+            </Sample>
+        </Column>
+        <!--<Column FieldName="region" DisplayName="Administrative Structure" Width="30">
+            <Sample>
+                <Comment></Comment>
+                <Description>Shanghai</Description>
+            </Sample>
+        </Column>-->
+        <Column FieldName="org" DisplayName="Organization" Required="true" Width="30">
+            <Sample>
+                <Comment>If have higher organization, then must add the higher organization , use "/" to divide, for example, HQ/Shanghai.</Comment>
+                <Description>HQ/Shanghai</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="open_time" DisplayName="Opening Time" Width="15">
+            <Sample>
+                <Comment>Time Format hh:mm</Comment>
+                <Description>09:15</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="close_time" DisplayName="Closing Time" Width="15">
+            <Sample>
+                <Comment>Time Format hh:mm</Comment>
+                <Description>18:00</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="valid" DisplayName="Valid" Required="true" Width="15">
+            <Sample>
+                <Comment>1 Valid, 0 Invalid</Comment>
+                <Description>1</Description>
+            </Sample>
+        </Column>
+      <Column FieldName="errormsg" DisplayName="Error Message" Width="40">
+        <Sample>
+          <Comment></Comment>
+          <Description></Description>
+        </Sample>
+      </Column>
+    </Columns>
+</Table>

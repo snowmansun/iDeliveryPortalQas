@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="routedetail" FileName="Route Detail">
+  <Column FieldName="visitdate" DisplayName="Visit Date" Required="true" Width="30">
+    <Sample>
+      <Comment></Comment>
+      <Description>2014-01-01</Description>
+    </Sample>
+  </Column>
+  <Columns>
+    <Column FieldName="loginname" DisplayName="User ID " Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>Linda</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="username" DisplayName="User Name" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>1001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="customercode" DisplayName="Customer Code" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>0001001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="customername" DisplayName="Customer Name" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>Shanghai eBest Information Technology Co,Ltd</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="sequence" DisplayName="Visit Sequence" Required="true" Width="30">
+      <Sample>
+        <Comment>Not more than 4 times in a week</Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="Valid" Required="true" Width="15">
+      <Sample>
+        <Comment>1 Valid, 0 Invalid</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="Error Message" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

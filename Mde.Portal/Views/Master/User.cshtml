@@ -1,0 +1,646 @@
+﻿@model Mde.Model.DataModel.MD_User
+
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section style{
+    <style>
+        .tree-file, .tree-folder, .tree-folder-open {
+            display: none;
+        }
+    </style>
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            //查询事件
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+            InitOrganizationData($("#SOrganization"));
+            var url = "@Url.Action("GetDictionaryComboxData", "Base")" + "?Category=UserType&NeedAll=true";
+            InitComboboxData($("#SType"), "1", "", url);
+            InitComboboxData($("#SRole"), "1", "", "@Url.Action("GetSysRoleComboboxData", "Base")");
+
+            //保存提交事件
+            $("#btnOK").click(function () {
+
+                if (!$("#FormUpdate").form("validate"))
+                    return;
+
+                var UserCode = $("#UserCode").val();
+                var UserType = $("#Type").combobox("getValue");
+                var Company = $("#Company").combobox("getValue");
+                var Warehouse = $("#Warehouse").combobox("getValue");
+                var FirstName = $("#FirstName").val();
+                var LastName = $("#LastName").val();
+                var orgId = GetComboTreeValue($("#Organization"));
+                //获取选中的role--------------------------------------------------------------
+                var roleIds = [];
+                var selectedRow = $('#gridRole').datagrid('getChecked');
+                for (var i = 0; i < selectedRow.length; i++) {
+                    roleIds.push(selectedRow[i].RoleID);
+                }
+                roleIds = roleIds.join(',');
+                //---------------------------------------------------------------------------
+                var Mobile = $("#Mobile").val();
+                var Email = $("#Email").val();
+                var NeedChangePwd = $("[name = NeedChangePwd]:checkbox").is(':checked');
+                var Valid = $("[name = Valid]:checkbox").is(':checked');
+                var Locked = $("[name = Locked]:checkbox").is(':checked');
+                var jsonData = {
+                    UserCode: UserCode,
+                    UserType: UserType,
+                    Company: Company,
+                    Warehouse:Warehouse,
+                    FirstName: FirstName,
+                    LastName: LastName,
+                    OrgId: orgId,
+                    RoleIds: roleIds,
+                    Mobile: Mobile,
+                    Email: Email,
+                    NeedChangePwd: NeedChangePwd,
+                    Valid: Valid,
+                    Locked: Locked,
+                    Mode: $("#hidMode").val()
+                };
+
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("SaveUser", "Master")",
+                    success: function (data) {
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+
+            InitGrid();
+        })
+
+
+
+        function InitOrganizationData(control) {
+            control.combotree({
+                url: "@Url.Action("GetOrganizationTreeData", "Master")"+"?IsAll=false",
+                method: 'get',
+                editable: false,
+                //multiple: true,
+                cascadeCheck: true,
+                lines: true,
+                onLoadSuccess: function (node, data) {
+                    $(this).tree("collapseAll");
+                    $("span").remove(".tree-icon tree-file icon-none");
+                }
+            });
+        }
+
+        //刷新数据
+        function RefreshGrid() {
+            selectedIndex = 0;
+            var queryData = {
+                OrgID: GetComboTreeValue($("#SOrganization")),
+                UserCode: $("#SUserCode").val(),
+                Type: $("#SType").combobox("getValue"),
+                RoleId: $("#SRole").combobox("getValue"),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetUserDataList", "Master")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+
+        function GetComboTreeValue(control) {
+            var value = control.combotree("getValues");
+            if (value != "") {
+                //var node = control.combotree("tree").tree("getRoots");
+                //for (var i = 0; i < node.length; i++) {
+                //    if (node[i].checked) {
+                //        var obj = $.inArray(node[i].id, value);
+                //        if (obj > -1) {
+                //            value.splice(obj, 1);
+                //        }
+                //    }
+                //}
+
+                value = value.join(",");
+            }
+
+            return value;
+        }
+
+        //恢复选中行数据
+        function ReValid(UserCode) {
+            $.post("@Url.Action("ReValidUser", "Master")", { UserCode: UserCode }, function (data) {
+                data = eval("(" + data + ")");
+                if (data.result == "succeed") {
+                    $("#grid").datagrid('load');
+                }
+                else {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                }
+            })
+        }
+
+        function DeleteProcess(UserCode) {
+            $.messager.confirm("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_DeleteAlert", function (r) {
+                if (r) {
+                    $.post("@Url.Action("DeleteUser", "Master")", { UserCode: UserCode }, function (data) {
+                        $.messager.progress('close');
+                        data = eval("(" + data + ")");
+                        if (data.result == "succeed") {
+                            $("#grid").datagrid('load');
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                    });
+                }
+            });
+        }
+
+        function GetUserCode(index) {
+            if (index == null)
+                var row = $("#grid").datagrid('getSelected');
+            else
+                var row = $("#grid").data().datagrid.data.rows[index];
+
+            if (row)
+                return row.UserCode;
+            else
+                return 0;
+        }
+
+        //显示弹出层
+        function ShowDialog(type) {
+            var title;
+            var RoleId;
+            var OrgUnitId;
+
+            InitOrganizationData($("#Organization"));
+
+            var UserCode = "";
+            var UserType = "";
+            var Company = "";
+            var Warehouse = "";
+            if (type == "1")            //Create
+            {
+                title = "@Resources.Language.btn_New";
+                $("#trLoginInfo").hide();
+                $("#hidMode").val("Add");
+                $("#UserCode").removeAttr("readonly");
+                $("#UserCode").val("");
+                $("#FirstName").val("");
+                $("#LastName").val("");
+                $("#Mobile").val("");
+                $("#Email").val("");
+                $("[name = Valid]:checkbox").attr("checked", false);
+                $("[name = Locked]:checkbox").attr("checked", false);
+                $("[name = NeedChangePwd]:checkbox").attr("checked", false);
+            }
+            else if (type == "2")            //Update
+            {
+                $("#trLoginInfo").hide();
+                $("#hidMode").val("Edit");
+                $("#UserCode").attr("readonly", true);
+                //判断是否选中行
+                var row = $("#grid").datagrid('getSelected');
+                if (!row) {
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                    return;
+                }
+                else {
+                    title = "@Resources.Language.btn_Edit";
+
+                    UserCode = row.UserCode;
+                    UserType = row.Type;
+                    Company = row.Company;
+                    Warehouse = row.Warehouse;
+
+                    $("#UserCode").val(UserCode);
+                    $("[name = Valid]:checkbox").attr("checked", row.IsValid);
+                    $("[name = Locked]:checkbox").attr("checked", row.IsLocked);
+                    $("[name = NeedChangePwd]:checkbox").attr("checked", row.NeedChangePwd);
+                    $("input[name=FirstName]").val(row.FirstName)
+                    $("input[name=LastName]").val(row.LastName)
+                    $("input[name=Mobile]").val(row.Mobile)
+                    $("input[name=Email]").val(row.Email)
+                    $("input[name=LastLoginTime]").val(row.LastLoginTime)
+                    $("input[name=LoginFailed]").val(row.LoginFailed)
+
+                    $('#Organization').combotree('setValue', row.OrgID);
+                }
+            }
+            var url = "@Url.Action("GetDictionaryComboxData", "Base")" + "?Category=UserType&NeedAll=false";
+            InitComboboxData($("#Type"), "2", UserType, url);
+
+            InitCompanyData(Company, type, Warehouse);
+
+            InitGridRole(UserCode);
+
+            setTimeout(function () {
+                $("#UpdateDialog").dialog({ title: title });
+                $("#UpdateDialog").dialog('open');
+            }, 800);
+        }
+
+        function InitCompanyData(company, type, warehouse) {
+            var Url = "@Url.Action("GetCompanyComboboxData", "Shipment")" + "?NeedAll=false";
+            $("#Company").combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    $(this).combobox("select", company);
+                },
+                onSelect: function (row) {
+                    if (row != null) {
+                        Url = "@Url.Action("GetWarehouseComboboxData","Shipment")" + "?CompanyCode=" + $(this).combobox("getValue") + "&NeedBlank=false";
+                        InitComboboxData($("#Warehouse"), type, warehouse, Url);
+                        warehouse = "";
+                    }
+                }
+            });
+        }
+
+        function InitGridRole(UserCode) {
+            var queryData = { UserCode: UserCode };
+            $("#gridRole").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: false,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetRoleDataList", "Master")',
+                idField: 'RoleID',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: " ", title: "", checkbox: true },
+                        { field: 'RoleID', title: "Role Id", width: 20, hidden: true },
+                        { field: 'Name', title: '@Resources.Language.txt_UserProfile', width: 70 },
+                        { field: 'Description', title: '@Resources.Language.txt_Description', width: 150 }
+                    ]],
+                onLoadSuccess: function (data) {
+                    if (data) {
+                        $.each(data.rows, function (index, item) {
+                            if (item.IsHavingRole) {
+                                $('#gridRole').datagrid('checkRow', index);
+                            }
+                            else {
+                                $('#gridRole').datagrid('uncheckRow', index);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        var selectedIndex = 0;
+
+        function InitGrid() {
+            var queryData = {
+                OrgID: GetComboTreeValue($("#SOrganization")),
+                UserCode: $("#SUserCode").val(),
+                Type: $("#SType").combobox("getValue"),
+                RoleId: $("#SRole").combobox("getValue"),
+                Status: $("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetUserDataList", "Master")',
+               // idField: 'UserCode',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'UserCode', title: '@Resources.Language.txt_Code', width: 50 },
+                    { field: 'FirstName', title: '@Resources.Language.txt_FirstName', width: 50 },
+                    { field: 'LastName', title: '@Resources.Language.txt_LastName', width: 50 },
+                    { field: 'TypeDesc', title: '@Resources.Language.txt_Role', width: 50 },
+                    { field: 'CompanyName', title: '@Resources.Language.txt_Company', width: 70 },
+                    { field: 'WarehouseName', title: '@Resources.Language.txt_Warehouse', width: 70 },
+                    { field: 'Email', title: '@Resources.Language.txt_Email', width: 50 },
+                    { field: 'Mobile', title: '@Resources.Language.txt_Mobile', width: 50 },
+                    {
+                        field: 'IsValid', title: '@Resources.Language.txt_Status', width: 20,
+                        formatter: function (value, row, index) {
+                            if (value == 1) {
+                                return "Y";
+                            }
+                            if (value == 0) {
+                                return "<font color='red'>N</font>";
+                            }
+                        }
+                    }
+                    ]],
+
+                onSelect: function (rowIndex, rowData) {
+                    selectedIndex = rowIndex;
+                    if(rowData)
+                        ShowRemoveOrReloadBtn(rowData.IsValid);
+                },
+
+                onLoadSuccess: function (data) {
+                    $(this).datagrid("selectRow", selectedIndex);
+                },
+                rowStyler: function (index, row) {
+                    if (row.IsValid == false) {
+                        return "color:Red";
+                    }
+                },
+                toolbar: [
+                    {
+                        id: 'btnAdd_1',
+                        text: '@Resources.Language.btn_New',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            ShowDialog(1);
+                        }
+                    },
+                    {
+                        id: 'btnEdit_2',
+                        text: '@Resources.Language.btn_Edit',
+                        iconCls: 'icon-edit',
+                        handler: function () { ShowDialog(2) }
+                    },
+                    {
+                        id: 'btnDel_3',
+                        text: '@Resources.Language.btn_Delete',
+                        iconCls: 'icon-remove',
+                        handler: function () {  DelOrReload() }
+                    },
+                    {
+                        id: 'btnReset_4',
+                        text: '@Resources.Language.btn_Reset',
+                        //iconCls: 'icon-reload',
+                        handler: function () { ResetPwd() }
+
+                    }
+                ]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function DelOrReload() {
+            var row = $("#grid").datagrid('getSelected');
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord", "info");
+                return;
+            }
+            if (row.IsValid) {
+                DeleteProcess(row.UserCode);
+            }
+            else {
+                ReValid(row.UserCode);
+            }
+        }
+
+        function ShowRemoveOrReloadBtn(isValid) {
+            if (isValid) {
+                var text = "@Resources.Language.btn_Delete";
+                $('#btnDel_3').html("<span class=\"l-btn-left l-btn-icon-left\"><span class=\"l-btn-text\">" + text + "</span><span class=\"l-btn-icon icon-remove\">&nbsp;</span></span>");
+            }
+            else {
+                var text = "@Resources.Language.btn_Reload";
+                $('#btnDel_3').html("<span class=\"l-btn-left l-btn-icon-left\"><span class=\"l-btn-text\">" + text + "</span><span class=\"l-btn-icon icon-reload\">&nbsp;</span></span>");
+            }
+        }
+
+        //重置密码
+        function ResetPwd() {
+            var row = $("#grid").datagrid('getSelected');
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord", "info");
+                return;
+            }
+            var UserCode = row.UserCode;
+            var OrgId = row.OrgID;
+
+            $.messager.confirm("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SureResetPassword", function (r) {
+                if (r) {
+                    //$.messager.progress();
+                    $.post("@Url.Action("ResetPassword", "Master")", { UserCode: UserCode, OrgID: OrgId }, function (data) {
+                        $.messager.progress('close');
+                        data = eval("(" + data + ")");
+                        if (data.result == "succeed") {
+                            $("#grid").datagrid('load'); $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_ResetPasswordSuccess", "info");
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", data.msg, "info");
+                    });
+                }
+            });
+        }
+        
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Type, Value, Url) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (Type == "1") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", Value);
+                    }
+                }
+            });
+        }
+    </script>
+}
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 60px;">
+                <label>@Resources.Language.txt_Organization:
+                    <select id="SOrganization" name="SOrganization" class="easyui-combotree" style="width: 150px;" data-options="multiple:true,panelHeight:'300',panelWidth:300"></select>
+                </label>
+
+                <label>@Resources.Language.txt_Code:
+                    <input class="easyui-validatebox" id="SUserCode" style="width: 120px" name="SUserCode">
+                </label>
+                <label>@Resources.Language.txt_Role:
+                    <select class="easyui-combobox" id="SType" name="SType" style="width: 120px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <label>@Resources.Language.txt_UserProfile:
+                    <select class="easyui-combobox" id="SRole" name="SRole" style="width: 120px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 120px;" data-options="editable:false,panelHeight:'auto'">
+                        <option value="">@Resources.Language.txt_All</option>
+                        <option value="1" selected="selected">@Resources.Language.txt_Active</option>
+                        <option value="0">@Resources.Language.txt_InActive</option>
+                    </select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 650px; height: 500px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" class="easyui-layout" method="post" data-options="fit:true">
+                    <div data-options="region:'north',border:false">
+                        <table border="0" class="table-input" style="width:95%">
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Code:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" name="UserCode" id="UserCode" data-options="required:true,validType:['length[0,50]']" />
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Role:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select class="easyui-combobox" id="Type" name="Type" style="width: 160px;" data-options="required:true,editable:false,panelHeight:'auto'"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_FirstName:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" name="FirstName" id="FirstName" data-options="required:true,validType:['length[0,50]']" />
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_LastName:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" name="LastName" id="LastName" data-options="required:true,validType:['length[0,50]']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Organization:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select id="Organization" name="Organization" class="easyui-combotree" style="width: 160px;" data-options="required:true,panelHeight:'300',panelWidth:300"></select>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Company:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select class="easyui-combobox" id="Company" name="Company" style="width: 160px;" data-options="required:true,editable:false,panelHeight:'auto'"></select>
+                                </td>
+                                
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Warehouse:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select class="easyui-combobox" id="Warehouse" name="Warehouse" style="width: 160px;" data-options="editable:false,panelHeight:'auto'"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Email:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" validtype='email' name="Email" id="Email" data-options="required:false,validType:['length[0,50]']" />
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Mobile:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" name="Mobile" id="Mobile" validtype='phoneNum' data-options="required:false,validType:['length[0,50]']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Active:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="checkbox" name="Valid"/>
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Locked:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="checkbox" name="Locked" />
+                                </td>
+                            </tr>
+                            <tr id="trLoginInfo" style="display:none">
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_LastLoginTime:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" name="LastLoginTime" id="LastLoginTime" disabled="disabled" />
+                                </td>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_LoginFailed:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" style="width: 160px" class="easyui-validatebox" name="LoginFailed" id="LoginFailed" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr style="display: none">
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txtNeedChangePwd:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="checkbox" name="NeedChangePwd" />
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div data-options="region:'center',border:true" style="height: 180px;">
+                        <table id="gridRole">
+                        </table>
+                    </div>
+                    <input type="hidden" id="hidMode" name="hidMode" value="" />
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>

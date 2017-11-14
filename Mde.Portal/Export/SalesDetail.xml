@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="SalesDetail" FileName="销售汇总">
+  <Columns>
+    <Column FieldName="CustomerCode" DisplayName="客户编号" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="CustomerName" DisplayName="客户名称" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="SaleQty" DisplayName="销量" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="OrderPrice" DisplayName="销售额" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

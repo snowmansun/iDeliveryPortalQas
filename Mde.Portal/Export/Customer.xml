@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="customer" FileName="客户主数据">
+    <Columns>
+        <Column FieldName="code" DisplayName="客户编号" Required="true" Width="20">
+            <Sample>
+                <Comment></Comment>
+                <Description>0001001</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="name" DisplayName="客户名称" Required="true" Width="30">
+            <Sample>
+                <Comment></Comment>
+                <Description>上海意贝斯特信息技术有限公司</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="address" DisplayName="客户地址" Required="true" Width="40">
+            <Sample>
+                <Comment></Comment>
+                <Description>虹漕路461号漕河泾软件大厦19楼</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="postal_code" DisplayName="邮政编码" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description>200030</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="contact" DisplayName="联系人" Required="true" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description>张三</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="telphone" DisplayName="电话" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description>021-64682167</Description>
+            </Sample>
+        </Column>
+      <Column FieldName="mobile" DisplayName="手机" Width="15">
+        <Sample>
+          <Comment></Comment>
+          <Description>13536880988</Description>
+        </Sample>
+      </Column>
+        <Column FieldName="channel" DisplayName="销售渠道" Required="true" Width="15">
+            <Sample>
+                <Comment>如果有上级销售渠道，下级销售渠道前要加上级销售渠道，用/隔开，如：意贝斯特/上海总部</Comment>
+                <Description>意贝斯特/上海总部</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="cust_level" DisplayName="客户等级" Width="15">
+            <Sample>
+                <Comment></Comment>
+                <Description></Description>
+            </Sample>
+        </Column>
+        <Column FieldName="cust_chain" DisplayName="连锁集团" Width="30">
+            <Sample>
+                <Comment></Comment>
+                <Description></Description>
+            </Sample>
+        </Column>
+        <!--<Column FieldName="region" DisplayName="行政架构" Width="30">
+            <Sample>
+                <Comment></Comment>
+                <Description>上海</Description>
+            </Sample>
+        </Column>-->
+        <Column FieldName="org" DisplayName="组织架构" Required="true" Width="30">
+            <Sample>
+                <Comment>如果有上级组织架构，下级组织架构前要加上级组织架构，用/隔开，如：意贝斯特/上海总部</Comment>
+                <Description>意贝斯特/上海总部</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="open_time" DisplayName="营业时间" Width="15">
+            <Sample>
+                <Comment>时间格式hh:mm</Comment>
+                <Description>09:15</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="close_time" DisplayName="停业时间" Width="15">
+            <Sample>
+                <Comment>时间格式hh:mm</Comment>
+                <Description>18:00</Description>
+            </Sample>
+        </Column>
+        <Column FieldName="valid" DisplayName="是否有效" Required="true" Width="15">
+            <Sample>
+                <Comment>1有效，0无效</Comment>
+                <Description>1</Description>
+            </Sample>
+        </Column>
+      <Column FieldName="errormsg" DisplayName="错误信息" Width="40">
+        <Sample>
+          <Comment></Comment>
+          <Description></Description>
+        </Sample>
+      </Column>
+    </Columns>
+</Table>

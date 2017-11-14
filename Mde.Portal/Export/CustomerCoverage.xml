@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="customercoverage" FileName="客户覆盖">
+  <Columns>
+    <Column FieldName="loginname" DisplayName="用户账号" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>1001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="username" DisplayName="用户姓名" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>刘珍</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="customercode" DisplayName="客户编号" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>0001001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="customername" DisplayName="客户姓名" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>上海意贝斯特信息技术有限公司</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="是否有效" Required="true" Width="15">
+      <Sample>
+        <Comment>1有效，0无效</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="错误信息" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

@@ -1,0 +1,246 @@
+﻿html, body, .page
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body, input, select, textarea
+{
+    font-family: 'helvetica neue','microsoft yahei','\5fae\8f6f\96c5\9ed1',helvetica,arial,sans-serif;
+    font-size: 12px;
+    color: #555;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+    background: #fff;
+}
+
+body
+{
+    position: relative;
+    background: #017be5;
+    background: -webkit-gradient(linear,0 0,0 bottom,from(#017be5),to(#9ed6f5));
+    background: -webkit-linear-gradient(#017be5,#9ed6f5);
+    background: -moz-linear-gradient(#017be5,#9ed6f5);
+    background: -ms-linear-gradient(#017be5,#9ed6f5);
+    background: -o-linear-gradient(#017be5,#9ed6f5);
+    background: linear-gradient(#017be5,#9ed6f5);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ff017be5',EndColorStr='#ff9ed6f5');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ff017be5',EndColorStr='#ff9ed6f5')";
+    zoom: 1;
+}
+
+ul, li
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+img
+{
+    border: 0;
+}
+
+.page
+{
+    background: url('/Images/login/cloud.png') no-repeat 50% 60px;
+}
+
+.wrapper
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
+    width: 360px;
+    height: 520px;
+    margin: -260px 0 0 -180px;
+}
+
+.brand
+{
+    margin: 0 5px 10px;
+    color: #fff;
+}
+
+    .brand h1, .brand h3
+    {
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        text-shadow: 0 0 5px rgba(0,0,0,.15);
+    }
+
+    .brand h1
+    {
+        font-size: 21px;
+    }
+
+    .brand h3
+    {
+        font-size: 16px;
+    }
+
+.login
+{
+    position: relative;
+    z-index: 101;
+    padding: 20px 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    height: 300px;
+    -webkit-box-shadow: rgba(0,0,0,.2) 0 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,.2) 0 2px 3px;
+    box-shadow: rgba(0,0,0,.2) 0 2px 3px;
+    background: #f7f7f7;
+    background: -webkit-gradient(linear,0 0,0 bottom,from(#f7f7f7),to(#f0f0f0));
+    background: -webkit-linear-gradient(#f7f7f7,#f0f0f0);
+    background: -moz-linear-gradient(#f7f7f7,#f0f0f0);
+    background: -ms-linear-gradient(#f7f7f7,#f0f0f0);
+    background: -o-linear-gradient(#f7f7f7,#f0f0f0);
+    background: linear-gradient(#f7f7f7,#f0f0f0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fff7f7f7',EndColorStr='#fff0f0f0');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fff7f7f7',EndColorStr='#fff0f0f0')";
+    zoom: 1;
+}
+
+    .login h2
+    {
+        margin: 0 0 16px;
+        padding: 0;
+        font-weight: normal;
+        font-size: 15px;
+        color: #5192e5;
+    }
+
+    .login ul
+    {
+        padding-bottom: 8px;
+    }
+
+    .login li
+    {
+        margin-bottom: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 22px;
+    }
+
+        .login li label, .login li input, .login li select
+        {
+            display: inline-block;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            height: 22px;
+            line-height: 22px;
+            vertical-align: top;
+        }
+
+        .login li label
+        {
+            padding-right: 10px;
+            width: 110px;
+            text-align: right;
+            cursor: pointer;
+        }
+
+        .login li input, .login li select
+        {
+            margin: 0;
+            width: 180px;
+            border: 1px solid #ccc;
+            color: #000;
+        }
+
+.btn-group, .button
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0;
+    text-align: center;
+    height: 30px;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.button
+{
+    margin: 0 6px;
+    width: 90px;
+    color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.submit
+{
+    width:230px;
+    background: #f3891e;
+    background: -webkit-gradient(linear,0 0,0 bottom,from(#febd21),to(#f3891e));
+    background: -webkit-linear-gradient(#febd21,#f3891e);
+    background: -moz-linear-gradient(#febd21,#f3891e);
+    background: -ms-linear-gradient(#febd21,#f3891e);
+    background: -o-linear-gradient(#febd21,#f3891e);
+    background: linear-gradient(#febd21,#f3891e);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fffebd21',EndColorStr='#fff3891e');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fffebd21',EndColorStr='#fff3891e')";
+    zoom: 1;
+}
+
+.reset
+{
+    background: #0184cb;
+    background: -webkit-gradient(linear,0 0,0 bottom,from(#21d2fe),to(#0184cb));
+    background: -webkit-linear-gradient(#21d2fe,#0184cb);
+    background: -moz-linear-gradient(#21d2fe,#0184cb);
+    background: -ms-linear-gradient(#21d2fe,#0184cb);
+    background: -o-linear-gradient(#21d2fe,#0184cb);
+    background: linear-gradient(#21d2fe,#0184cb);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ff21d2fe',EndColorStr='#ff0184cb');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ff21d2fe',EndColorStr='#ff0184cb')";
+    zoom: 1;
+}
+
+.footer, .footer div
+{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    .footer .bg
+    {
+        position: absolute;
+        height: 100px;
+        background: #fff;
+    }
+
+    .footer .cloud
+    {
+        position: absolute;
+        top: 0;
+        height: 60px;
+        background: url('/Images/login/cloud2.png') no-repeat 50% 0;
+    }
+
+#scd
+{
+    width: 97px;
+    margin: 0 10px 0 0;
+}

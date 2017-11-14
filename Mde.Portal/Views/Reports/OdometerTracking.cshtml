@@ -1,0 +1,136 @@
+﻿@model Mde.Model.DataModel.DSD_T_OdometerTracking
+@{
+    ViewBag.Title = "OdometerTracking";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            $("#SDateFrom").datebox("setValue", formatterDate(new Date()));
+            $("#SDateTo").datebox("setValue", formatterDate(new Date()));
+            InitComboboxData($("#SStatus"), "BizModel");
+
+            InitGrid();
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+        });
+
+        //获取当前时间
+        function formatterDate(date) {
+            var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
+            + (date.getMonth() + 1);
+            var hor = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            return date.getFullYear() + '-' + month + '-' + day;//+ " " + hor + ":" + min + ":" + sec;
+        };
+
+        function RefreshGrid() {
+            var queryData = {
+                Truck: $("#STruck").val(),
+                DateFrom: $("#SDateFrom").datebox("getValue"),
+                DateTo: $("#SDateTo").datebox("getValue"),
+                Status:$("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("LoadOdometerData", "Reports")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                Truck: $("#STruck").val(),
+                DateFrom: $("#SDateFrom").datebox("getValue"),
+                DateTo: $("#SDateTo").datebox("getValue"),
+                Status:$("#SStatus").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("LoadOdometerData", "Reports")',
+                queryParams: queryData,
+                columns:
+                    [[
+                        {
+                            field: 'TrackingTime', title: '@Resources.Language.txt_TrackingTime', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeTimeFormat(value);
+                            }
+                        },
+                        { field: 'DriverName', title: '@Resources.Language.txt_Driver', width: 50 },
+                        { field: 'TruckCode', title: '@Resources.Language.txt_Truck', width: 50 },
+                        { field: 'ShipmentNo', title: '@Resources.Language.txt_ShipmentNo', width: 50 },
+                        { field: 'ActionDesc', title: '@Resources.Language.txt_Status', width: 50 },
+                        { field: 'Odometer', title: '@Resources.Language.txt_Odometer', width: 50 }
+                    ]
+                    ]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+        
+        //初始化下拉框数据
+        function InitComboboxData(Control, Category) {
+            var Url = "@Url.Action("GetDictionCodeComboxData","Configuration")";
+            Url = Url + "?Category=" + Category + "&NeedAll=true";
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (val.length > 0)
+                        $(this).combobox("select", val[0].value);
+                }
+            });
+        }
+    </script>
+}
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" >
+                <label>@Resources.Language.txt_TruckNumber:
+                    <input class="easyui-validatebox" id="STruck" name="STruck">
+                </label>
+                <label>@Resources.Language.txt_StartDate:
+                    <input id="SDateFrom" name="SDateFrom" type="text" class="easyui-datebox" data-options="formatter:ww4" style="width: 130px;">
+                </label>
+                <label>@Resources.Language.txt_EndDate:
+                    <input id="SDateTo" name="SDateTo" type="text" class="easyui-datebox" data-options="formatter:ww4" style="width: 130px;">
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus"  style="width:130px" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

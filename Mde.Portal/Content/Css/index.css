@@ -1,0 +1,52 @@
+﻿*{font-size:12px; font-family:Tahoma,Verdana,微软雅黑,新宋体}
+body{background:#D2E0F2; }
+a{ color:Black; text-decoration:none;}
+a:hover{ color:Red; text-decoration:underline;}
+.textbox03 {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,宋体;line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;  font-weight: bold; width: 190px; }
+
+.txt01{font:Verdana, Geneva, sans-serif,宋体;padding:3px 2px 2px 2px; border-width:1px; border-color:#ddd;  color:#000;}
+.txt {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,宋体;line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;}
+.footer{text-align:center;color:#15428B; margin:0px; padding:0px;line-height:23px; font-weight:bold;}
+
+.head a{color:White;text-decoration:underline;}
+
+.navlist{list-style-type:none;margin:0px; padding:10px;}
+.navlist li{ padding:0px;}
+.navlist li a{line-height:24px;}
+.navlist li div{margin:2px 0px;padding-left:10px;padding-top:2px; border:1px dashed #ffffff;}
+.navlist li div:hover{border:1px dashed #99BBE8; background:#E0ECFF;cursor:pointer;}
+.navlist li div:hover a{color:#416AA3;}
+.navlist li div.selected{border:1px solid #99BBE8; background:#E0ECFF;cursor:default;}
+.navlist li div.selected a{color:#416AA3; font-weight:bold;}
+
+
+.icon-customers{
+	background:url('/Images/navigation/customers.png') no-repeat center center;
+}
+.icon-products{
+	background:url('/Images/navigation/products.png') no-repeat center center;
+}
+.icon-task{
+	background:url('/Images/navigation/task.png') no-repeat center center;
+}
+.icon-survey{
+	background:url('/Images/navigation/survey.png') no-repeat center center;
+}
+.icon-visit{
+	background:url('/Images/navigation/visit.png') no-repeat center center;
+}
+.icon-attendance{
+	background:url('/Images/navigation/attendance.png') no-repeat center center;
+}
+.icon-users{
+	background:url('/Images/navigation/users.png') no-repeat center center;
+}
+.icon-system{
+	background:url('/Images/navigation/system.png') no-repeat center center;
+}
+.icon-order{
+	background:url('/Images/navigation/order.png') no-repeat center center;
+}
+.icon-reporting{
+	background:url('/Images/navigation/reporting.png') no-repeat center center;
+}

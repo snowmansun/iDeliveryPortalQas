@@ -1,0 +1,139 @@
+﻿@{
+Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iDelivery</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" href="~/Content/themes/gray/easyui.css">
+    <link rel="stylesheet" href="~/Content/themes/color.css">
+    <link rel="stylesheet" href="~/Styles/icon.css">
+    <link rel="stylesheet" href="~/Styles/base.css">
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Session超时后页面自动跳出框架
+            if (window.top != window.self)
+                top.location.href = location.href;
+
+            //生成验证码
+            UpdateVerifyCode();
+
+            $("#SecurityPhoto").click(function () {
+                UpdateVerifyCode();
+            });
+
+            $("#login").click(function () {
+                Login();
+            });
+
+            $("#Scd").focus(function () {
+                interval = setInterval(auto_login, 1000);
+            });
+
+            $("#Scd").blur(function () {
+                clearInterval(interval);
+            });
+        });
+
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        function auto_login() {
+            if ($("#Scd").val().length >= 6) {
+                Login();
+            }
+        }
+
+        function UpdateVerifyCode() {
+            //var url = "/Login/CreateSecurityCode?time=" + (new Date()).getTime();
+            var url = "@Url.Action("CreateSecurityCode","Login")" + "?time=" + (new Date()).getTime();
+            $("#SecurityPhoto").attr("src", url);
+        }
+
+        //点击登陆非空验证
+        function Login() {
+            if ($("input", $("#LoginName").next("span")).val() == "") {
+                $("#msgBox").html("@Resources.Message.msg_LoginNameRequired");
+                return false;
+            }
+            if ($("input", $("#Password").next("span")).val() == "") {
+                $("#msgBox").html("@Resources.Message.msg_PasswordRequired");
+                return false;
+            }
+            if ($("input", $("#Scd").next("span")).val() == "") {
+                $("#msgBox").html("@Resources.Message.msg_ValidateCodeRequired");
+                return false;
+            }
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("Login","Login")",//"/Login/Login",
+                data: $("#form1").serialize(),
+                beforeSend: function (obj) {
+                    console.log(obj);
+                    $("#login").val("@Resources.Language.btn_Login" + "...");
+                    $('#login').attr('disabled', "disabled");
+                },
+
+                success: function (data) {
+                    data = eval("(" + data + ")");
+                    console.log(data.Success);
+                    if (data.Success) {
+                        //location.href = "/Home?OldPwd=" + $("#Password").val();
+                        location.href = "@Url.Action("Index","Home")";//"/Home";
+                    }
+                    else {
+                        console.log(data.Message);
+                        $("#msgBox").html(data.Message);
+                        $("#login").val("@Resources.Language.btn_Login");
+                        $('#login').removeAttr("disabled");
+                        $("#Scd").val("");
+                        $("#Password").val("").focus();
+                        UpdateVerifyCode();
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+    
+<body class="easyui-layout main" fit="true">
+	<div class="login-wrapper">
+		<div class="login-panel">
+			<div class="box">
+				<div class="box-tilte">Coca-Cola iDelivery System</div>
+				<form id="form1" method="post">
+		            <div class="form-group">
+		            	<label>Login Name: </label>
+		                <input type="text" class="textbox" id="LoginName" name="LoginName">
+		            </div>
+		            <div class="form-group">
+		            	<label>Password: </label>
+		                <input type="password" class="textbox" id="Password" name="Password">
+		            </div>
+		            <div class="form-group">
+		            	<label>Security Code: </label>
+		                <input type="text" class="textbox textbox-s" id="Scd" name="Scd">
+	                	<a href="#" title="@Resources.Language.txt_RefreshSecurityCode"><img id="SecurityPhoto" alt="" class="securitycode"></a>
+		            </div>
+		            <p class="error-msg" id="msgBox">
+		            </p>
+                    <input type="button" id="login" class="login-btn" value="@Resources.Language.btn_Login" />
+		        </form>
+			</div>
+			<div class="copyright">Copyright &copy; 2014 eBestMobile, All rights reserved.</div>
+		</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="user" FileName="Users">
+  <Columns>
+    <Column FieldName="loginname" DisplayName="User ID" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>Linda</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="username" DisplayName="User Name" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>Linda Liu</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="telephone" DisplayName="TEL" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="email" DisplayName="Email" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="jointime" DisplayName="Entry Date"  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>2014-01-01</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="leavetime" DisplayName="Leave Date" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>2014-01-01</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="role" DisplayName="Role" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>Admin</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="position" DisplayName="Position" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="org" DisplayName="Organization" Required="true" Width="30">
+      <Sample>
+        <Comment>Required, If have higher organization, then must add the higher organization , use "/" to divide, for example, HQ/Thailand. One user can link to multiple organizaitons, use","to divide</Comment>
+        <Description>HQ/Thailand/Phuket Island,HQ/Thailand/Bangkok</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="department" DisplayName="Department" Width="30">
+      <Sample>
+        <Comment>Required, If have higher department, then must add the higher department , use "/" to divide, for example, HQ/Thailand.</Comment>
+        <Description>HQ/Thailand/Phuket Island,HQ/Thailand/Bangkok</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="Valid" Width="15">
+      <Sample>
+        <Comment>0 Locked,1 Valid,2 Dimission</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="Error Message" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

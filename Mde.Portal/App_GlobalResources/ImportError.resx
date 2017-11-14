@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="err_010100" xml:space="preserve">
+    <value>组织架构不能为空</value>
+  </data>
+  <data name="err_010101" xml:space="preserve">
+    <value>组织架构不存在</value>
+  </data>
+  <data name="err_010102" xml:space="preserve">
+    <value>匹配到多个组织架构</value>
+  </data>
+  <data name="err_010200" xml:space="preserve">
+    <value>客户编号不能为空</value>
+  </data>
+  <data name="err_010300" xml:space="preserve">
+    <value>客户名称不能为空</value>
+  </data>
+  <data name="err_010400" xml:space="preserve">
+    <value>客户地址不能为空</value>
+  </data>
+  <data name="err_010500" xml:space="preserve">
+    <value>联系人不能为空</value>
+  </data>
+  <data name="err_010600" xml:space="preserve">
+    <value>联系电话不能为空</value>
+  </data>
+  <data name="err_010700" xml:space="preserve">
+    <value>销售渠道不能为空</value>
+  </data>
+  <data name="err_010701" xml:space="preserve">
+    <value>销售渠道不存在</value>
+  </data>
+  <data name="err_010702" xml:space="preserve">
+    <value>匹配到多个销售渠道</value>
+  </data>
+  <data name="err_010800" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_010801" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="err_010901" xml:space="preserve">
+    <value>客户等级不存在</value>
+  </data>
+  <data name="err_011001" xml:space="preserve">
+    <value>行政架构不存在</value>
+  </data>
+  <data name="err_011002" xml:space="preserve">
+    <value>匹配到多个行政架构</value>
+  </data>
+  <data name="err_011100" xml:space="preserve">
+    <value>连锁集团不存在</value>
+  </data>
+  <data name="err_020100" xml:space="preserve">
+    <value>产品编号不能为空</value>
+  </data>
+  <data name="err_020200" xml:space="preserve">
+    <value>产品名称不能为空</value>
+  </data>
+  <data name="err_020300" xml:space="preserve">
+    <value>产品简称不能为空</value>
+  </data>
+  <data name="err_020400" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_020500" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_020600" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_020700" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_020800" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_020900" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_021000" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_021100" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_021200" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="err_021300" xml:space="preserve">
+    <value>产品类型不能为空</value>
+  </data>
+  <data name="err_021301" xml:space="preserve">
+    <value>产品类型不存在</value>
+  </data>
+  <data name="err_021400" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_021401" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="err_030100" xml:space="preserve">
+    <value>账号不能为空</value>
+  </data>
+  <data name="err_030200" xml:space="preserve">
+    <value>姓名不能为空</value>
+  </data>
+  <data name="err_030300" xml:space="preserve">
+    <value>用户职位不存在</value>
+  </data>
+  <data name="err_030400" xml:space="preserve">
+    <value>用户角色不能为空</value>
+  </data>
+  <data name="err_030401" xml:space="preserve">
+    <value>用户角色不存在</value>
+  </data>
+  <data name="err_030500" xml:space="preserve">
+    <value>组织架构不能为空</value>
+  </data>
+  <data name="err_030501" xml:space="preserve">
+    <value>组织架构不存在</value>
+  </data>
+  <data name="err_030502" xml:space="preserve">
+    <value>匹配到多个组织架构</value>
+  </data>
+  <data name="err_030600" xml:space="preserve">
+    <value>入职日期格式不正确</value>
+  </data>
+  <data name="err_030700" xml:space="preserve">
+    <value>离职日期格式不正确</value>
+  </data>
+  <data name="txt_CustomerError" xml:space="preserve">
+    <value>客户主数据错误信息</value>
+  </data>
+  <data name="txt_DownloadTemplate" xml:space="preserve">
+    <value>下载模板</value>
+  </data>
+  <data name="txt_FlashError" xml:space="preserve">
+    <value>您未安装FLASH控件</value>
+  </data>
+  <data name="txt_ProductError" xml:space="preserve">
+    <value>产品主数据错误信息</value>
+  </data>
+  <data name="txt_selectExcel" xml:space="preserve">
+    <value>请选择Excel工作簿（*.xlsx）</value>
+  </data>
+  <data name="txt_SelectFile" xml:space="preserve">
+    <value>选择文件</value>
+  </data>
+  <data name="txt_Step1" xml:space="preserve">
+    <value>步骤一: 准备数据文件</value>
+  </data>
+  <data name="txt_Step1Text1" xml:space="preserve">
+    <value>使用数据模板文件录入信息。</value>
+  </data>
+  <data name="txt_Step1Text2" xml:space="preserve">
+    <value>为保证正确导入，请按照模板内的要求进行填写</value>
+  </data>
+  <data name="txt_Step2" xml:space="preserve">
+    <value>步骤二: 上传数据文件</value>
+  </data>
+  <data name="txt_Step2Text1" xml:space="preserve">
+    <value>点击下方按钮选择文件即可上传。目前仅支持Excel工作簿（*.xlsx）。</value>
+  </data>
+  <data name="txt_Template" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="txt_UploadFailed" xml:space="preserve">
+    <value>导入数据失败</value>
+  </data>
+  <data name="txt_UserError" xml:space="preserve">
+    <value>用户主数据错误信息</value>
+  </data>
+  <data name="txt_Tip" xml:space="preserve">
+    <value>以上为说明及范例,导入时不可删除!!!</value>
+  </data>
+  <data name="txt_Require" xml:space="preserve">
+    <value>必填，</value>
+  </data>
+  <data name="txt_ProdListCustError" xml:space="preserve">
+    <value>产品分销列表-客户主数据错误信息</value>
+  </data>
+  <data name="txt_ProdListProdError" xml:space="preserve">
+    <value>产品分销列表-产品主数据错误信息</value>
+  </data>
+  <data name="err_040100" xml:space="preserve">
+    <value>分销列表名称不能为空</value>
+  </data>
+  <data name="err_040200" xml:space="preserve">
+    <value>客户编号不能为空</value>
+  </data>
+  <data name="err_040300" xml:space="preserve">
+    <value>客户不存在</value>
+  </data>
+  <data name="err_040400" xml:space="preserve">
+    <value>客户名称不能为空</value>
+  </data>
+  <data name="err_040500" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_040600" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="err_050100" xml:space="preserve">
+    <value>分销列表名称不能为空</value>
+  </data>
+  <data name="err_050200" xml:space="preserve">
+    <value>产品编号不能为空</value>
+  </data>
+  <data name="err_050300" xml:space="preserve">
+    <value>产品不存在</value>
+  </data>
+  <data name="err_050400" xml:space="preserve">
+    <value>产品名称不能为空</value>
+  </data>
+  <data name="err_050500" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_050600" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="txt_UserListProdError" xml:space="preserve">
+    <value>用户分销列表-产品主数据错误信息</value>
+  </data>
+  <data name="txt_UserListRoleError" xml:space="preserve">
+    <value>用户分销列表-角色主数据错误信息</value>
+  </data>
+  <data name="err_060100" xml:space="preserve">
+    <value>分销列表名称不能为空</value>
+  </data>
+  <data name="err_060200" xml:space="preserve">
+    <value>角色编号不能为空</value>
+  </data>
+  <data name="err_060300" xml:space="preserve">
+    <value>角色不存在</value>
+  </data>
+  <data name="err_060400" xml:space="preserve">
+    <value>角色名称不能为空</value>
+  </data>
+  <data name="err_060500" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_060600" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="err_070100" xml:space="preserve">
+    <value>分销列表名称不能为空</value>
+  </data>
+  <data name="err_070200" xml:space="preserve">
+    <value>产品编号不能为空</value>
+  </data>
+  <data name="err_070300" xml:space="preserve">
+    <value>产品不存在</value>
+  </data>
+  <data name="err_070400" xml:space="preserve">
+    <value>产品名称不能为空</value>
+  </data>
+  <data name="err_070500" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_070600" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="txt_RoutePlanError" xml:space="preserve">
+    <value>拜访路线规划主数据错误信息</value>
+  </data>
+  <data name="err_080100" xml:space="preserve">
+    <value>用户账号不能为空</value>
+  </data>
+  <data name="err_080200" xml:space="preserve">
+    <value>用户账号不存在</value>
+  </data>
+  <data name="err_080300" xml:space="preserve">
+    <value>用户姓名不能为空</value>
+  </data>
+  <data name="err_080400" xml:space="preserve">
+    <value>客户编号不能为空</value>
+  </data>
+  <data name="err_080500" xml:space="preserve">
+    <value>客户编号不存在</value>
+  </data>
+  <data name="err_080600" xml:space="preserve">
+    <value>客户名称不能为空</value>
+  </data>
+  <data name="err_080700" xml:space="preserve">
+    <value>线路编号不能为空</value>
+  </data>
+  <data name="err_080800" xml:space="preserve">
+    <value>线路编号不存在</value>
+  </data>
+  <data name="err_080900" xml:space="preserve">
+    <value>开始日期不能为空</value>
+  </data>
+  <data name="err_081000" xml:space="preserve">
+    <value>开始日期格式不正确</value>
+  </data>
+  <data name="err_081100" xml:space="preserve">
+    <value>开始日期和线路编号不匹配</value>
+  </data>
+  <data name="err_081200" xml:space="preserve">
+    <value>拜访顺序格式不正确</value>
+  </data>
+  <data name="err_081300" xml:space="preserve">
+    <value>拜访频率不能为空</value>
+  </data>
+  <data name="err_081400" xml:space="preserve">
+    <value>拜访频率不存在</value>
+  </data>
+  <data name="err_081500" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_081600" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="txt_RouteDetailError" xml:space="preserve">
+    <value>拜访线路明细主数据错误信息</value>
+  </data>
+  <data name="err_090100" xml:space="preserve">
+    <value>拜访日期不能为空</value>
+  </data>
+  <data name="err_090200" xml:space="preserve">
+    <value>拜访日期格式不正确</value>
+  </data>
+  <data name="err_090300" xml:space="preserve">
+    <value>用户账号不能为空</value>
+  </data>
+  <data name="err_090400" xml:space="preserve">
+    <value>用户账号不存在</value>
+  </data>
+  <data name="err_090500" xml:space="preserve">
+    <value>用户姓名不能为空</value>
+  </data>
+  <data name="err_090600" xml:space="preserve">
+    <value>客户编号不能为空</value>
+  </data>
+  <data name="err_090700" xml:space="preserve">
+    <value>客户编号不存在</value>
+  </data>
+  <data name="err_090800" xml:space="preserve">
+    <value>客户名称不能为空</value>
+  </data>
+  <data name="err_090900" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_091000" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="err_091100" xml:space="preserve">
+    <value>该用户的组织架构下不包含该客户</value>
+  </data>
+  <data name="err_081700" xml:space="preserve">
+    <value>该用户的组织架构下不包含该客户</value>
+  </data>
+  <data name="txt_CustomerCoverage" xml:space="preserve">
+    <value>客户覆盖主数据错误信息</value>
+  </data>
+  <data name="err_100100" xml:space="preserve">
+    <value>用户账号不存在</value>
+  </data>
+  <data name="err_100200" xml:space="preserve">
+    <value>用户账号不存在</value>
+  </data>
+  <data name="err_100300" xml:space="preserve">
+    <value>用户姓名不能为空</value>
+  </data>
+  <data name="err_100400" xml:space="preserve">
+    <value>客户编号不能为空</value>
+  </data>
+  <data name="err_100500" xml:space="preserve">
+    <value>客户编号不存在</value>
+  </data>
+  <data name="err_100600" xml:space="preserve">
+    <value>客户名称不能为空</value>
+  </data>
+  <data name="err_100700" xml:space="preserve">
+    <value>是否有效不能为空</value>
+  </data>
+  <data name="err_100800" xml:space="preserve">
+    <value>是否有效不存在</value>
+  </data>
+  <data name="err_100900" xml:space="preserve">
+    <value>该用户的组织架构下不包含该客户</value>
+  </data>
+  <data name="err_030801" xml:space="preserve">
+    <value>部门不存在</value>
+  </data>
+  <data name="err_030802" xml:space="preserve">
+    <value>匹配到多个部门</value>
+  </data>
+  <data name="err_091200" xml:space="preserve">
+    <value>拜访顺序不能为空</value>
+  </data>
+  <data name="err_091300" xml:space="preserve">
+    <value>拜访顺序格式不正确</value>
+  </data>
+  <data name="err_011200" xml:space="preserve">
+    <value>手机不能为空</value>
+  </data>
+</root>

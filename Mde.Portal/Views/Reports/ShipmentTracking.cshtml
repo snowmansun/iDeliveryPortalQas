@@ -1,0 +1,465 @@
+﻿@{
+    ViewBag.Title = "ShipmentTracking";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section style{
+    <link href="~/Styles/viewer.min.css" rel="stylesheet" />
+    <style>
+        .imgDiv {
+            width: 98%;
+            overflow-x: scroll;
+            padding: 0 5px;
+        }
+        .imgUl{
+            float: left;
+        }
+        .imgli {
+            list-style-type: none;
+            padding: 3px 0;
+        }
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber
+            {
+                text-overflow: ellipsis;
+            }
+        .imgClass { display: inline-block; width: 32%; margin-left: 1%; padding-top: 1%;}
+        .imgClass img { width: 100%;}
+    </style>    
+}
+@section script{
+    <script src="~/Scripts/viewer.min.js"></script>
+    <script src="~/Scripts/viewer-jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#SDate").datebox("setValue", formatterDate(new Date()));
+            InitComboboxData($("#SStatus"), "ShipmentStatus");
+            InitComboboxData($("#SShipmentType"), "ShipmentType");
+            InitGrid();
+
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+            $("#btnCloseImg").click(function () {
+                $("#ImageDialog").dialog("close");
+            });
+        });
+
+        //获取当前时间
+        function formatterDate(date) {
+            var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
+            + (date.getMonth() + 1);
+            var hor = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            return date.getFullYear() + '-' + month + '-' + day;//+ " " + hor + ":" + min + ":" + sec;
+        };
+
+        function RefreshGrid() {
+            var queryData = {
+                ShipmentNo: $("#SShipmentNo").val(),
+                Driver: $("#SDriver").val(),
+                ShipmentDate: $("#SDate").datebox("getValue"),
+                Status: $("#SStatus").combobox("getValue"),
+                ShipmentType: $("#SShipmentType").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("LoadTrackingData", "Reports")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                ShipmentNo: $("#SShipmentNo").val(),
+                Driver: $("#SDriver").val(),
+                ShipmentDate: $("#SDate").datebox("getValue"),
+                Status: $("#SStatus").combobox("getValue"),
+                ShipmentType: $("#SShipmentType").combobox("getValue")
+            };
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("LoadTrackingData", "Reports")',
+                //idField: 'AccountNumber',
+                queryParams: queryData,
+                columns:
+                    [[
+                        {
+                            field: 'ShipmentDate', title: '@Resources.Language.txt_Date', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeDateFormat(value);
+                            }
+                        },
+                        { field: 'ShipmentNo', title: '@Resources.Language.txt_ShipmentNo', width: 50 },
+                        { field: 'ShipmentType', title: '@Resources.Language.txt_ShipmentType', width: 50 },
+                        { field: 'Driver', title: '@Resources.Language.txt_Driver', width: 50 },
+                        { field: 'Truck', title: '@Resources.Language.txt_Truck', width: 50 },
+                        { field: 'Company', title: '@Resources.Language.txt_Company', width: 50 },
+                        { field: 'Warehouse', title: '@Resources.Language.txt_Warehouse', width: 50 },
+                        { field: 'StatusDesc', title: '@Resources.Language.txt_Status', width: 50 },
+                        {
+                            field: 'CheckerConfirmTime', title: '@Resources.Language.txt_ActionTime', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == "" || !value) {
+                                    return "";
+                                }
+                                else
+                                    return ChangeTimeFormat(value);
+                            }
+                        }
+                    ]
+                    ],
+                toolbar: [{
+                    id: 'btnDetail_1',
+                    text: '@Resources.Language.btn_Detail',
+                    iconCls: 'icon-search',
+                    handler: function () {
+                        ShowDialog();
+                    }
+                }],
+                rowStyler: function (index, row) {
+                    if (row.DeleteFlag == 1) {
+                        return "color:Red";
+                    }
+                }
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        //显示弹出层
+        function ShowDialog() {
+            var title;
+
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            else {
+                InitGridItem(row.HeaderId, row.Status);
+                $("#ulChecker").hide();
+                $("#ulCheckerDiver").hide();
+                $("#ulCashier").hide();
+                $("#ulCashierDriver").hide();
+                $("#ulGatekeeper").hide();
+                $("#ulGKDriver").hide();
+                
+                //Checker
+                if (row.CheckerSignImg) {
+                    $("#ulChecker").show();
+                    $('#imgChecker').viewer({
+                        navbar: false,
+                        title:false,
+                        url: 'data-original',
+                    });
+                    var url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.CheckerSignImg;
+                    $("#imgChecker").attr('src', url);
+                    $("#imgChecker").attr('data-original', url);
+                    $("#CheckerName").html(row.Checker);
+                }
+                //DChecker
+                if (row.DCheckerSignImg) {
+                    $("#ulCheckerDiver").show();
+                    $('#imgDChecker').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.DCheckerSignImg;
+                    $("#imgDChecker").attr('src', url);
+                    $("#imgDChecker").attr('data-original', url);
+                    $("#DCheckerName").html(row.Driver);
+                }
+                //Cashier
+                if (row.CashierSignImg) {
+                    $("#ulCashier").show();
+                    $('#imgCashier').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.CashierSignImg;
+                    $("#imgCashier").attr('src', url);
+                    $("#imgCashier").attr('data-original', url);
+                    $("#CashierName").html(row.Cashier);
+                }
+                //DCashier
+                if (row.DCashierSignImg) {
+                    $("#ulCashierDriver").show();
+                    $('#imgDCashier').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.DCashierSignImg;
+                    $("#imgDCashier").attr('src', url);
+                    $("#imgDCashier").attr('data-original', url);
+                    $("#DCashierName").html(row.Driver);
+                }
+                //Gatekeeper
+                if (row.GKSignImg) {
+                    $("#ulGatekeeper").show();
+                    $('#imgGatekeeper').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.GKSignImg;
+                    $("#imgGatekeeper").attr('src', url);
+                    $("#imgGatekeeper").attr('data-original', url);
+                    $("#GatekeeperName").html(row.Gatekeeper);
+                }
+                //DGatekeeper
+                if (row.DGKSignImg) {
+                    $("#ulGKDriver").show();
+                    $('#imgDGatekeeper').viewer({
+                        navbar: false,
+                        title: false,
+                        url: 'data-original',
+                    });
+                    url = "@Url.Action("GetImage", "Base")" + "?PhotoName=" + row.DGKSignImg;
+                    $("#imgDGatekeeper").attr('src', url);
+                    $("#imgDGatekeeper").attr('data-original', url);
+                    $("#DGatekeeperName").html(row.Driver);
+                }
+            }
+            $("#UpdateDialog").dialog({ title: "Detail" });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        function InitGridItem(HeaderId, Status) {
+            var Category;
+            if (Status == "CHKO")
+                Category = "CODiffReason";
+            else
+                Category = "CIDiffReason";
+            var queryData = {
+                HeaderId: HeaderId,
+                Category: Category
+            };
+            $("#gridItem").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: true,
+                border: false,
+                singleSelect: true,
+                pagination: false,
+                //pageSize: 30,
+                //pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("LoadTrackingItemData", "Reports")',
+                //idField: 'AccountNumber',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'ProductCode', title: '@Resources.Language.txt_ProductCode', width: 120 },
+                        {
+                            field: 'ProductName', title: '@Resources.Language.txt_ProductName', width: 250, formatter: function (value) {
+                                if(value)
+                                    return "<span title='" + value + "'>" + value + "</span>";
+                                else
+                                    return "";
+                            }
+                        },
+                        { field: 'PlanQty', title: '@Resources.Language.txt_PlanQty', width: 130 },
+                        { field: 'ActualQty', title: '@Resources.Language.txt_ActualQty', width: 130 },
+                        { field: 'DifferenceQty', title: '@Resources.Language.txt_Difference', width: 130 },
+                        {
+                            field: 'DiffReason', title: '@Resources.Language.txt_DiffReason', width: 150, formatter: function (value) {
+                                if (value)
+                                    return "<span title='" + value + "'>" + value + "</span>";
+                                else
+                                    return "";
+                            }
+                        }
+                    ]
+                    ],
+                onLoadSuccess: function (data) {
+                    $(this).datagrid("fixRownumber");
+                }
+            });
+        }
+
+        //初始化下拉框数据
+        function InitComboboxData(Control, Category) {
+            var Url = "@Url.Action("GetDictionCodeComboxData","Configuration")";
+            Url = Url + "?Category=" + Category + "&NeedAll=true";
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (val.length > 0)
+                        $(this).combobox("select", val[0].value);
+                }
+            });
+        }
+        $.extend($.fn.datagrid.methods, {
+            fixRownumber: function (jq) {
+                return jq.each(function () {
+                    var panel = $(this).datagrid("getPanel");
+                    //获取最后一行的number容器,并拷贝一份
+                    var clone = $(".datagrid-cell-rownumber", panel).last().clone();
+                    //由于在某些浏览器里面,是不支持获取隐藏元素的宽度,所以取巧一下
+                    clone.css({
+                        "position": "absolute",
+                        left: -1000
+                    }).appendTo("body");
+                    var width = clone.width("auto").width();
+                    //默认宽度是25,所以只有大于25的时候才进行fix
+                    if (width > 25) {
+                        //多加5个像素,保持一点边距
+                        $(".datagrid-header-rownumber,.datagrid-cell-rownumber", panel).width(width + 5);
+                        //修改了宽度之后,需要对容器进行重新计算,所以调用resize
+                        $(this).datagrid("resize");
+                        //一些清理工作
+                        clone.remove();
+                        clone = null;
+                    } else {
+                        //还原成默认状态
+                        $(".datagrid-header-rownumber,.datagrid-cell-rownumber", panel).removeAttr("style");
+                    }
+                });
+            }
+        });
+    </script>
+}
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_ShipmentNo:
+                    <input class="easyui-validatebox" id="SShipmentNo" style="width:130px"  name="SShipmentNo">
+                </label>
+                <label>@Resources.Language.txt_DriverCodeOrName:
+                    <input class="easyui-validatebox" id="SDriver" style="width:130px" name="SDriver">
+                </label>
+
+                <label>@Resources.Language.txt_Date:
+                    <input id="SDate" name="SDate" type="text" class="easyui-datebox" data-options="formatter:ww4" style="width: 130px;">
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 130px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <label>@Resources.Language.txt_ShipmentType:
+                    <select class="easyui-combobox" id="SShipmentType" name="SShipmentType" style="width: 130px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 850px; height: 490px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" class="easyui-layout" method="post" data-options="fit:true">
+                    <div data-options="region:'center',border:false">
+                        <h3 class="title">@Resources.Language.txt_Material</h3>
+                        <div style="height:190px;width:850px;">
+                            <table id="gridItem"></table>
+                        </div>
+                        <h3 class="title">@Resources.Language.txt_Signature</h3>
+                        <div class="imgDiv">
+                            <ul id="ulChecker" class="imgUl">
+                                <li class="imgli">
+                                    <span>@Resources.Language.txt_Checker</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgChecker" alt="" style="width:60px;height:60px;border:inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="CheckerName"></span>
+                                </li>
+                            </ul>
+                            <ul id="ulCheckerDiver" class="imgUl">
+                                <li class="imgli">
+                                    <span>Driver(@Resources.Language.txt_Checker)</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgDChecker" alt="" style="width:60px;height:60px;border:inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="DCheckerName"></span>
+                                </li>
+                            </ul>
+                            <ul id="ulCashier" class="imgUl">
+                                <li class="imgli">
+                                    <span>@Resources.Language.txt_Cashier</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgCashier" alt="" style="width:60px;height:60px;border:inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="CashierName"></span>
+                                </li>
+                            </ul>
+                            <ul id="ulCashierDriver" class="imgUl">
+                                <li class="imgli">
+                                    <span>Driver(@Resources.Language.txt_Cashier)</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgDCashier" alt="" style="width:60px;height:60px;border:inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="DCashierName"></span>
+                                </li>
+                            </ul>
+                            <ul id="ulGatekeeper" class="imgUl">
+                                <li class="imgli">
+                                    <span>@Resources.Language.txt_Gatekeeper</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgGatekeeper" alt="" style="width:60px;height:60px;border:inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="GatekeeperName"></span>
+                                </li>
+                            </ul>
+                            <ul id="ulGKDriver" class="imgUl">
+                                <li class="imgli">
+                                    <span>Driver(@Resources.Language.txt_Gatekeeper)</span>
+                                </li>
+                                <li class="imgli">
+                                    <img src="#" id="imgDGatekeeper" alt="" style="width:60px;height:60px;border:inherit" />
+                                </li>
+                                <li class="imgli">
+                                    <span id="DGatekeeperName"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>
+

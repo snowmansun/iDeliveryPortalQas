@@ -1,0 +1,1157 @@
+﻿@model Mde.ModelView.ModelView.ViewShipmentInfo
+@{
+    ViewBag.Title = "RouteMap";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section script{
+    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBvY01T-XWAv89V-ZI1bHbVBy-8yvc53-Q&sensor=false"></script>
+    <script type="text/javascript" src="~/Scripts/highstock.js"></script>
+    <script type="text/javascript" src="~/Scripts/highcharts.js"></script>
+    <script src="~/Scripts/googlemap.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        var map;
+        var minZoomLevel = 4;
+        var flightPathVisited;
+        var flightPathNoVisit;
+        var LatLng;
+        var titlemsg;
+        var ClanderDate = GetNowDate() + " 00:00:00";
+        var chartTitle = '@Resources.Language.txt_DevRate';
+        var visitedTitle = '@Resources.Language.txt_Visited';
+        var noVisitTitle = '@Resources.Language.txt_NoVisit';
+
+        //自定义地图的显示范围：中国区域内部  
+        var strictBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(14.48003790418668, 66.28120434863283),
+            new google.maps.LatLng(54.44617552862156, 143.71284497363283
+        ));
+
+        var MapVisitedIcon = {
+            url: "@Url.Action("MapVisited.png", "Images")",//'../Images/MapVisited.png',
+            size: new google.maps.Size(24, 24),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(12, 12)
+        };
+
+        var MapNoVisitIcon = {
+            url: "@Url.Action("MapNoVisit.png", "Images")",//'../Images/MapNoVisit.png',
+            size: new google.maps.Size(24, 24),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(12, 12)
+        };
+
+        var carIcon = {
+            url: "@Url.Action("Red_S_car.png", "Images")",//'../Images/Red_S_car.png',
+            size: new google.maps.Size(40, 28),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 14)
+        };
+
+        google.maps.event.addDomListener(window, 'load', InitializeBaseInfo);
+
+        //事件初始化
+        $(function () {
+            $("#btnMapRefresh").click(function () {
+                InitializeBaseInfo();
+            });
+
+            $("#btnCarRefresh").click(function () {
+                InitializeCarInfo($("#DriverId").val());
+            });
+
+            $("#btnMonitor").click(function () {
+                InitializeBaseInfo();
+            });
+        })
+
+        //初始化地图
+        function InitializeMap() {
+            var mapOptions = {
+                zoom: 10,
+                center: new google.maps.LatLng(21.351486927, 105.655666666),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+            flightPathVisited = new google.maps.Polyline({
+                strokeColor: 'green',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            flightPathVisited.setMap(map);
+
+            flightPathNoVisit = new google.maps.Polyline({
+                strokeColor: 'red',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            flightPathNoVisit.setMap(map);
+
+            //自定义地图缩放范围  
+            google.maps.event.addListener(map, 'zoom_changed',
+            function () {
+                if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+            });
+
+            google.maps.event.addListener(map, 'dragend',
+            function () {
+                if (strictBounds.contains(map.getCenter())) return;
+                var c = map.getCenter(),
+                    x = c.lng(),
+                    y = c.lat(),
+                    maxX = strictBounds.getNorthEast().lng(),
+                    maxY = strictBounds.getNorthEast().lat(),
+                    minX = strictBounds.getSouthWest().lng(),
+                    minY = strictBounds.getSouthWest().lat();
+                if (x < minX) x = minX;
+                if (x > maxX) x = maxX;
+                if (y < minY) y = minY;
+                if (y > maxY) y = maxY;
+                map.setCenter(new google.maps.LatLng(y, x));
+            });
+        }
+
+
+        //初始化全Driver数据
+        function InitializeBaseInfo() {
+            //初始化日期
+            $("#ClanderDate").val(DateFormat(GetNowDate()));
+
+            $('#RouteMapVisitBarChart').show();
+            $('#div_AllCarsInfo').show();
+            $('#RouteMapVisitPieChart').hide();
+            $('#div_OneCarInfo').hide();
+            $("#btnMapRefresh").show();
+            $("#btnCarRefresh").hide();
+            $("#btnMonitor").hide();
+
+            //初始化地图
+            InitializeMap();
+
+            //初始化全Driver数据总览
+            InitializeTotalCarsInfo();
+
+            //标示Driver当前拜访位置
+            ShowAllDriversOnMap();
+
+            ////初始化数据图表
+            //SetRouteMapVisitBarChartData();
+        }
+
+        //初始化全Driver数据总览
+        function InitializeTotalCarsInfo() {
+            var url = "/Shipment/GetDriverRouteMapData?ClanderDate=" + ClanderDate;
+
+            $.ajax({
+                type: "post",
+                url: url,
+                success: function (data) {
+                    if (data.length > 0) {
+                        try {
+                            var mapData = eval("(" + data + ")");
+                        }
+                        catch (error) {
+                            alert("Data is illegal characters!");
+                            return;
+                        }
+                        if (mapData.rows.length > 0) {
+                            
+                        }
+                    }
+                },
+                error: function () {
+                    alert(error);
+                }
+            });
+        }
+
+        //标示Driver当前拜访位置(数据取得)
+        function ShowAllDriversOnMap() {
+            var url = "/Shipment/GetDriverPostitionData?ClanderDate=" + ClanderDate;
+
+            $.ajax({
+                type: "post",
+                url: url,
+                success: function (data) {
+                    MakeAllDrivermarks(data);
+                },
+                error: function () {
+                    alert(error);
+                }
+            });
+        }
+
+        //标示Driver当前拜访位置(在地图上做标示)
+        function MakeAllDrivermarks(data) {
+            var markers = [];
+            if (data.length > 1) {
+                //转换成json格式
+                try {
+                    var mapData = eval("(" + data + ")");
+                }
+                catch (error) {
+                    alert("Data is illegal characters!");
+                    return;
+                }
+                if (mapData.rows.length > 0) {
+                    map.setZoom(13);
+                    map.setCenter(new google.maps.LatLng(21.351486927, 105.655666666));
+                }
+
+                for (var i = 0; i < mapData.rows.length; i++)//遍历json在地图上找出对应坐标的位置
+                {
+                    var iconUrl = carIcon;;
+                    var path = flightPathNoVisit.getPath();
+                    LatLng = new google.maps.LatLng(mapData.rows[i].Latitude, mapData.rows[i].Longitude);
+                    titlemsg = 'Driver Name:' + mapData.rows[i].DriverName //+ '\n'
+                    overlay = new MyMarker(map, { latlng: LatLng, labelText: mapData.rows[i].DriverName, clickFun: null });
+
+                    var marker = new google.maps.Marker({
+                        position: LatLng,
+                        title: titlemsg,
+                        map: map,
+                        icon: iconUrl,
+                        driverId: mapData.rows[i].DriverId
+                    });
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        var m = arguments[0];
+                        return function () {
+                            InitializeCarInfo(m.driverId);
+                        }
+                    }.call(marker, marker));
+                }
+            }
+        }
+
+        //柱状图表
+        function InitializeBarChart(categories, dataseries, scrollbarEnbled) {
+            var lengendy = 0;
+            if (scrollbarEnbled == false) {
+                lengendy = 10;
+            }
+
+            $('#RouteMapVisitBarChart').highcharts({
+                chart: {
+                    type: 'column',
+                    marginBottom: 50
+                },
+
+                scrollbar: {
+                    enabled: scrollbarEnbled,
+                    barBackgroundColor: 'gray',
+                    barBorderRadius: 7,
+                    barBorderWidth: 0,
+                    buttonBackgroundColor: 'gray',
+                    buttonBorderWidth: 0,
+                    buttonArrowColor: 'yellow',
+                    buttonBorderRadius: 7,
+                    rifleColor: 'yellow',
+                    trackBackgroundColor: 'white',
+                    trackBorderWidth: 1,
+                    trackBorderColor: 'silver',
+                    trackBorderRadius: 7
+                },
+
+                title: {
+                    text: chartTitle
+                },
+
+                xAxis: {
+                    categories: categories,
+                },
+
+                yAxis: {
+                    allowDecimals: false,
+
+                    title: {
+                        enabled: false
+                    },
+
+                    labels: {
+                        align: 'left',
+                        x: 0,
+                        y: -2
+                    }
+                },
+
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.x + '</b><br>' +
+                            this.series.name + ': ' + this.y + '<br>' +
+                            'Total: ' + this.point.stackTotal;
+                    }
+                },
+
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        pointWidth: 30
+                    }
+                },
+
+                legend: {
+                    verticalAlign: 'bottom',
+                    x: 0,
+                    y: lengendy
+                },
+
+                series: dataseries
+            });
+        }
+
+        //柱状图表数据绑定
+        function SetRouteMapVisitBarChartData() {
+            var url = "/Monitor/GetRouteMapVisitBarChartData?ClanderDate=" + ClanderDate;
+            var dataNoVisit = [];
+            var dataVisited = [];
+            var categories = [];
+
+            $.ajax({
+                type: "post",
+                url: url,
+                success: function (data) {
+                    if (data.length > 1) {
+                        try {
+                            var mapData = eval("(" + data + ")");
+                            if (mapData.rows.length > 0) {
+                                for (var i = 0; i < mapData.rows.length; i++) {
+                                    categories[i] = mapData.rows[i].DriverName;
+                                    dataNoVisit[i] = mapData.rows[i].NoVisitCnt;
+                                    dataVisited[i] = mapData.rows[i].VisitCnt;
+                                }
+                                var data = [{
+                                    name: noVisitTitle,
+                                    data: dataNoVisit
+                                }, {
+                                    name: visitedTitle,
+                                    data: dataVisited
+                                }];
+                                if (mapData.rows.length > 4) {
+                                    InitializeBarChart(categories, data, true);
+                                }
+                                else {
+                                    InitializeBarChart(categories, data, false);
+                                }
+                            }
+                        }
+                        catch (error) {
+                            alert("Data is illegal characters!");
+                            return;
+                        }
+                    }
+                }
+            });
+        }
+
+
+        //初始化指定Driver数据
+        function InitializeCarInfo(DriverId) {
+            $('#RouteMapVisitBarChart').hide();
+            $('#div_AllCarsInfo').hide();
+            $('#RouteMapVisitPieChart').show();
+            $('#div_OneCarInfo').show();
+            $("#btnMapRefresh").hide();
+            $("#btnCarRefresh").show();
+            $("#btnMonitor").show();
+
+            //初始化地图
+            InitializeMap();
+
+            //指定Driver数据总览
+            InitializeOneCarInfo(DriverId);
+
+            //指定Driver覆盖的门店信息获取
+            InitializeDriverRouteCustomerInfo(DriverId);
+        }
+
+        //指定Driver数据总览
+        function InitializeOneCarInfo(DriverId) {
+            var url = "/Monitor/GetOneDriverRouteMapData?ClanderDate=" + ClanderDate + "&DriverId=" + DriverId;
+
+            $.ajax({
+                type: "post",
+                url: url,
+                success: function (data) {
+                    if (data.length > 0) {
+                        try {
+                            var mapData = eval("(" + data + ")");
+                        }
+                        catch (error) {
+                            alert("Data is illegal characters!");
+                            return;
+                        }
+                        if (mapData.rows.length > 0) {
+                            $("#DriverId").val(DriverId);
+                            $("#DriverName").val(mapData.rows[0].DriverName);
+                            $("#TelePhone").val(mapData.rows[0].TelePhone);
+                            $("#LicenseNumber").val(mapData.rows[0].LicenseNumber);
+                            $("#DriverPlan").val(mapData.rows[0].CUSDCnt);
+                            $("#DriverFinish").val(mapData.rows[0].DONECnt);
+                            $("#DriverSale").val(mapData.rows[0].SALECnt);
+                            $("#DriverReturn").val(mapData.rows[0].RETNCnt);
+                            $("#DriverCash").val("$" + fmoney(mapData.rows[0].FinanceCash, 2));
+                            $("#DriverCard").val("$" + fmoney(mapData.rows[0].FinanceCard, 2));
+                            $("#DriverCred").val("$" + fmoney(mapData.rows[0].FinanceCred, 2));
+                            $("#DriverMaterials").val(mapData.rows[0].CarsMaterial + 'CS');
+
+                            //初始化数据图表
+                            InitializePieChart(mapData.rows[0].CUSDCnt - mapData.rows[0].DONECnt, mapData.rows[0].DONECnt);
+                        }
+                    }
+                },
+                error: function () {
+                    alert(error);
+                }
+            });
+        }
+
+        //指定Driver覆盖的门店信息获取
+        function InitializeDriverRouteCustomerInfo(DriverId) {
+            var url = "/Monitor/GetDriverRouteCustomerData?ClanderDate=" + ClanderDate + "&DriverId=" + DriverId;
+
+            $.ajax({
+                type: "post",
+                url: url,
+                success: function (data) {
+                    MakeOneDrivermarks(data);
+                },
+                error: function () {
+                    alert(error);
+                }
+            });
+        }
+
+        //标示Driver当前拜访位置(在地图上做标示)
+        function MakeOneDrivermarks(data) {
+            if (data.length > 1) {
+                var customerId;
+                //转换成json格式
+                try {
+                    var mapData = eval("(" + data + ")");
+                }
+                catch (error) {
+                    alert("Data is illegal characters!");
+                    return;
+                }
+
+                if (mapData.rows.length > 0) {
+                    map.setZoom(13);
+                    map.setCenter(new google.maps.LatLng(21.351486927, 105.655666666));
+                }
+
+                for (var i = 0; i < mapData.rows.length; i++)//遍历json在地图上找出对应坐标的位置
+                {
+                    var iconUrl;
+                    var path;
+                    var prevVisitStatus = 1;
+
+                    if (mapData.rows[i].VisitStatus == 1) {
+                        iconUrl = MapVisitedIcon;
+                        path = flightPathVisited.getPath();
+                    }
+                    else {
+                        iconUrl = MapNoVisitIcon;
+                        path = flightPathNoVisit.getPath();
+                    }
+
+                    //同一拜访状态的时候连接线保持同一颜色,状态变化时改变颜色
+                    if (prevVisitStatus == mapData.rows[i].VisitStatus) {
+                        if (prevVisitStatus == 1) {
+                            path = flightPathVisited.getPath();
+                            LatLng = new google.maps.LatLng(mapData.rows[i].Latitude, mapData.rows[i].Longitude);
+                            path.push(LatLng);
+                        }
+                        else {
+                            path = flightPathNoVisit.getPath();
+                            LatLng = new google.maps.LatLng(mapData.rows[i].Latitude, mapData.rows[i].Longitude);
+                            path.push(LatLng);
+                        }
+                    }
+                    else {
+                        path = flightPathVisited.getPath();
+                        LatLng = new google.maps.LatLng(mapData.rows[i].Latitude, mapData.rows[i].Longitude);
+                        path.push(LatLng);
+
+                        path = flightPathNoVisit.getPath();
+                        LatLng = new google.maps.LatLng(mapData.rows[i].Latitude, mapData.rows[i].Longitude);
+                        path.push(LatLng);
+                    }
+
+
+                    titlemsg = 'Customer Name:' + mapData.rows[i].CustomerName //+ '\n'
+                    overlay = new MyMarker(map, { latlng: LatLng, labelText: mapData.rows[i].CustomerId, clickFun: null });
+
+                    var marker = new google.maps.Marker({
+                        position: LatLng,
+                        title: titlemsg,
+                        map: map,
+                        icon: iconUrl,
+                        customerId: mapData.rows[i].CustomerId
+                    });
+
+                    prevVisitStatus = mapData.rows[i].VisitStatus;
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        var m = arguments[0];
+                        return function () {
+                            ShowEachCustomerInfoWindow(2, m.customerId);
+                        }
+                    }.call(marker, marker));
+                }
+            }
+        }
+
+        //饼图表
+        function InitializePieChart(NoVisit, Visited) {
+            $('#RouteMapVisitPieChart').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+
+                title: {
+                    text: chartTitle
+                },
+
+                plotOptions: {
+                    pie: {
+                        size: 160,
+                        borderWidth: 0,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000',
+                            distance: -50,//通过设置这个属性，将每个小饼图的显示名称和每个饼图重叠  
+                            style: {
+                                fontSize: '8px',
+                                lineHeight: '10px'
+                            },
+                            formatter: function (index) {
+                                return '<span style="color:Black;">' + this.point.name + ':' + this.point.y + '</span>';
+                            }
+                        },
+                        showInLegend: true
+                    }
+                },
+
+                legend: {
+                    verticalAlign: 'bottom',
+                    x: 0,
+                    y: -50
+                },
+
+                series: [{//设置每小个饼图的颜色、名称、百分比  
+                    type: 'pie',
+                    data: [
+                        { name: visitedTitle, color: 'LightSkyBlue', y: Visited },
+                        { name: noVisitTitle, color: 'Red', y: NoVisit },
+                    ]
+                }]
+            });
+        }
+
+
+        //Driver小窗口启动
+        function ShowEachDriverInfoWindow(type) {
+            $("#ShowEachDriverInfoWindow").window("open");
+            $("#ShowEachDriverInfoWindow").window("refresh");
+            InitGrid_EachDriverInfoWindow(type);
+        }
+
+        //初始化Driver小窗口内容
+        function InitGrid_EachDriverInfoWindow(type) {
+            var url = '/Monitor/GetEeachDriverRouteMapData?ClanderDate=' + ClanderDate + '&Type=' + type;
+            if (type == 1) {
+                url = url + '&DriverId=' + $("#DriverId").val();
+            }
+            $("#tblEachDriverInfo").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                method: 'post',
+                striped: true,
+                url: url,
+                columns:
+                    [[
+                        { field: 'LicenseNumber', title: '@Resources.Language.txt_PlateNumber', width: 120, halign: 'center' },
+                        { field: 'DriverId', title: '@Resources.Language.txt_DriverId', width: 80, halign: 'center' },
+                        { field: 'DriverName', title: '@Resources.Language.txt_DriverName', width: 100, halign: 'center' },
+                        { field: 'TelePhone', title: '@Resources.Language.txt_Telephone', width: 100, halign: 'center' },
+                        { field: 'CUSDCnt', title: '@Resources.Language.txt_VisitPlan', width: 80, halign: 'center' },
+                        { field: 'DONECnt', title: '@Resources.Language.txt_Visited', width: 80, halign: 'center' },
+                        {
+                            field: 'CarsMaterial', title: '@Resources.Language.txt_CarsMaterial', width: 100, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var carsMaterial = fmoney(row.CarsMaterial, 0) + 'CS';
+                                return carsMaterial;
+                            }
+                        },
+                        {
+                            field: 'FinanceCard', title: '@Resources.Language.txt_Card', width: 80, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var financeCard = "$" + fmoney(row.FinanceCard, 2);
+                                return financeCard;
+                            }
+                        },
+                        {
+                            field: 'FinanceCash', title: '@Resources.Language.txt_Cash', width: 80, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var financeCash = "$" + fmoney(row.FinanceCash, 2);
+                                return financeCash;
+                            }
+                        },
+                        {
+                            field: 'FinanceCred', title: '@Resources.Language.txt_Cred', width: 80, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var financeCred = "$" + fmoney(row.FinanceCred, 2);
+                                return financeCred;
+                            }
+                        }
+                    ]],
+
+                toolbar: [{
+                    id: 'btnOk',
+                    text: 'OK',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        $("#ShowEachDriverInfoWindow").window("close");
+                    }
+                }],
+
+                view: detailview,
+
+                detailFormatter: function (index, row) {
+                    return '<div style="padding:2px"><table class="subtblEachDriverInfo' + index + '"></table></div>';
+                },
+
+                onExpandRow: function (index, row) {
+                    var subtblEachDriverInfo = $(this).datagrid('getRowDetail', index).find('table.subtblEachDriverInfo' + index + '');
+                    subtblEachDriverInfo.datagrid({
+                        url: '/Monitor/GetEeachDriverMaterialRouteMapData?ClanderDate=' + ClanderDate + '&DriverId=' + row.DriverId,
+                        fitColumns: true,
+                        singleSelect: true,
+                        rownumbers: false,
+                        loadMsg: '',
+                        height: 'auto',
+                        columns: [[
+                            { field: 'MaterialDesc', title: '@Resources.Language.txt_Material', width: 200, halign: 'center' },
+                            { field: 'MaterialType', title: '@Resources.Language.txt_MaterialType', width: 50, halign: 'center' },
+                            {
+                                field: 'CheckOutCnt', title: '@Resources.Language.txt_MaterialCheckOutCnt', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var CheckOutCnt = "";
+                                    if (fmoney(row.CheckOutCntPack, 0) != 0) {
+                                        CheckOutCnt = fmoney(row.CheckOutCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.CheckOutCntPart, 0) != 0) {
+                                        CheckOutCnt = CheckOutCnt + fmoney(row.CheckOutCntPart, 0) + row.PartUomId;
+                                    }
+                                    return CheckOutCnt;
+                                }
+                            },
+                            {
+                                field: 'PlanDeliverCnt', title: '@Resources.Language.txt_MaterialPlanDeliver', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var PlanDeliverCnt = "";
+                                    if (fmoney(row.PlanDeliverCntPack, 0) != 0) {
+                                        PlanDeliverCnt = fmoney(row.PlanDeliverCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.PlanDeliverCntPart, 0) != 0) {
+                                        PlanDeliverCnt = PlanDeliverCnt + fmoney(row.PlanDeliverCntPart, 0) + row.PartUomId;
+                                    }
+                                    return PlanDeliverCnt;
+                                }
+                            },
+                            {
+                                field: 'FinishDeliverCnt', title: '@Resources.Language.txt_MaterialDelivered', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var FinishDeliverCnt = "";
+                                    if (fmoney(row.FinishDeliverCntPack, 0) != 0) {
+                                        FinishDeliverCnt = fmoney(row.FinishDeliverCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.FinishDeliverCntPart, 0) != 0) {
+                                        FinishDeliverCnt = FinishDeliverCnt + fmoney(row.FinishDeliverCntPart, 0) + row.PartUomId;
+                                    }
+                                    return FinishDeliverCnt;
+                                }
+                            },
+                            {
+                                field: 'PlanReturnCnt', title: '@Resources.Language.txt_MaterialPlanReturn', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var PlanReturnCnt = "";
+                                    if (fmoney(row.PlanReturnCntPack, 0) != 0) {
+                                        PlanReturnCnt = fmoney(row.PlanReturnCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.PlanReturnCntPart, 0) != 0) {
+                                        PlanReturnCnt = PlanReturnCnt + fmoney(row.PlanReturnCntPart, 0) + row.PartUomId;
+                                    }
+                                    return PlanReturnCnt;
+                                }
+                            },
+                            {
+                                field: 'ReturnCnt', title: '@Resources.Language.txt_MaterialReturn', width: 60, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var ReturnCnt = "";
+                                    if (fmoney(row.ReturnCntPack, 0) != 0) {
+                                        ReturnCnt = fmoney(row.ReturnCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.ReturnCntPart, 0) != 0) {
+                                        ReturnCnt = ReturnCnt + fmoney(row.ReturnCntPart, 0) + row.PartUomId;
+                                    }
+                                    return ReturnCnt;
+                                }
+                            },
+                            {
+                                field: 'SaleCnt', title: '@Resources.Language.txt_MaterialSale', width: 60, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var SaleCnt = "";
+                                    if (fmoney(row.SaleCntPart, 0) != 0) {
+                                        SaleCnt = fmoney(row.SaleCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.SaleCntPart, 0) != 0) {
+                                        SaleCnt = SaleCnt + fmoney(row.SaleCntCntPart, 0) + row.PartUomId;
+                                    }
+                                    return SaleCnt;
+                                }
+                            },
+                            {
+                                field: 'Surplus', title: '@Resources.Language.txt_MaterialSurplus', width: 60, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var SurplusPack = fmoney(row.CheckOutCntPack + row.ReturnCntPack - row.SaleCntPack - row.FinishDeliverCntPack, 0);
+                                    var SurplusPart = fmoney(row.CheckOutCntPart + row.ReturnCntPart - row.SaleCntPart - row.FinishDeliverCntPart, 0);
+                                    var Surplus = SurplusPack + row.PackUomId;;
+                                    if (SurplusPart != 0) {
+                                        Surplus = Surplus + SurplusPart + row.PartUomId;
+                                    }
+                                    return Surplus;
+                                }
+                            }
+                        ]],
+                        onResize: function () {
+                            $('#tblEachDriverInfo').datagrid('fixDetailRowHeight', index);
+                        },
+                        onLoadSuccess: function () {
+                            setTimeout(function () {
+                                $('#tblEachDriverInfo').datagrid('fixDetailRowHeight', index);
+                            }, 0);
+                        }
+                    });
+                    $('#tblEachDriverInfo').datagrid('fixDetailRowHeight', index);
+                }
+            })
+        }
+
+        //Customer小窗口启动
+        function ShowEachCustomerInfoWindow(type, CustomerId) {
+            $("#ShowEachCustomerInfoWindow").window("open");
+            $("#ShowEachCustomerInfoWindow").window("refresh");
+            InitGrid_EachCustomerInfoWindow(type, CustomerId);
+        }
+
+        //初始化Customer小窗口内容
+        function InitGrid_EachCustomerInfoWindow(type, CustomerId) {
+            var DriverId = $("#DriverId").val();
+            var url = '/Monitor/GetEeachCustomerRouteMapData?ClanderDate=' + ClanderDate + '&Type=' + type;
+            if (type == 1) {
+                url = url + '&DriverId=' + DriverId;
+            }
+            if (type == 2) {
+                url = url + '&DriverId=' + DriverId + '&CustomerId=' + CustomerId;
+            }
+
+            $("#tblEachCustomerInfo").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                method: 'post',
+                striped: true,
+                url: url,
+                columns:
+                    [[
+                        { field: 'CustomerName', title: '@Resources.Language.txt_PlateNumber', width: 160, halign: 'center' },
+                        { field: 'Address', title: '@Resources.Language.txt_Address', width: 180, halign: 'center' },
+                        {
+                            field: 'VisitStatus', title: '@Resources.Language.txt_VisitStatus', width: 60, halign: 'center',
+                            formatter: function (value, row, index) {
+                                var visitStatus = '@Resources.Language.txt_Visited';
+                                if (value == 0) {
+                                    visitStatus = '@Resources.Language.txt_NoVisit';
+                                }
+                                return visitStatus;
+                            }
+                        },
+                        {
+                            field: 'VisitTime', title: '@Resources.Language.txt_VisitTime', width: 120, halign: 'center',
+                            formatter: function (value, row, index) {
+                                var visitTime = '';
+                                if (row.VisitStatus == 1) {
+                                    visitTime = value;
+                                }
+                                return visitTime;
+                            }
+                        },
+                        {
+                            field: 'FinanceCard', title: '@Resources.Language.txt_Card', width: 80, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var financeCard = "$" + fmoney(row.FinanceCard, 2);
+                                return financeCard;
+                            }
+                        },
+                        {
+                            field: 'FinanceCash', title: '@Resources.Language.txt_Cash', width: 80, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var financeCash = "$" + fmoney(row.FinanceCash, 2);
+                                return financeCash;
+                            }
+                        },
+                        {
+                            field: 'FinanceCred', title: '@Resources.Language.txt_Cred', width: 80, halign: 'center', align: 'right',
+                            formatter: function (value, row, index) {
+                                var financeCred = "$" + fmoney(row.FinanceCred, 2);
+                                return financeCred;
+                            }
+                        }
+                    ]],
+
+                toolbar: [{
+                    id: 'btnOk',
+                    text: 'OK',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        $("#ShowEachCustomerInfoWindow").window("close");
+                    }
+                }],
+
+                view: detailview,
+
+                detailFormatter: function (index, row) {
+                    return '<div style="padding:2px"><table class="subtblEachCustomerInfo' + index + '"></table></div>';
+                },
+
+                onExpandRow: function (index, row) {
+                    var subtblEachCustomerInfo = $(this).datagrid('getRowDetail', index).find('table.subtblEachCustomerInfo' + index + '');
+                    var suburl = '/Monitor/GetEeachCustomerMaterialRouteMapData?ClanderDate=' + ClanderDate + '&Type=' + type + '&CustomerId=' + row.CustomerId;
+                    if (type == 1 || type == 2) {
+                        suburl = suburl + '&DriverId=' + DriverId;
+                    }
+
+                    subtblEachCustomerInfo.datagrid({
+                        url: suburl,
+                        fitColumns: true,
+                        singleSelect: true,
+                        rownumbers: false,
+                        loadMsg: '',
+                        height: 'auto',
+                        columns: [[
+                            { field: 'MaterialDesc', title: '@Resources.Language.txt_Material', width: 200, halign: 'center' },
+                            { field: 'MaterialType', title: '@Resources.Language.txt_MaterialType', width: 50, halign: 'center' },
+                            {
+                                field: 'PlanDeliverCnt', title: '@Resources.Language.txt_MaterialPlanDeliver', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var PlanDeliverCnt = "";
+                                    if (fmoney(row.PlanDeliverCntPack, 0) != 0) {
+                                        PlanDeliverCnt = fmoney(row.PlanDeliverCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.PlanDeliverCntPart, 0) != 0) {
+                                        PlanDeliverCnt = PlanDeliverCnt + fmoney(row.PlanDeliverCntPart, 0) + row.PartUomId;
+                                    }
+                                    return PlanDeliverCnt;
+                                }
+                            },
+                            {
+                                field: 'FinishDeliverCnt', title: '@Resources.Language.txt_MaterialDelivered', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var FinishDeliverCnt = "";
+                                    if (fmoney(row.FinishDeliverCntPack, 0) != 0) {
+                                        FinishDeliverCnt = fmoney(row.FinishDeliverCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.FinishDeliverCntPart, 0) != 0) {
+                                        FinishDeliverCnt = FinishDeliverCnt + fmoney(row.FinishDeliverCntPart, 0) + row.PartUomId;
+                                    }
+                                    return FinishDeliverCnt;
+                                }
+                            },
+                            {
+                                field: 'PlanReturnCnt', title: '@Resources.Language.txt_MaterialPlanReturn', width: 80, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var PlanReturnCnt = "";
+                                    if (fmoney(row.PlanReturnCntPack, 0) != 0) {
+                                        PlanReturnCnt = fmoney(row.PlanReturnCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.PlanReturnCntPart, 0) != 0) {
+                                        PlanReturnCnt = PlanReturnCnt + fmoney(row.PlanReturnCntPart, 0) + row.PartUomId;
+                                    }
+                                    return PlanReturnCnt;
+                                }
+                            },
+                            {
+                                field: 'ReturnCnt', title: '@Resources.Language.txt_MaterialReturn', width: 60, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var ReturnCnt = "";
+                                    if (fmoney(row.ReturnCntPack, 0) != 0) {
+                                        ReturnCnt = fmoney(row.ReturnCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.ReturnCntPart, 0) != 0) {
+                                        ReturnCnt = ReturnCnt + fmoney(row.ReturnCntPart, 0) + row.PartUomId;
+                                    }
+                                    return ReturnCnt;
+                                }
+                            },
+                            {
+                                field: 'SaleCnt', title: '@Resources.Language.txt_MaterialSale', width: 60, halign: 'center', align: 'right',
+                                formatter: function (value, row, index) {
+                                    var SaleCnt = "";
+                                    if (fmoney(row.SaleCntPack, 0) != 0) {
+                                        SaleCnt = fmoney(row.SaleCntPack, 0) + row.PackUomId;
+                                    }
+                                    if (fmoney(row.SaleCntPart, 0) != 0) {
+                                        SaleCnt = SaleCnt + fmoney(row.SaleCntPart, 0) + row.PartUomId;
+                                    }
+                                    return SaleCnt;
+                                }
+                            }
+                        ]],
+                        onResize: function () {
+                            $('#tblEachCustomerInfo').datagrid('fixDetailRowHeight', index);
+                        },
+                        onLoadSuccess: function () {
+                            setTimeout(function () {
+                                $('#tblEachCustomerInfo').datagrid('fixDetailRowHeight', index);
+                            }, 0);
+                        }
+                    });
+                    $('#tblEachCustomerInfo').datagrid('fixDetailRowHeight', index);
+                }
+            })
+        }
+
+        function ClickTruck(truckId) {
+            $('#tb_' + truckId).parent().children().css('background-color', '');
+            $('#tb_' + truckId).css('background-color', 'gray');
+        }
+    </script>
+}
+
+<div class="easyui-layout main" fit="true">
+    <!--主画面内容-->
+    <div data-options="region:'center', border:false" style="border-top-width:1px;">
+        <div class="easyui-layout" fit="true">
+@*            <div data-options="region:'north',border:false" class="query-box" ">
+               <label>Date 
+                    <input type="text" id="ClanderDate" name="ClanderDate" value="" style="width:120px" class="Wdate" 
+                        onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'ClanderDate\')}',
+                                        isShowClear:false,readOnly:true,@Resources.Language.txt_lgEN})" />
+                </label>
+            </div>*@
+            <div data-options="region:'center',border:false">
+                <div class="easyui-layout" fit="true">
+                    <div data-options="region:'west', split:false, collapsible:true, border:false, title:'Real Time Monitor'" style="width: 300px;">
+                        <div id ="div_AllCarsInfo">
+                            <table id="AllCarsInfoTable">
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Date:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="ClanderDate" name="ClanderDate" 
+                                                style="width:70px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                        <input type="button"  id="btnMapRefresh" class="easyui-linkbutton"
+                                                style="width:23px;height:23px;border:1px;border-style:inset;background-image:url('@Url.Action("refresh.png", "Images")');padding:0 0 0 10px" />
+                                        @*<input type="button"  id="btnVehicleInfo" class="easyui-linkbutton" onclick="ShowEachDriverInfoWindow(0, '')"
+                                                style="width:24px;height:23px;border:1px;border-style:inset;background-image:url('@Url.Action("truck.png","Images")');padding:0 0 0 10px" />
+                                        <input type="button"  id="btnCustomerInfo" class="easyui-linkbutton" onclick="ShowEachCustomerInfoWindow(0, '')"
+                                                style="width:25px;height:23px;border:1px;border-style:inset;background-image:url('@Url.Action("customer.png","Images")');padding:0 0 0 10px" />*@
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="overflow-y:auto;height:400px;width:100%">
+                                            @foreach (var item in ViewData["ListShipment"] as List<Mde.ModelView.ModelView.ViewShipmentInfo>)
+                                            {
+                                                <table id="tb_@item.TruckId" Class="tbTruck" onclick="ClickTruck(@item.TruckId)" style="width:280px;cursor:pointer">
+                                                    <tr style="font-weight:800">
+                                                        <td>
+                                                            <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_TruckNo</label>:
+                                                        </td>
+                                                        <td>
+                                                            @item.TruckCode
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_ShipmentCount</label>:
+                                                        </td>
+                                                        <td>
+                                                            @item.ShipmentCnt
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_StockOnTrack</label>：
+                                                        </td>
+                                                        <td>
+                                                            @item.StockOnTruck
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_CustomerAndVisited</label>：
+                                                        </td>
+                                                        <td>
+                                                            @item.CustomerAndVisited
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td rowspan="2" style="vertical-align:top">
+                                                            <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Finance</label>：
+                                                        </td>
+                                                        <td>
+                                                                @if (item.FinanceList != null && item.FinanceList.Count > 0)
+                                                                {
+                                                                    <table>
+                                                                        @foreach (var detail in item.FinanceList as List<Mde.ModelView.ModelView.ShipmentFinanceList>)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <label style="vertical-align:middle;text-align:left">@detail.PaymentTypeName</label>
+                                                                                </td>
+                                                                                <td>
+                                                                                    @ViewData["Currency"].ToString()@detail.PaymentAmount
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </table>
+                                                                }
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="RouteMapVisitBarChart" style="min-width:280px;height:320px;"></div>
+
+                        <div id ="div_OneCarInfo">
+                            <table id="OneCarInfoTable">
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="DriverId" name="DriverId" value="" />
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_PlateNumber:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="LicenseNumber" name="LicenseNumber" 
+                                                style="width:60px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                        <input type="button"  id="btnMonitor" class="easyui-linkbutton"
+                                                style="width:25px;height:23px;border:1px;border-style:inset;background-image:url('/Images/back.png');padding:0 0 0 10px" />
+                                        <input type="button"  id="btnCarRefresh" class="easyui-linkbutton"
+                                                style="width:23px;height:23px;border:1px;border-style:inset;background-image:url('/Images/refresh.png');padding:0 0 0 10px" />
+                                        <input type="button"  id="btnOneDriverVehicleInfo" class="easyui-linkbutton" onclick="ShowEachDriverInfoWindow(1, '')"
+                                                style="width:24px;height:23px;border:1px;border-style:inset;background-image:url('/Images/truck.png');padding:0 0 0 10px" />
+                                        <input type="button"  id="btnOneDriverCustomerInfo" class="easyui-linkbutton" onclick="ShowEachCustomerInfoWindow(1, '')"
+                                                style="width:25px;height:23px;border:1px;border-style:inset;background-image:url('/Images/customer.png');padding:0 0 0 10px" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_DriverName:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverName" name="DriverName" 
+                                                style="width:60px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Telephone:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="TelePhone" name="TelePhone" 
+                                                style="width:60px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_PlannedVisit:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverPlan" name="DriverPlan" 
+                                                style="width:30px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_ActualVisit:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverFinish" name="DriverFinish" 
+                                                style="width:30px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Sales:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverSale" name="DriverSale" 
+                                                style="width:30px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Return:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverReturn" name="DriverReturn" 
+                                                style="width:30px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_StockOnTrack:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverMaterials" name="DriverMaterials" 
+                                            style="width:120px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_FinancialList</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Cash:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverCash" name="DriverCash" 
+                                                style="width:120px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left;">@Resources.Language.txt_Card:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverCard" name="DriverCard" 
+                                                style="width:120px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="vertical-align:middle;text-align:left">@Resources.Language.txt_Cred:</label>
+                                        <input type="text" class="easyui-textbox easyui-validatebox validatebox-text" id="DriverCred" name="DriverCred" 
+                                                style="width:70px;border:none;text-align:left;vertical-align:middle;padding:0 0 0 5px" readonly="true">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="RouteMapVisitPieChart" style="min-width:280px;height:300px;"></div>
+                    </div>
+                    <div id="map_canvas" data-options="region:'center',border:false" style="height: 330px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--子画面内容-->
+    <div id="ShowEachDriverInfoWindow" class="easyui-window"
+        data-options="modal:true,closed:true,minimizable:false,maximizable:false,collapsible:false,resizable:false,title:'Detail Info'"
+        style="width: 800px; height: 480px; overflow: auto">
+        <table id="tblEachDriverInfo"></table>
+    </div>
+    <div id="ShowEachCustomerInfoWindow" class="easyui-window"
+        data-options="modal:true,closed:true,minimizable:false,maximizable:false,collapsible:false,resizable:false,title:'Detail Info'"
+        style="width: 800px; height: 480px; overflow: auto">
+        <table id="tblEachCustomerInfo"></table>
+    </div>
+</div>

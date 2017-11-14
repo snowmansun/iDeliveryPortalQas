@@ -1,0 +1,77 @@
+﻿@charset "utf-8";
+body { /*font:12px/1.42857143 tahoma,arial,'\5b8b\4f53',sans-serif;*/font:12px/1.42857143 'microsoft yahei','\5fae\8f6f\96c5\9ed1',sans-serif; background:#fcfcfc; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
+img { border:0; }
+
+/* MainFrame */
+.main { min-width:960px; }
+.main .header { height:90px; background:#00acec; /*background:#1e75bb;*/ color:#fff; border:0; overflow:hidden; }
+.main .header a { text-decoration:none; color:#fff; }
+.main .header .brand { float:left; position:relative; margin:16px 18px; padding-left:140px; }
+.main .header .brand img { position:absolute; left:0; top:0; width:124px; height:48px; }
+.main .header .brand .brand-title { display:block; margin-top:12px; font:32px/normal 'microsoft yahei','\5fae\8f6f\96c5\9ed1',sans-serif; }
+.main .header .brand .brand-title2 { display:block; margin-top:17px; font:30px/normal 'microsoft yahei','\5fae\8f6f\96c5\9ed1',sans-serif; }
+.main .header .brand .brand-subtitle { display:block; font:18px/normal arial,sans-serif; }
+.main .header .login-info { float:right; margin:32px 20px 0; font-size:14px; }
+.main .header .login-info ul, .main .header .login-info li { margin:0; padding:0; list-style:none; }
+.main .header .login-info li { display:inline-block; margin-left:20px; vertical-align:top; }
+.main .header .login-info .login-name { height:24px; line-height:24px; display:block; }
+.main .header .login-info .easyui-menubutton { margin:0; padding:0; background:none; filter:progid:DXImageTransform.Microsoft.gradient(enabled=false); filter:none; -moz-border-radius:0; -webkit-border-radius:0; border-radius:0; }
+.main .header .login-info .easyui-menubutton, .main .header .login-info .easyui-menubutton.m-btn-plain-active { border:0; padding:0; }
+.main .header .login-info .easyui-menubutton .l-btn-text { margin:0; font-size:14px; }
+.main .header .login-info .easyui-menubutton .m-btn-downarrow, .main .header .login-info .easyui-menubutton .m-btn-line { display:none; }
+.main .header .login-info .fa { font-size:16px; margin-right:3px; vertical-align:-2px; }
+.main .header .login-info .fa-user { vertical-align:-1px; }
+.main .header .login-info .fa-caret-down { font-size:13px; vertical-align:1px; }
+.main .menu { padding:5px 0; max-width:140px; }
+.main .menu .menu-line { display:none; }
+.main .menu .menu-text { height:24px; line-height:24px; color:#777; padding-left:16px; padding-right:16px; }
+.main .menu .menu-text .fa { display:inline-block; text-align:center; width:16px; font-size:14px; margin-right:5px; vertical-align:-1px; }
+.main .menu .menu-text .fa-lock { vertical-align:-2px; }
+.main .menu .menu-active { -moz-border-radius:0; -webkit-border-radius:0; border-radius:0; background:#f5f5f5; border-color:transparent; }
+
+.main .footer { padding:0 5px; height:32px; line-height:30px; color:#999; background:#fff; text-align:center; overflow:hidden; }
+.main .footer .copyright span { margin:0 2px; }
+
+.main .navlist { list-style-type:none; margin:0; padding:0; }
+.main .navlist li { display:block; padding:0; }
+.main .navlist li a { }
+.main .navlist li div { font-size:14px; height:auto; line-height:36px; border-bottom:1px solid #e6e6e6; }
+.main .navlist li div a { display:block; padding:10px 5px 10px 40px; height:auto; line-height:1.4; color:#777; text-decoration:none; position:relative; }
+.main .navlist li div a .fa { margin:0 5px 0 12px; font-size:16px; position:absolute; left:10px; top:12px; }
+.main .navlist li div a .icon { display:none; }
+.main .navlist li div.hover { cursor:pointer; background:#e6e6e6; }
+.main .navlist li div.hover a { }
+.main .navlist li div.selected { cursor:default; }
+.main .navlist li div.selected a { color:#fff; font-weight:bold; background:#00acec; }
+.main .panel-title { height:26px; line-height:26px; padding-left:10px; font-size:14px; }
+.main .navigation { width:180px; background:#f0f0f0; }
+.main .navigation .accordion .accordion-header .panel-title { font-weight:normal; }
+.main .navigation .accordion .accordion-header-selected { background:#fcfcfc; }
+.main .navigation .accordion .accordion-header-selected .panel-title { font-weight:bold; color:#777; }
+.main .navigation .accordion .accordion-body { overflow:auto; }
+.main .navigation .panel-with-icon { padding-left:40px; }
+.main .navigation .panel-icon { width:24px; height:24px; left:12px; margin-top:-12px; }
+.main .navigation .icon-sales { background:url(/Images/navigation/icon_sales.png) no-repeat 50% 50%; }
+.main .navigation .icon-attendance { background:url(/Images/navigation/icon_attendance.png) no-repeat 50% 50%; }
+.main .navigation .icon-visit { background:url(/Images/navigation/icon_visit.png) no-repeat 50% 50%; }
+.main .navigation .icon-photo { background:url(/Images/navigation/icon_photo.png) no-repeat 50% 50%; }
+.main .navigation .icon-task { background:url(/Images/navigation/icon_task.png) no-repeat 50% 50%; }
+.main .navigation .icon-survey { background:url(/Images/navigation/icon_survey.png) no-repeat 50% 50%; }
+.main .navigation .icon-basic { background:url(/Images/navigation/icon_basic.png) no-repeat 50% 50%; }
+.main .navigation .icon-extra { background:url(/Images/navigation/icon_extra.png) no-repeat 50% 50%; }
+.main .navigation .icon-config { background:url(/Images/navigation/icon_config.png) no-repeat 50% 50%; }
+.main .navigation .icon-system { background:url(/Images/navigation/icon_system.png) no-repeat 50% 50%; }
+.main .navigation .icon-report { background:url(/Images/navigation/icon_report.png) no-repeat 50% 50%; }
+.main .third_ul { list-style-type:none; margin:0; padding:0; display:none; }
+.main .third_ul li { padding-left:20px; }
+
+.main .tabs .tabs-title { font-size:14px; }
+.main .tabs li a.tabs-inner { padding:0 15px; color:#777; height:35px; line-height:35px; -moz-border-radius:3px 3px 0 0; -webkit-border-radius:3px 3px 0 0; border-radius:3px 3px 0 0; }
+.main .tabs li.tabs-selected a.tabs-inner { background:none #fcfcfc; border-bottom-color:#fcfcfc; }
+.main .tabs li .tabs-with-icon { padding-left:0; }
+.main .tabs li .tabs-icon { display:none; }
+.main .tabs li .tabs-p-tool a:hover, .main .tabs li a:hover.tabs-close, .main .tabs li .tabs-scroller-over { background-color:transparent; }
+
+/* Reset */
+.panel-body { background-color:transparent; overflow:hidden; }
+.accordion { background-color:transparent; }

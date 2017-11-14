@@ -1,0 +1,88 @@
+﻿* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: 0;
+    float: none;
+    background: white;
+    color: black;
+    line-height: 1.5;
+    font-family: "Helvetica Neue",Calibri,Arial,Helvetica,"SimHei",sans-serif;
+    font-size: 12pt;
+    overflow-y:auto;
+}
+
+table, th, td {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1em .1em .1em;
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+thead th, thead td {
+    border-bottom: 1pt solid black;
+}
+
+    thead th table th, thead th table td, thead td table th, thead td table td {
+        border: 0;
+    }
+
+.order-form {
+    margin-top: 3em;
+}
+
+    .order-form thead th, .order-form thead td, .order-form tbody th, .order-form tbody td {
+        border: 1pt solid black;
+        border-collapse: collapse;
+    }
+
+    .order-form th, .order-form td {
+        padding: .3em .5em;
+        height: 2em;
+        margin-top: 3em;
+    }
+
+    .order-form th {
+        font-weight: bold;
+        background: lightgrey;
+    }
+
+h1 {
+    margin: 1em auto;
+    font-size: 22pt;
+    text-align: center;
+}
+
+.page {
+    margin: 0 auto;
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+}
+
+.label {
+    text-align: right;
+    white-space: nowrap;
+    padding-left: 1em;
+}
+
+.input {
+    border-bottom: 1pt solid black;
+    min-height: 1.5em;
+    font-family: "Times New Roman",Times,"SimSun",serif;
+}
+
+.textbox {
+    border-bottom: 1pt solid black;
+    height: 6em;
+}
+
+.no-border {
+    border: 0;
+}

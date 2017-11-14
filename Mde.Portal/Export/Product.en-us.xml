@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="product" FileName="Products">
+  <Columns>
+    <Column FieldName="productcode" DisplayName="Product Code" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>1001</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="name" DisplayName="Product Name" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description>Ollie Product</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="shortname" DisplayName="Product Short Name" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description>Ollie</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="CSPrice" DisplayName="CS Price" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="EAPrice" DisplayName="EA Price" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="Multiple" DisplayName="Multiple" Required="true" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field1" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field2" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field3" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field4" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field5" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field6" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field7" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field8" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="field9" DisplayName=""  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="type" DisplayName="Product Type" Required="true" Width="15">
+      <Sample>
+        <Comment>0 Own Product, 1 Competitive Product</Comment>
+        <Description>0</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="Valid" Required="true" Width="15">
+      <Sample>
+        <Comment>1 Valid, 0 Invalid</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="Error Message" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

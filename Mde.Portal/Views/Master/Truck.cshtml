@@ -1,0 +1,265 @@
+﻿@model Mde.Model.DataModel.DSD_M_Truck
+@{
+    ViewBag.Title = "Truck";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            //查询事件
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+
+            var url = "@Url.Action("GetCompanyComboboxData", "Shipment")" + "?NeedAll=true";
+            InitCombobox($("#SCompanyCode"), url, "");
+
+            url = "@Url.Action("GetDictionCodeComboxData", "Configuration")" + "?Category=TruckType&NeedAll=true";
+            InitCombobox($("#STruckType"), url, "");
+
+            InitGrid();
+
+            //保存提交事件
+            $("#btnOK").click(function () {
+                var oldDriver = $("#OldDriver").val();
+                var newDriver = $("#Driver").combobox("getValue");
+                if (oldDriver == newDriver) {
+                    $("#UpdateDialog").dialog('close');
+                }
+                else {
+                    var jsonData = {
+                        TruckId: $("#TruckId").val(),
+                        Driver: newDriver
+                    };
+
+                    var driverText = $("#Driver").combobox("getText");
+                    if (driverText.indexOf('(') > 0) {
+                        $.messager.confirm("@Resources.Message.msg_AlertTitle", "The driver has assigned to other truck,Are you sure reassign?.", function (r) {
+                            if (r) {
+                                $.ajax({
+                                    type: "post",
+                                    data: jsonData,
+                                    datatype: "json",
+                                    url: "@Url.Action("SaveTruckDriver", "Master")",
+                                    success: function (data) {
+                                        data = eval('(' + data + ')');
+                                        if (data.result == "succeed") {
+                                            $("#UpdateDialog").dialog('close');
+                                            RefreshGrid();
+                                        }
+                                        else
+                                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                                    }
+
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        $.ajax({
+                            type: "post",
+                            data: jsonData,
+                            datatype: "json",
+                            url: "@Url.Action("SaveTruckDriver", "Master")",
+                            success: function (data) {
+                                data = eval('(' + data + ')');
+                                if (data.result == "succeed") {
+                                    $("#UpdateDialog").dialog('close');
+                                    RefreshGrid();
+                                }
+                                else
+                                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                            }
+
+                        });
+                    }
+                }
+            });
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+
+        });
+
+
+        //刷新数据
+        function RefreshGrid() {
+            var queryData = {
+                CompanyCode: $("#SCompanyCode").combobox("getValue"),
+                TruckType: $("#STruckType").combobox("getValue"),
+                TruckNumber: $("#STruckNumber").val()
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetTruckDriverList","Master")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                CompanyCode: $("#SCompanyCode").combobox("getValue"),
+                TurckType: $("#STruckType").combobox("getValue"),
+                TruckNumber: $("#STruckNumber").val()
+            };
+
+            $("#grid").datagrid({
+                fit: true,
+                fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetTruckDriverList", "Master")',
+                idField: 'TruckId',
+                queryParams: queryData,
+                columns:
+                    [[
+                        { field: 'Company', title: '@Resources.Language.txt_Company', width: 50 },
+                        { field: 'TruckNumber', title: '@Resources.Language.txt_TruckNumber', width: 50 },
+                        { field: 'Driver', title: '@Resources.Language.txt_Driver', width: 50 },
+                        { field: 'Type', title: '@Resources.Language.txt_Type', width: 50 },
+                        { field: 'Capacity', title: '@Resources.Language.txt_Capacity', width: 50 },
+                        { field: 'Volume', title: '@Resources.Language.txt_Volume', width: 50 },
+                        {
+                            field: 'Status', title: '@Resources.Language.txt_Status', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                else {
+                                    return "N";
+                                }
+                            }
+                        }
+                    ]],
+                toolbar: [{
+                    id: 'btnReassign_1',
+                    text: '@Resources.Language.btn_Reassign',
+                    iconCls: 'icon-reassign',
+                    handler: function () {
+                        ShowDialog();
+                    }
+                }]
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        //显示弹出层
+        function ShowDialog() {
+            var title = "@Resources.Language.btn_Edit";
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            else {
+                $("#TruckId").val(row.TruckId);
+                $("#OldDriver").val(row.Driver);
+                $("#TruckNumber").val(row.TruckNumber);
+                $("#TruckNumber").attr("disabled", true);
+                var url = "@Url.Action("GetDriverList", "Master")" + "?UserType=1&NeedSum=false";
+                InitCombobox($("#Driver"), url, row.Driver);
+            }
+
+            $("#UpdateDialog").dialog({ title: title });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        //绑定combobox
+        function InitCombobox(Control, Url, DefaultValue) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (DefaultValue == "") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", DefaultValue);
+                    }
+                }
+            });
+        }
+    </script>
+}
+
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                <label>@Resources.Language.txt_Company:
+                    <select class="easyui-combobox" id="SCompanyCode" name="SCompanyCode" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+
+                <label>@Resources.Language.txt_TruckType:
+                    <select class="easyui-combobox" id="STruckType" name="STruckType" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <label>@Resources.Language.txt_TruckNumber:
+                    <input class="easyui-validatebox" id="STruckNumber" name="STruckNumber">
+                </label>
+                <label>@Resources.Language.txt_Status:
+                    <select class="easyui-combobox" id="SStatus" name="SStatus" style="width: 150px;" data-options="editable:false,panelHeight:'auto'">
+                        <option value="">@Resources.Language.txt_All</option>
+                        <option value="1" selected="selected">@Resources.Language.txt_Active</option>
+                        <option value="0">@Resources.Language.txt_InActive</option>
+                    </select>
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 270px; height: 170px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <div id="FormUpdate" class="easyui-layout" data-options="fit:true">
+                    <div style="padding: 10px 10px">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Truck:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <input type="text" class="easyui-validatebox" style="width: 170px;" id="TruckNumber" name="TruckNumber" data-options="validType:['length[0,50]']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Driver:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0;">
+                                    <select class="easyui-combobox" id="Driver" name="Driver" style="width: 170px;" data-options="editable:false,panelHeight:'200'"></select>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" id="TruckId" />
+                        <input type="hidden" id="OldDriver" />
+                    </div>
+                </div>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>
+
+

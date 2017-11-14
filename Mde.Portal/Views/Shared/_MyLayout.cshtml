@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>@ViewBag.Title</title>
+    <!-- Add easyui JS and CSS files -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
+    @if (UICulture.ToLower() == "zh-cn")
+    {
+        <script src="~/Content/jquery-easyui-1.3.6/locale/easyui-lang-zh_CN.js"></script>
+    }
+    else
+    {
+        <script src="~/Content/jquery-easyui-1.3.6/locale/easyui-lang-en.js"></script>
+    }
+    <script type="text/javascript">
+        var language = "@UICulture.ToLower()";
+    </script>
+    @*<link href="~/Content/jquery-easyui-1.3.6/themes/bootstrap/easyui.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="~/Content/themes/gray/easyui.css">
+    @*<link href="~/Content/jquery-easyui-1.3.6/themes/icon.css" rel="stylesheet" />*@
+    <script src="~/Content/ExtendDateBox/DataboxFormatter.js"></script>
+    <script src="~/Content/ExtendValidatebox/ExtendValidatebox.js"></script>
+    <!-- Add WdatePicker JS -->
+    <script src="~/Content/My97DatePicker/WdatePicker.js"></script>
+    <script src="~/Scripts/extendEasyUI.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <link href="~/Content/Css/table.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Styles/icon.css">
+    <link rel="stylesheet" href="~/Styles/base.css">
+    <link rel="stylesheet" href="~/Styles/table.css">
+    @RenderSection("style", false)
+    @RenderSection("script", false)
+</head>
+<body class="easyui-layout" style="margin: 5px;">
+    @RenderBody()
+</body>
+</html>

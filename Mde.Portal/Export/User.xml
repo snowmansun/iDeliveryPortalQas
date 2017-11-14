@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Table Name="user" FileName="用户主数据">
+  <Columns>
+    <Column FieldName="loginname" DisplayName="账号" Required="true" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>Linda</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="username" DisplayName="姓名" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>刘珍</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="telephone" DisplayName="联系电话" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="email" DisplayName="邮箱" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="jointime" DisplayName="入职日期"  Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>2014-01-01</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="leavetime" DisplayName="离职日期" Width="20">
+      <Sample>
+        <Comment></Comment>
+        <Description>2014-01-01</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="role" DisplayName="用户角色" Required="true" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description>管理员</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="position" DisplayName="用户职位" Width="30">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+    <Column FieldName="org" DisplayName="组织架构" Required="true" Width="30">
+      <Sample>
+        <Comment>如果有上级组织架构，下级组织架构前要加上级组织架构，用/隔开，如：意贝斯特/上海总部。用户可拥有多个组织架构，用,隔开</Comment>
+        <Description>意贝斯特/上海总部,意贝斯特/上海总部/徐汇区</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="department" DisplayName="部门" Width="30">
+      <Sample>
+        <Comment>如果有上级部门，下级部门前要加上级部门，用/隔开，如：意贝斯特/上海总部。</Comment>
+        <Description>意贝斯特/上海总部</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="valid" DisplayName="状态" Width="15">
+      <Sample>
+        <Comment>0锁定，1有效，2离职</Comment>
+        <Description>1</Description>
+      </Sample>
+    </Column>
+    <Column FieldName="errormsg" DisplayName="错误信息" Width="40">
+      <Sample>
+        <Comment></Comment>
+        <Description></Description>
+      </Sample>
+    </Column>
+  </Columns>
+</Table>

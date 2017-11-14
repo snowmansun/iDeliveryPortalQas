@@ -1,0 +1,391 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iDelivery</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/left_menu.js"></script>
+    <link rel="stylesheet" href="~/Content/themes/gray/easyui.css">
+    <link rel="stylesheet" href="~/Content/themes/color.css">
+    <link rel="stylesheet" href="~/Styles/icon.css">
+    <link rel="stylesheet" href="~/Styles/base.css">
+    <script type="text/javascript">
+        var onlyOpenTitle = '@Resources.Language.txt_HomePage';//不允许关闭的标签的标题
+        $(function () {
+
+            //每隔时间执行一次
+            keep_live = setInterval(KeepLive, 300000);
+
+            //if ($("#OldPassword").val() == "111111") {
+            //    show_pwd2();
+            //}
+
+            $(document).keydown(function (e) {
+                var doPrevent;
+                if (e.keyCode == 8) {
+                    var d = e.srcElement || e.target;
+                    //想禁止什么组件的退格键回退，就往下增加其属性
+                    if (d.tagName.toUpperCase() == 'INPUT' || d.tagName.toUpperCase() == 'TEXTAREA') {
+                        doPrevent = d.readOnly || d.disabled;
+                    }
+                    else {
+                        doPrevent = true;
+                    }
+                }
+                else {
+                    doPrevent = false;
+                }
+                if (doPrevent) {
+                    e.preventDefault();
+                }
+            });
+
+            init_pwd();
+            //init_pwd2();
+            click_Logout();
+            tabClose();
+            var url = "@Url.Action("LoadMenu","Home")";
+            $.get(url, { time: new Date() }, function (data) {
+                InitLeftMenu(data);
+            });
+
+            //addTab("Product", "/MasterData/Product", null);
+        });
+
+        function init_pwd() {
+            $("#w").dialog({
+                modal: true,
+                closed: true,
+                closable: false,
+                title: "@Resources.Language.btn_ChangePassword",
+                buttons: '#dialogGroupButtons'
+            });
+        }
+       @* function init_pwd2() {
+            $("#w2").dialog({
+                modal: true,
+                closed: false,
+                closable: false,
+                title: "@Resources.Language.btn_ChangePassword",
+                buttons: '#dialogGroupButtons2'
+            });
+        }*@
+
+        //访问后台以保持Session不超时
+        function KeepLive() {
+            var url = "@Url.Action("Index","Home")"
+            url = url + "?action=keep_live"
+            $.get(url, function (r) {
+                if (r != "ok") {
+                    clearTimeout(keep_live);
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_LoginTimeout", 'info', function () {
+                        location.href = "@Url.Action("Index","Login")";//"../Login";
+                    });
+                }
+            });
+        }
+
+        //注销提示
+        function click_Logout() {
+            $('#loginOut').click(function () {
+                $.messager.confirm("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_LogOut", function (r) {
+                    if (r) {
+                        location.href = "@Url.Action("Index","Home")" + "?action=logout";//"/Home/Index?action=logout";
+                    }
+                });
+            })
+        }
+
+        function show_pwd() {
+            $("#w").dialog("open");
+            $("#form_pwd").form("reset");
+        }
+
+        //function show_pwd2()
+        //{
+        //    $("#w2").dialog("open");
+        //    $("#form_pwd2").form("reset");
+        //}
+
+        //修改密码窗口点击保存进行判断
+        function save_pwd() {
+            var old_pwd = $("#old_pwd").val();
+            var new_pwd = $("#new_pwd").val();
+            var confirm_pwd = $("#confirm_pwd").val();
+
+            if (!$("#form_pwd").form("validate"))
+                return;
+
+            if (new_pwd != confirm_pwd) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_PwdConsistent", "info");
+                $("#form_pwd").form("reset");
+                return
+            }
+
+            var regExp = new RegExp("^(?=.*[a-z])(?=.*[0-9]).{6,10}$", "g");
+            if (!regExp.test(new_pwd)) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_PasswordStrong", "info");
+                $("#form_pwd").form("reset");
+                return
+            }
+
+
+            $.post("@Url.Action("UpdatePwd","Home")", { old_pwd: old_pwd, new_pwd: new_pwd }, function (data) {
+                data = eval("(" + data + ")");
+                if (data.result == "succeed") {
+                    $("#w").dialog("close");
+                    return;
+                }
+
+                if (data.Message == "login_failed")
+                    $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_OldPasswordError", "info");
+            });
+
+        }
+
+        //判断第一次登录强制修改密码
+       @* function save_pwd2() {
+            debugger;
+            var NewPwd = $("#new_pwd2").val();
+            var confirm_pwd = $("#confirm_pwd2").val();
+
+            if (!$("#form_pwd2").form("validate"))
+                return;
+
+            if (NewPwd != confirm_pwd) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_PwdConsistent", "info");
+                $("#form_pwd2").form("reset");
+                return
+            }
+
+            var regExp = new RegExp("^(?=.*[a-z])(?=.*[0-9]).{8,12}$", "g");
+            if (!regExp.test(NewPwd)) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_PasswordStrong", "info");
+                $("#form_pwd2").form("reset");
+                return
+            }
+            $.post("/Home/ChangePassword", {   NewPwd: NewPwd }, function (data) {
+                data = eval("(" + data + ")");
+                if (data.result == "succeed") {
+                    $("#w2").dialog("close");
+                    $("#OldPassword").val(NewPwd);
+                    return;
+                }
+            });
+        }*@
+
+        function refSelect(id) {
+            var $par1 = $('#' + id);
+            if ($par1.parent().is(':hidden')) {
+                $par1.parent().prev().trigger('click');
+            }
+            changeColor($par1);
+        }
+
+        function tabClose() {
+            /*为选项卡绑定右键*/
+            $(".tabs-inner").bind('contextmenu', function (e) {
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
+                var subtitle = $(this).children(".tabs-closable").text();
+                $('#mm').data("currtab", subtitle);
+                $('#tabs').tabs('select', subtitle);
+                return false;
+            });
+        }
+
+        //绑定右键菜单事件
+        function tabCloseEven() {
+            $('#mm').menu({
+                onClick: function (item) {
+                    closeTab(item.id);
+                }
+            });
+
+            return false;
+        }
+
+        //点击右键内容进行相应操作
+        function closeTab(action) {
+            var alltabs = $('#tabs').tabs('tabs');
+            var currentTab = $('#tabs').tabs('getSelected');
+            var allTabtitle = [];
+            $.each(alltabs, function (i, n) {
+                allTabtitle.push($(n).panel('options').title);
+            })
+            switch (action) {
+                case "tabupdate":
+                    var title = currentTab.panel('options').title;
+                    var currTab = $('#tabs').tabs('getTab', title);
+                    var iframe = $(currTab.panel('options').content);
+                    var src = iframe.attr('src');
+                    if (src)
+                        $('#tabs').tabs('update', { tab: currTab, options: { content: createFrame(src) } });
+                    break;
+                case "close":
+                    var currtab_title = currentTab.panel('options').title;
+                    $('#tabs').tabs('close', currtab_title);
+                    break;
+                case "closeall":
+                    $.each(allTabtitle, function (i, n) {
+                        if (n != onlyOpenTitle) {
+                            $('#tabs').tabs('close', n);
+                        }
+                    });
+                    break;
+                case "closeother":
+                    var currtab_title = currentTab.panel('options').title;
+                    $.each(allTabtitle, function (i, n) {
+                        if (n != currtab_title && n != onlyOpenTitle) {
+                            $('#tabs').tabs('close', n);
+                        }
+                    });
+                    break;
+                case "closeright":
+                    var tabIndex = $('#tabs').tabs('getTabIndex', currentTab);
+
+                    if (tabIndex == alltabs.length - 1) {
+                        $.messager.alert('@Resources.Message.msg_topTitle', "@Resources.Message.msg_CloseRight", "info");
+                        return false;
+                    }
+                    $.each(allTabtitle, function (i, n) {
+                        if (i > tabIndex) {
+                            if (n != onlyOpenTitle) {
+                                $('#tabs').tabs('close', n);
+                            }
+                        }
+                    });
+
+                    break;
+                case "closeleft":
+                    var tabIndex = $('#tabs').tabs('getTabIndex', currentTab);
+                    if (tabIndex == 1 || tabIndex == 0) {
+                        $.messager.alert('@Resources.Message.msg_topTitle', '@Resources.Message.msg_CloseLeft', "info");
+                        return false;
+                    }
+                    $.each(allTabtitle, function (i, n) {
+                        if (i < tabIndex) {
+                            if (n != onlyOpenTitle) {
+                                $('#tabs').tabs('close', n);
+                            }
+                        }
+                    });
+                    break;
+            }
+        }
+
+        function tabsClose() {
+            var tab = $('#tabs').tabs('getSelected');//获取当前选中tabs  
+            var index = $('#tabs').tabs('getTabIndex', tab);//获取当前选中tabs的index  
+            $('#tabs').tabs('close', index);//关闭对应index的tabs  
+        }
+    </script>
+</head>
+<body class="easyui-layout main" fit="true">
+    @*-----------------------------------网站头部--开始-------------------------------------*@
+    <div data-options="region:'north'" class="header" >
+        <h1 class="brand">@Resources.Language.txt_Title2</h1>
+        <div class="login-info">
+            <ul>
+                <li>
+                    <span class="login-name">Welcome, @ViewBag.UserInfo.UserName</span>
+                    <a href="#" class="easyui-menubutton" style="color:#333;font-size:14px;font-weight:600" data-options="menu:'#loginInfo'">
+                        Logout<i class="fa fa-caret-down" style="color:#333"></i>
+                    </a>
+                </li>
+            </ul>
+            <div id="loginInfo">
+                <div onclick="show_pwd();">@Resources.Language.btn_ChangePassword</div>
+                <div id="loginOut">@Resources.Language.btn_Logout</div>
+            </div>
+        </div>
+    </div>
+    @*-----------------------------------网站头部--结束-------------------------------------*@
+
+    @*-----------------------------------网站底部--开始-------------------------------------*@
+    <div data-options="region:'south'" class="footer">
+        <div class="copyright">
+            <span class="copyright">@Resources.Language.txt_Copyright1</span>
+            <span class="address">@Resources.Language.txt_Copyright2</span>
+            <span class="tel">@Resources.Language.txt_Copyright3</span>
+        </div>
+    </div>
+    @*-----------------------------------网站底部--结束-------------------------------------*@
+
+    @*-----------------------------------网站左侧导航--开始-------------------------------------*@
+    <div id="west" data-options="region:'west',split:false,collapsible:true" title="@Resources.Language.txt_Navigation" class="navigation">
+        <div id="nav">
+            <!--  导航内容 -->
+        </div>
+    </div>
+    @*-----------------------------------网站左侧导航--结束-------------------------------------*@
+
+    @*-----------------------------------网站工作区域--开始-------------------------------------*@
+    <div id="mainPanle" data-options="region:'center',border:true">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false">
+            <div data-options="title:'@Resources.Language.txt_HomePage'" style="overflow-y:hidden">
+                @*<iframe scrolling="auto" src="/Home/Main" style="border: none; width: 100%; height: 100%;"></iframe>*@
+                <img src="@Url.Action("welcome.jpg","Images")" style="vertical-align: middle; width: 100%; height: 100%;" />
+                <input type="hidden" id="tabTitle" />
+                <input type="hidden" id="CurrentUrl" />
+            </div>
+        </div>
+    </div>
+    @*-----------------------------------网站工作区域--结束-------------------------------------*@
+    <!--修改密码窗口-->
+    <div id="w" class="easyui-dialog" style="width: 400px; height: 240px; padding: 10px 20px">
+        <form id="form_pwd">
+            <table style="width: 100%">
+                <tr>
+                    <td style="height: 35px;width: 105px;text-align: right">@Resources.Language.txt_CurrentPassword: </td>
+                    <td>
+                        <input id="old_pwd" type="Password" style="width: 200px" class="easyui-validatebox" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 35px;width: 105px;text-align: right">@Resources.Language.txt_NewPassword: </td>
+                    <td>
+                        <input id="new_pwd" type="Password" style="width: 200px" class="easyui-validatebox" data-options="required:true,validType:['length[6,10]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 35px;width: 105px;text-align: right">@Resources.Language.txt_ConfirmPassword: </td>
+                    <td>
+                        <input id="confirm_pwd" type="Password" style="width: 200px" class="easyui-validatebox" data-options="required:true,validType:['length[6,10]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span style="color: red">@Resources.Message.msg_PasswordStrong</span></td>
+                </tr>
+            </table>
+        </form>
+        <div id="dialogGroupButtons">
+            <a class="easyui-linkbutton" onclick="save_pwd()">@Resources.Language.btn_Save</a>
+            <a class="easyui-linkbutton" onclick="$('#w').dialog('close')">@Resources.Language.btn_Close</a>
+        </div>
+    </div>
+
+    <!--右键窗口-->
+    <div id="mm" class="easyui-menu" style="width: 150px;">
+        <div id="tabupdate">@Resources.Language.btn_Refresh</div>
+        <div class="menu-sep"></div>
+        <div id="closeall">@Resources.Language.btn_CloseAll</div>
+        <div id="closeother">@Resources.Language.btn_CloseOther</div>
+    </div>
+    <!--加载中窗口-->
+    <div id="loading-mask" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: #D2E0F2; z-index: 20000">
+        <div id="pageloading" style="position: absolute; top: 50%; left: 50%; margin: -50px 0px 0px -120px; text-align: center; border: 1px solid #8DB2E3; width: 200px; height: 20px; font-size: 12px; padding: 10px; font-weight: bold; background: #fff; color: #15428B;">
+            <img src="@Url.Action("icon/loading.gif","Images")" style="vertical-align: middle; width: 20px; height: 20px;" />
+            @Resources.Language.txt_Loading
+        </div>
+    </div>
+</body>
+</html>

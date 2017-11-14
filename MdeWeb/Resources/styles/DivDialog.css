@@ -1,0 +1,24 @@
+﻿ .editarea
+{
+    background: #EDF1F8;
+            border: 2px solid #849BCA;
+            margin-top: 2px;
+            margin-left: 2px;
+            float: left;
+            overflow: hidden;
+            position:absolute;
+            left: 30%;
+            top: 30%;
+            z-index: 10;
+}
+        .back
+{
+     top:0px;
+           left:0px;
+           position:absolute;
+           background:#D9D9D9;
+           width:100%;
+           overflow:hidden;
+           height:100%;
+           filter:alpha(opacity=40);
+}

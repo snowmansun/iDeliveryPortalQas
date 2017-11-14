@@ -1,0 +1,60 @@
+body
+{
+    font-size:12px;
+	font-family:Verdana, Geneva, sans-serif, "微软雅黑";
+    color:#666666;
+	margin:0px;
+	padding:0px;
+}
+input
+{   
+    font-family:Verdana, Geneva, sans-serif, "微软雅黑";
+    border:1px solid #999;
+	padding:5px;
+    color:#666666;
+}
+ul
+{
+	padding:0px;
+	margin:0px;
+	list-style:none;
+}
+/*调查表背景*/
+.survey
+{	
+	margin:10px auto;
+	/*
+    bborder:1px solid #E3E3E3;
+    order-radius:10px;
+    */
+    line-height:22px;
+}
+/*问题部分*/
+.survey .part
+{
+    padding:10px;
+}
+/*问题标题*/
+.survey .part .title
+{
+    margin: 0;
+    padding: 5px;
+	font-size:14px;
+}
+.survey .part .type
+{
+	font-size:12px;
+	color:#0066FF;
+	font-weight:normal;
+}
+/*选项通用*/
+.survey .options
+{
+    width:98%;
+	margin:0 auto;
+}
+.survey .options label
+{
+    margin-left: 3px;
+    margin-right: 5px;
+}

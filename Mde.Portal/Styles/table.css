@@ -1,0 +1,127 @@
+﻿body
+{
+    font-size: 12px;
+    font-family:'microsoft yahei','\5fae\8f6f\96c5\9ed1',sans-serif;
+    height: 100%;
+}
+
+a
+{
+    color: #07F;
+    text-decoration: none;
+}
+
+    a:hover
+    {
+        text-decoration: underline;
+    }
+
+input, label
+{
+    vertical-align: middle;
+}
+
+input
+{
+    border: 1px solid #95B8E7;
+    height: 20px;
+}
+
+    input[type="radio"]
+    {
+        vertical-align: -7px;
+    }
+
+.organization
+{
+    background: #e5e5e5 url("/Images/icon/organization.png") no-repeat right;
+    cursor: pointer;
+}
+
+.required
+{
+    color: red;
+    margin: 0 5px;
+}
+
+/*=========search table style================*/
+.wsd_searcharea
+{
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+.wsd_inputarea
+{
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.table_input
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .table_input tr td
+    {
+        height: 35px;
+    }
+
+.tablefield
+{
+    text-align: right;
+}
+/*------------弹出窗体样式--------------------*/
+.tablegap
+{
+    text-align: right;
+    height: 35px;
+}
+
+#save_buttons
+{
+    margin-right: 20px;
+}
+
+
+
+/* dashboard update0520 */
+.dashboard { padding:18px; color:#555; font-size:14px; }
+.dashboard .section { margin-bottom:18px; }
+.dashboard .section .heading { height:36px; line-height:36px; border-bottom:0; background:#00acec; font-size:14px; font-weight:bold; background:#f5f5f5; color:#777; padding:0 15px; border:1px solid #d4d4d4; border-bottom:0; -webkit-border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0; }
+.dashboard .section .content { background:#fff; box-shadow:0 1px 1px rgba(0,0,0,0.11); }
+table.cardview { width:100%; border:1px solid #d4d4d4; border-collapse:collapse; }
+table.cardview td { /*border:1px dashed #ccc;*/ }
+table.cardview td .card { display:block; min-height:160px; text-align:center; font-size:14px; color:#00acec; text-decoration:none; }
+table.cardview td .card .icon { padding:20px 15px 10px; display:block; height:80px; }
+table.cardview td .card .quicklinks1 { background:url(/Images/quicklinkes/quick_links_1.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks2 { background:url(/Images/quicklinkes/quick_links_2.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks3 { background:url(/Images/quicklinkes/quick_links_3.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks4 { background:url(/Images/quicklinkes/quick_links_4.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks5 { background:url(/Images/quicklinkes/quick_links_5.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks6 { background:url(/Images/quicklinkes/quick_links_6.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks7 { background:url(/Images/quicklinkes/quick_links_7.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks8 { background:url(/Images/quicklinkes/quick_links_8.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks9 { background:url(/Images/quicklinkes/quick_links_9.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card .quicklinks10 { background:url(/Images/quicklinkes/quick_links_10.png) no-repeat 50% 25px; background-size:80px; }
+table.cardview td .card:hover { background-color:#fcfcfc; }
+table.cardview td.next .card { background-image:url(/images/quicklinkes/r_arrow.png); background-repeat:no-repeat; background-position:100% 50%; }
+
+.photo-grid { width:100%; padding:0; border-collapse:collapse; }
+.photo-grid td { position:relative; padding:20px; vertical-align:top; }
+.photo-grid td .checkbox { position:absolute; left:10px; top:15px; }
+.photo-grid td .photo-image { margin:0 auto 20px; width:240px; box-sizing:border-box; text-align:left; }
+.photo-grid td .photo-image img { max-width:100%; max-height:100%;}
+.photo-grid td .photo-info { width:100%; color:#555; }
+.photo-grid td .photo-info th { white-space:nowrap; }
+.photo-grid td .photo-info th, .photo-grid td .photo-info td { vertical-align:top; padding:5px; line-height:1.4; }

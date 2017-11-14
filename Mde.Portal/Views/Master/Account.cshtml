@@ -1,0 +1,857 @@
+﻿@model Mde.Model.DataModel.MD_Account
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section style{
+    <style>
+        .spanClass {
+            width: 200px;
+            word-wrap: break-word;
+            word-break: normal;
+            display: block;
+            font-weight: 100;
+        }
+    </style>
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            //查询事件
+            $("#btn_Search").click(function () {
+                RefreshGrid();
+            });
+            //InitOrganizationData($("#SOrganization"));
+            var url = "@Url.Action("GetCompanyComboboxData", "Shipment")" + "?NeedAll=true";
+            InitCombobox($("#SCompany"), url, "");
+
+            @*url = "@Url.Action("GetDictionaryComboxData","Base")" + "?Category=DistributionChannel&NeedAll=true";
+            InitCombobox($("#SDistribution"), url, "");*@
+
+            InitGrid();
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+        });
+
+        //刷新数据
+        function RefreshGrid() {
+            var queryData = {
+                CompanyCode: $("#SCompany").combobox("getValue"),
+                Account: $("#SAccount").val()
+            };
+            $("#grid").datagrid({
+                pageNumber: 1,
+                url: "@Url.Action("GetAccountDataList", "Master")",
+                queryParams: queryData
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitGrid() {
+            var queryData = {
+                CompanyCode: $("#SCompany").combobox("getValue"),
+                Account: $("#SAccount").val()
+            };
+            $("#grid").datagrid({
+                fit: true,
+                //fitColumns: true,
+                rownumbers: false,
+                border: false,
+                singleSelect: true,
+                pagination: true,
+                pageSize: 30,
+                pageNumber: 1,
+                method: 'post',
+                striped: true,
+                url: '@Url.Action("GetAccountDataList", "Master")',
+                idField: 'AccountNumber',
+                queryParams: queryData,
+                columns:
+                    [[
+
+                        { field: 'AccountName', title: '@Resources.Language.txt_AccountName' },
+                        { field: 'AccountNumber', title: '@Resources.Language.txt_AccountNumber' },
+                        { field: 'SalesOrg', title: '@Resources.Language.txt_SalesOrg' },
+                        { field: 'SalesGroup', title: '@Resources.Language.txt_SalesGroup' },
+                        { field: 'SubChannel', title: '@Resources.Language.txt_SubChannel' },
+                        { field: 'SalesRoute', title: '@Resources.Language.txt_SalesRoute' },
+                        { field: 'ShippingCondition', title: '@Resources.Language.txt_ShippingCondition' },
+                        { field: 'InvoiceCalendar', title: '@Resources.Language.txt_InvoiceCalendar' },
+                        {
+                            field: 'Active', title: '@Resources.Language.txt_Status', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                if (value == 0) {
+                                    return "<font color='red'>N</font>";
+                                }
+                            }
+                        }
+                    ]
+                    ],
+                toolbar: [{
+                    id: 'btnView_1',
+                    text: '@Resources.Language.btn_View',
+                    iconCls: 'icon-search',
+                    handler: function () {
+                        ShowDialog();
+                    }
+                }],
+                rowStyler: function (index, row) {
+                    if (row.DeleteFlag == 1) {
+                        return "color:Red";
+                    }
+                }
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        //显示弹出层
+        function ShowDialog() {
+            var title;
+
+            //判断是否选中行
+            var row = $("#grid").datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+            else {
+                title = "@Resources.Language.btn_View";
+                //Account Detail
+                $("#AccountName").html(row.AccountName);
+                $("#AccountName1").html(row.AccountName1);
+                $("#AccountName2").html(row.AccountName2);
+                $("#Owner").html(row.Owner);
+                $("#RecordType").html(row.RecordType);
+                $("#AccountGroup").html(row.AccountGroup);
+                $("#AccountParent").html(row.AccountParent);
+                $("#AccountNumber").html(row.AccountNumber);
+                $("#ERPAccountNumber").html(row.ERPAccountNumber);
+                $("#TaxNumber").html(row.TaxNumber);
+                $("#VATNumber").html(row.VATNumber);
+                $("#SuspressionCode").html(row.SuspressionCode);
+                $("#SuppressionReason").html(row.SuppressionReason);
+                $("#CompanyCode").html(row.CompanyCode);
+                $("#SalesOrg").html(row.SalesOrg);
+                $("#SalesOrgCode").html(row.SalesOrgCode);
+                $("#SalesDistrict").html(row.SalesDistrict);
+                $("#SalesGroup").html(row.SalesGroup);
+                $("#SalesOffice").html(row.SalesOffice);
+                $("#VisitStartDate").html(row.VisitStartDate);
+                $("#SubChannel").html(row.SubChannel);
+                $("#SalesRoute").html(row.SalesRoute);
+                $("#ShippingCondition").html(row.ShippingCondition);
+                $("#InvoiceCalendar").html(row.InvoiceCalendar);
+                $("#DeliveryDate").html(row.DeliveryDate);
+                $("#DeliveryDays").html(row.DeliveryDays);
+                $("#DiscountIndicator").html(row.DiscountIndicator);
+                $("#BillTo").html(row.BillTo);
+                $("[name=IsPush]:checkbox").attr("checked", row.IsPush);
+                $("[name=RedIndecator]:checkbox").attr("checked", row.RedIndecator);
+
+                $("#Ownership").html(row.Ownership);
+                $("#AccountSource").html(row.AccountSource);
+                $("#Classification").html(row.Classification);
+                $("#TradeChannel").html(row.TradeChannel);
+                $("#SubTradeChannel").html(row.SubTradeChannel);
+                $("#TradeName").html(row.TradeName);
+                $("#Currency").html(row.Currency);
+                $("#DeliveringPlant").html(row.DeliveringPlant);
+                $("#MEPCustomerNumber").html(row.MEPCustomerNumber);
+                $("#BusinessType").html(row.BusinessType);
+                $("#BusinessTypeExtension").html(row.BusinessTypeExtension);
+                $("#Vendor").html(row.Vendor);
+                $("#OperationalTradeChannel").html(row.OperationalTradeChannel);
+                $("#OperationalMarketType").html(row.OperationalMarketType);
+                $("#PricingProcedure").html(row.PricingProcedure);
+                $("#PriceListType").html(row.PriceListType);
+                $("#CustomerConditionGroup").html(row.CustomerConditionGroup);
+                $("#PriceGroup").html(row.PriceGroup);
+                $("[name=BlockByCredit]:checkbox").attr("checked", row.BlockByCredit);
+                $("#OrderBlock").html(row.OrderBlock);
+                $("[name=Active]:checkbox").attr("checked", row.Active);
+                $("[name=HasUpdateAR]:checkbox").attr("checked", row.HasUpdateAR);
+                $("#AccountPartner").html(row.AccountPartner);
+                $("#ContactPersonFunction").html(row.ContactPersonFunction);
+                $("#PartnerFunction").html(row.PartnerFunction);
+                $("#TradeGroup").html(row.TradeGroup);
+                $("#Last3MonthsVolume").html(row.Last3MonthsVolume);
+                $("#P3MAVGSales").html(row.P3MAVGSales);
+                $("#GeoCode").html(row.GeoCode);
+                $("#Address").html(row.Address);
+                $("#CountryCode").html(row.CountryCode);
+                $("#Country").html(row.Country);
+                $("#Region").html(row.Region);
+                $("#District").html(row.District);
+                $("#CityCode").html(row.CityCode);
+                $("#Postal").html(row.Postal);
+                $("#HouseNumber").html(row.HouseNumber);
+                $("#StreetNumber").html(row.StreetNumber);
+                $("#Street").html(row.Street);
+                $("#Street4").html(row.Street4);
+                $("#Street5").html(row.Street5);
+                $("#PaymentTerms").html(row.PaymentTerms);
+                $("#CreditLimit").html(row.CreditLimit);
+                $("#OpenItemAgingStart").html(row.OpenItemAgingStart);
+                $("#CreditDays").html(row.CreditDays);
+                $("#AvaliableBalance").html(row.AvaliableBalance);
+                $("#CreditExposure").html(row.CreditExposure);
+
+                //Address
+                $("#GeoCode").html(row.GeoCode);
+                $("#Address").html(row.Address);
+                $("#CountryCode").html(row.CountryCode);
+                $("#Country").html(row.Country);
+                $("#Region").html(row.Region);
+                $("#District").html(row.District);
+                $("#CityCode").html(row.CityCode);
+                $("#Postal").html(row.Postal);
+                $("#HouseNumber").html(row.HouseNumber);
+                $("#StreetNumber").html(row.StreetNumber);
+                $("#Street").html(row.Street);
+                $("#Street4").html(row.Street4);
+                $("#Street5").html(row.Street5);
+
+                //Financial
+                $("#PaymentTerms").html(row.PaymentTerms);
+                $("#CreditLimit").html(row.CreditLimit);
+                $("#OpenItemAgingStart").html(row.OpenItemAgingStart);
+                $("#CreditDays").html(row.CreditDays);
+                $("#TotalOpenBalance").html(row.TotalOpenBalance);
+                $("#CreditExposure").html(row.CreditExposure);
+            }
+
+            $("#UpdateDialog").dialog({ title: title });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        //绑定combobox
+        function InitCombobox(Control, Url, DefaultValue) {
+            Control.combobox({
+                url: Url,
+                valueField: "value",
+                textField: "name",
+                editable: false,
+                onLoadSuccess: function () { //加载完成后,设置选中第一项
+                    var val = $(this).combobox("getData");
+                    if (DefaultValue == "") {
+                        if (val.length > 0)
+                            $(this).combobox("select", val[0].value);
+                    }
+                    else {
+                        $(this).combobox("select", DefaultValue);
+                    }
+                }
+            });
+        }
+
+        function InitOrganizationData(control) {
+            control.combotree({
+                url: "@Url.Action("GetOrganizationTreeData", "Master")",
+                method: 'get',
+                editable: false,
+                //multiple: true,
+                cascadeCheck: true,
+                lines: true,
+                onLoadSuccess: function (node, data) {
+                    $(this).tree("collapseAll");
+                }
+            });
+        }
+
+        function DetailShow(divId) {
+            $("#" + divId).toggle();
+        }
+    </script>
+}
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <div data-options="region:'north',border:false" class="query-box" style="height: 48px;">
+                @*<label>@Resources.Language.txt_Organization:
+                    <select id="SOrganization" name="SOrganization" class="easyui-combotree" style="width: 150px;" data-options="multiple:true,panelHeight:'auto'"></select>
+                </label>*@
+                <label>@Resources.Language.txt_Company:
+                    <select class="easyui-combobox" id="SCompany" name="SCompany" style="width: 150px;" data-options="editable:false,panelHeight:'auto'"></select>
+                </label>
+                <label>@Resources.Language.txt_Account:
+                    <input class="easyui-validatebox" id="SAccount" name="SAccount">
+                </label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_Search" data-options="iconCls:'icon-search'" style="width: 75px">@Resources.Language.btn_Search</a>
+            </div>
+            <!--明细列表-->
+            <div data-options="region:'center',border:false">
+                <table id="grid"></table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 800px; height: 500px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <div id="FormUpdate" class="easyui-layout" data-options="fit:true" style="overflow-y:scroll;height:500px">
+                    <h3 class="title" onclick="DetailShow('divDetail')">Account Detail</h3>
+                    <div style="padding: 0 20px;" id="divDetail">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountName:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountName"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_OwnerShip:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="OwnerShip"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountName1:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountName1"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding:5px 0 0 20px; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountSource:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountSource"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountName2:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountName2"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0 0 20px; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Classification:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Classification"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; text-align: right; padding: 5px 0;">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountOwner:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Owner"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_TradeChannel:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0;">
+                                    <span class="spanClass" id="TradeChannel"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_RecordType:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="RecordType"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SubTradeChannel:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SubTradeChannel"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountGroup:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountGroup"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_TradeName:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="TradeName"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ParentAccount:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountParent"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Currency:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Currency"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountNumber"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_DeliveringPlant:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="DeliveringPlant"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ERPAccountNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="ERPAccountNumber"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_MEPCustomerNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="MEPCustomerNumber"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_TaxNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="TaxNumber"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_BusinessType:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="BusinessType"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_VATNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="VATNumber"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_BusinessTypeExtension:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="BusinessTypeExtension"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SuspressionCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SuspressionCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_VendorNo:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="VendorNo"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SuppressionReason:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SuppressionReason"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_OperationalTrade:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="OperationalTradeChannel"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CompanyCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CompanyCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_OperationalMarketType:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="OperationalMarketType"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SalesOrg:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SalesOrg"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PricingProcedure:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="PricingProcedure"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SalesOrgCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SalesOrgCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PriceListType:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="PriceListType"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SalesDistrict:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SalesDistrict"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CustomerConditionGroup:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CustomerConditionGroup"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SalesGroup:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SalesGroup"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PriceGroup:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="PriceGroup"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SalesOffice:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SalesOffice"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_BlockByCredit:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <input type="checkbox" name="BlockByCredit" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_SalesRoute:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="SalesRoute"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Active:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <input type="checkbox" name="Active" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_InvoiceCalendar:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="InvoiceCalendar"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_HasUpdateAR:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <input type="checkbox" name="HasUpdateAR" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ShippingCondition:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="ShippingCondition"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_AccountPartner:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="AccountPartner"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ShippingConditionCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="ShippingConditionCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_ContactPersonFunction:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="ContactPersonFunction"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_DeliveryDay:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="DeliveryDay"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PartnerFunction:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="PartnerFunction"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_DeliveryDays:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="DeliveryDays"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_TradeGroup:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="TradeGroup"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_DiscountIndicator:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 5px;">
+                                    <span class="spanClass" id="DiscountIndicator"></span>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Last3MonthsVolume:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 5px;">
+                                    <span class="spanClass" id="Last3MonthsVolume"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_BillTo:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 5px;">
+                                    <span class="spanClass" id="BillTo"></span>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_P3MAVGSales:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 5px;">
+                                    <span class="spanClass" id="P3MAVGSales"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_IsPush:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 5px;">
+                                    <input type="checkbox" name="IsPush" />
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 0; text-align: right">
+                                    <label style="display: inline-block;">@Resources.Language.txt_RedIndicator:</label>
+                                </td>
+                                <td style="vertical-align: top; padding: 5px 5px;">
+                                    <input type="checkbox" name="RedIndecator" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h3 class="title" onclick="DetailShow('divAddress')">Address</h3>
+                    <div style="padding: 0 20px;" id="divAddress">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_GeoCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="GeoCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Postal:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Postal"></span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Address:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Address"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_HouseNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="HouseNumber"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CountryCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CountryCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_StreetNumber:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="StreetNumber"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Country:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Country"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Street:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Street"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Region:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Region"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Street4:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Street4"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_District:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="District"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_Street5:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="Street5"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CityCode:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CityCode"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    &nbsp;
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h3 class="title" onclick="DetailShow('divFinancial')">Financial</h3>
+                    <div style="padding: 0 20px;" id="divFinancial">
+                        <table border="0" class="table-input">
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_PaymentTerms:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="PaymentTerms"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CreditDays:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CreditDays"></span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CreditLimit:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CreditLimit"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_TotalOpenBalance:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="TotalOpenBalance"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_OpenItemsAgingStart:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="OpenItemAgingStart"></span>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 0; text-align: right;width:150px">
+                                    <label style="display: inline-block;">@Resources.Language.txt_CreditExposure:</label>
+                                </td>
+                                <td style="vertical-align: middle; padding: 5px 5px;">
+                                    <span class="spanClass" id="CreditExposure"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>
+

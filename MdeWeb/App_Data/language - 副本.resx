@@ -1,0 +1,3521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btn_Cancel" xml:space="preserve">
+    <value>返  回</value>
+  </data>
+  <data name="btn_Save" xml:space="preserve">
+    <value>提  交</value>
+  </data>
+  <data name="lbl_Active" xml:space="preserve">
+    <value>是否有效</value>
+  </data>
+  <data name="lbl_Brand" xml:space="preserve">
+    <value>品牌</value>
+  </data>
+  <data name="lbl_CasePrice" xml:space="preserve">
+    <value>箱价</value>
+  </data>
+  <data name="lbl_CaseWeight" xml:space="preserve">
+    <value>箱重量(KG)</value>
+  </data>
+  <data name="lbl_Category" xml:space="preserve">
+    <value>品类</value>
+  </data>
+  <data name="lbl_lblVolume" xml:space="preserve">
+    <value>箱体积(M3)</value>
+  </data>
+  <data name="lbl_Manufactory" xml:space="preserve">
+    <value>制造商</value>
+  </data>
+  <data name="lbl_Package" xml:space="preserve">
+    <value>系列</value>
+  </data>
+  <data name="lbl_PiecePrice" xml:space="preserve">
+    <value>支价</value>
+  </data>
+  <data name="lbl_ProductCode" xml:space="preserve">
+    <value>产品代码</value>
+  </data>
+  <data name="lbl_ProductName" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="lbl_ProductShortName" xml:space="preserve">
+    <value>产品简称</value>
+  </data>
+  <data name="lbl_Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="lbl_SalesPromotion" xml:space="preserve">
+    <value>促销标志</value>
+  </data>
+  <data name="lbl_SellsCase" xml:space="preserve">
+    <value>箱是否出售</value>
+  </data>
+  <data name="lbl_Tax" xml:space="preserve">
+    <value>税率</value>
+  </data>
+  <data name="lbl_UOM" xml:space="preserve">
+    <value>基本规格</value>
+  </data>
+  <data name="btn_Add" xml:space="preserve">
+    <value>新  增</value>
+  </data>
+  <data name="btn_Export" xml:space="preserve">
+    <value>导出Excel</value>
+  </data>
+  <data name="btn_Login" xml:space="preserve">
+    <value>登  录</value>
+  </data>
+  <data name="btn_Query" xml:space="preserve">
+    <value>查  询</value>
+  </data>
+  <data name="btn_Reset" xml:space="preserve">
+    <value>重  置</value>
+  </data>
+  <data name="lbl_Empty" xml:space="preserve">
+    <value>没有可显示的数据.</value>
+  </data>
+  <data name="lbl_First_Page" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="lbl_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="lbl_Last_Page" xml:space="preserve">
+    <value>尾页</value>
+  </data>
+  <data name="lbl_Login_Name" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="lbl_Operation_Area" xml:space="preserve">
+    <value>操作选项</value>
+  </data>
+  <data name="lbl_Password" xml:space="preserve">
+    <value>密  码</value>
+  </data>
+  <data name="lbl_Products_List" xml:space="preserve">
+    <value>产品列表</value>
+  </data>
+  <data name="lbl_Query_Condition" xml:space="preserve">
+    <value>查询条件</value>
+  </data>
+  <data name="lbl_Filter" xml:space="preserve">
+    <value>过滤表格列</value>
+  </data>
+  <data name="lbl_Input_Form" xml:space="preserve">
+    <value>输入表单</value>
+  </data>
+  <data name="lbl_Required" xml:space="preserve">
+    <value>提示:*为必填项!</value>
+  </data>
+  <data name="btn_Setting" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="lbl_Select_All" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="lbl_Select_Invert" xml:space="preserve">
+    <value>反选</value>
+  </data>
+  <data name="ddl_Active" xml:space="preserve">
+    <value>有效</value>
+  </data>
+  <data name="ddl_All" xml:space="preserve">
+    <value>--所有--</value>
+  </data>
+  <data name="ddl_Inactive" xml:space="preserve">
+    <value>无效</value>
+  </data>
+  <data name="lbl_Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="lbl_AvailableCreditLimit" xml:space="preserve">
+    <value>可用信用额度</value>
+  </data>
+  <data name="lbl_BasicData" xml:space="preserve">
+    <value>基础数据维护</value>
+  </data>
+  <data name="lbl_ChainCode" xml:space="preserve">
+    <value>经销商代码</value>
+  </data>
+  <data name="lbl_ChainList" xml:space="preserve">
+    <value>经销商列表</value>
+  </data>
+  <data name="lbl_ChainStore" xml:space="preserve">
+    <value>连锁门店</value>
+  </data>
+  <data name="lbl_ChainStoreCode" xml:space="preserve">
+    <value>连锁门店代码</value>
+  </data>
+  <data name="lbl_ChainStoreList" xml:space="preserve">
+    <value>连锁门店列表</value>
+  </data>
+  <data name="lbl_City" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="lbl_CompanyName" xml:space="preserve">
+    <value>集团名称</value>
+  </data>
+  <data name="lbl_ContactTime" xml:space="preserve">
+    <value>联系时间</value>
+  </data>
+  <data name="lbl_CreditLimit" xml:space="preserve">
+    <value>信用额度</value>
+  </data>
+  <data name="lbl_CurrentSite" xml:space="preserve">
+    <value>您当前的位置</value>
+  </data>
+  <data name="lbl_CustomerCode" xml:space="preserve">
+    <value>客户代码</value>
+  </data>
+  <data name="lbl_CustomerCodeOrName" xml:space="preserve">
+    <value>客户代码或名称</value>
+  </data>
+  <data name="lbl_CustomerList" xml:space="preserve">
+    <value>客户列表</value>
+  </data>
+  <data name="lbl_CustomerManagement" xml:space="preserve">
+    <value>客户管理</value>
+  </data>
+  <data name="lbl_CustomerName" xml:space="preserve">
+    <value>终端名称</value>
+  </data>
+  <data name="lbl_CustomerType" xml:space="preserve">
+    <value>客户类型</value>
+  </data>
+  <data name="lbl_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="lbl_Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="lbl_Format" xml:space="preserve">
+    <value>格式不正确!</value>
+  </data>
+  <data name="lbl_Hint1" xml:space="preserve">
+    <value>提示:输入24小时HH:MM格式的时间</value>
+  </data>
+  <data name="lbl_MaintainChainStore" xml:space="preserve">
+    <value>维护连锁门店</value>
+  </data>
+  <data name="lbl_Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="lbl_NextPage" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="lbl_OverdueAccount" xml:space="preserve">
+    <value>超期帐款</value>
+  </data>
+  <data name="lbl_PayType" xml:space="preserve">
+    <value>支付类型</value>
+  </data>
+  <data name="lbl_PieceCase" xml:space="preserve">
+    <value>支/箱</value>
+  </data>
+  <data name="lbl_PreviousPage" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="lbl_ProductList" xml:space="preserve">
+    <value>产品列表</value>
+  </data>
+  <data name="lbl_ProductManagement" xml:space="preserve">
+    <value>产品管理</value>
+  </data>
+  <data name="lbl_RegionalLevel" xml:space="preserve">
+    <value>区域层次</value>
+  </data>
+  <data name="lbl_SalesChannel" xml:space="preserve">
+    <value>门店类型</value>
+  </data>
+  <data name="lbl_SalesRepresentativeCoverType" xml:space="preserve">
+    <value>覆盖门店负责人类型</value>
+  </data>
+  <data name="lbl_SquareMeter" xml:space="preserve">
+    <value>平米</value>
+  </data>
+  <data name="lbl_StoreArea" xml:space="preserve">
+    <value>门店面积</value>
+  </data>
+  <data name="lbl_StoreLocation" xml:space="preserve">
+    <value>门店位置</value>
+  </data>
+  <data name="lbl_Tel" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="lbl_TheRequired" xml:space="preserve">
+    <value>此项不能为空!</value>
+  </data>
+  <data name="lbl_ZipCode" xml:space="preserve">
+    <value>邮政编码</value>
+  </data>
+  <data name="btn_AddAssets" xml:space="preserve">
+    <value>添加资产</value>
+  </data>
+  <data name="btn_AddContact" xml:space="preserve">
+    <value>添加联系人</value>
+  </data>
+  <data name="btn_AddVisitFrequency" xml:space="preserve">
+    <value>添加拜访频率</value>
+  </data>
+  <data name="ddl_Consignment" xml:space="preserve">
+    <value>发货</value>
+  </data>
+  <data name="ddl_Gentleman" xml:space="preserve">
+    <value>先生</value>
+  </data>
+  <data name="ddl_Lady" xml:space="preserve">
+    <value>女士</value>
+  </data>
+  <data name="ddl_Order" xml:space="preserve">
+    <value>订单</value>
+  </data>
+  <data name="ddl_Select" xml:space="preserve">
+    <value>--请选择--</value>
+  </data>
+  <data name="ddl_Visit" xml:space="preserve">
+    <value>拜访</value>
+  </data>
+  <data name="lbl_AgreementTime" xml:space="preserve">
+    <value>协议时间</value>
+  </data>
+  <data name="lbl_AssetsList" xml:space="preserve">
+    <value>资产列表</value>
+  </data>
+  <data name="lbl_AssetsName" xml:space="preserve">
+    <value>资产名称</value>
+  </data>
+  <data name="lbl_Code" xml:space="preserve">
+    <value>代码</value>
+  </data>
+  <data name="lbl_ContactList" xml:space="preserve">
+    <value>联系人列表</value>
+  </data>
+  <data name="lbl_CurrentLenth" xml:space="preserve">
+    <value>已输入</value>
+  </data>
+  <data name="lbl_Day" xml:space="preserve">
+    <value>日 #</value>
+  </data>
+  <data name="lbl_Email" xml:space="preserve">
+    <value>电子邮箱</value>
+  </data>
+  <data name="lbl_EndDate" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="lbl_Fortnight" xml:space="preserve">
+    <value>两星期</value>
+  </data>
+  <data name="lbl_Frequency" xml:space="preserve">
+    <value>频率</value>
+  </data>
+  <data name="lbl_Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="lbl_From" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="lbl_Hint2" xml:space="preserve">
+    <value>结束时间要大于开始时间</value>
+  </data>
+  <data name="lbl_Hint3" xml:space="preserve">
+    <value>协议时间要大于投放时间!</value>
+  </data>
+  <data name="lbl_Location" xml:space="preserve">
+    <value>存放位置</value>
+  </data>
+  <data name="lbl_MaintainAssets" xml:space="preserve">
+    <value>维护资产信息</value>
+  </data>
+  <data name="lbl_MaintainContact" xml:space="preserve">
+    <value>维护联系人信息</value>
+  </data>
+  <data name="lbl_MaintainVisitFrequency" xml:space="preserve">
+    <value>维护拜访频率信息</value>
+  </data>
+  <data name="lbl_MaxLenth" xml:space="preserve">
+    <value>最多可输入</value>
+  </data>
+  <data name="lbl_Monthly" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="lbl_Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="lbl_Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="lbl_Position" xml:space="preserve">
+    <value>职位</value>
+  </data>
+  <data name="lbl_RemainLenth" xml:space="preserve">
+    <value>还可输入</value>
+  </data>
+  <data name="lbl_RunningTime" xml:space="preserve">
+    <value>投放时间</value>
+  </data>
+  <data name="lbl_Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
+  <data name="lbl_Sex" xml:space="preserve">
+    <value>称谓</value>
+  </data>
+  <data name="lbl_Size" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
+  <data name="lbl_StartDate" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="lbl_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="lbl_Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="lbl_Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="lbl_To" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="lbl_Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="lbl_Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="lbl_VisitFrequencyList" xml:space="preserve">
+    <value>拜访频率列表</value>
+  </data>
+  <data name="lbl_Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="lbl_Weekly" xml:space="preserve">
+    <value>每周</value>
+  </data>
+  <data name="ddl_Dispatched" xml:space="preserve">
+    <value>已分配</value>
+  </data>
+  <data name="ddl_NoDispatch" xml:space="preserve">
+    <value>未分配</value>
+  </data>
+  <data name="lbl_Competitor" xml:space="preserve">
+    <value>竞争者</value>
+  </data>
+  <data name="lbl_CustomerDistributionList" xml:space="preserve">
+    <value>分销列表</value>
+  </data>
+  <data name="lbl_DispatchCustomer" xml:space="preserve">
+    <value>分配客户</value>
+  </data>
+  <data name="lbl_DistributionType" xml:space="preserve">
+    <value>分配类型</value>
+  </data>
+  <data name="lbl_EditProduct" xml:space="preserve">
+    <value>编辑产品</value>
+  </data>
+  <data name="lbl_Include" xml:space="preserve">
+    <value>包含</value>
+  </data>
+  <data name="lbl_MaintainCustomerDistribution" xml:space="preserve">
+    <value>维护分销列表</value>
+  </data>
+  <data name="lbl_MaintainDistributionListCus" xml:space="preserve">
+    <value>维护分销列表客户</value>
+  </data>
+  <data name="lbl_MaintainDistributionListPro" xml:space="preserve">
+    <value>维护分销列表产品</value>
+  </data>
+  <data name="lbl_MaintainManufacturer" xml:space="preserve">
+    <value>制造商维护</value>
+  </data>
+  <data name="lbl_Manufacturer" xml:space="preserve">
+    <value>制造商名称</value>
+  </data>
+  <data name="lbl_ManufacturerList" xml:space="preserve">
+    <value>制造商列表</value>
+  </data>
+  <data name="lbl_TPRDiscount" xml:space="preserve">
+    <value>TPR折扣</value>
+  </data>
+  <data name="lbl_Customer_Attribute" xml:space="preserve">
+    <value>客户属性</value>
+  </data>
+  <data name="lbl_Customer_Organization" xml:space="preserve">
+    <value>客户组织</value>
+  </data>
+  <data name="lbl_Date" xml:space="preserve">
+    <value>查询时间</value>
+  </data>
+  <data name="lbl_Real_Time_Visits_Query" xml:space="preserve">
+    <value>实时拜访查询（选择管理单元）</value>
+  </data>
+  <data name="lblSalesAmount" xml:space="preserve">
+    <value>销售金额（元）</value>
+  </data>
+  <data name="lblselect" xml:space="preserve">
+    <value>请选择</value>
+  </data>
+  <data name="lbl_Actual_Calls" xml:space="preserve">
+    <value>实际拜访门店次数</value>
+  </data>
+  <data name="lbl_Actual_Must_to_Have_SKU" xml:space="preserve">
+    <value>实际分销必备SKU数</value>
+  </data>
+  <data name="lbl_AvgCallDuration" xml:space="preserve">
+    <value>单店平均拜访时间</value>
+  </data>
+  <data name="lbl_Avg_Call_Duration" xml:space="preserve">
+    <value>日均拜访门店时间</value>
+  </data>
+  <data name="lbl_Avg_daily_Store_Called" xml:space="preserve">
+    <value>日均拜访门店数</value>
+  </data>
+  <data name="lbl_Avg_SKU_Sell_IN" xml:space="preserve">
+    <value>平均分销单品数</value>
+  </data>
+  <data name="lbl_Basket" xml:space="preserve">
+    <value>挂篮</value>
+  </data>
+  <data name="lbl_Calls_with_Order" xml:space="preserve">
+    <value>有订单门店次数</value>
+  </data>
+  <data name="lbl_Call_Detail" xml:space="preserve">
+    <value>已拜访门店明细</value>
+  </data>
+  <data name="lbl_Call_Duration" xml:space="preserve">
+    <value>拜访门店时间</value>
+  </data>
+  <data name="lbl_Compliance" xml:space="preserve">
+    <value>是否达标</value>
+  </data>
+  <data name="lbl_Coverage_Data" xml:space="preserve">
+    <value>覆盖数据</value>
+  </data>
+  <data name="lbl_Eff_Calls" xml:space="preserve">
+    <value>有效拜访门店数</value>
+  </data>
+  <data name="lbl_EndTime" xml:space="preserve">
+    <value>截止时间</value>
+  </data>
+  <data name="lbl_End_Time" xml:space="preserve">
+    <value>离店时间</value>
+  </data>
+  <data name="lbl_In_Store_Time" xml:space="preserve">
+    <value>店内时间（分钟）</value>
+  </data>
+  <data name="lbl_NewProductAvailabilityReports" xml:space="preserve">
+    <value>新品分销报表</value>
+  </data>
+  <data name="lbl_Order_Success_Rate" xml:space="preserve">
+    <value>订单成功率</value>
+  </data>
+  <data name="lbl_Price" xml:space="preserve">
+    <value>采集价格</value>
+  </data>
+  <data name="lbl_ProductDimension" xml:space="preserve">
+    <value>产品维度</value>
+  </data>
+  <data name="lbl_Product_Dimension" xml:space="preserve">
+    <value>产品维度</value>
+  </data>
+  <data name="lbl_Product_Type" xml:space="preserve">
+    <value>产品类别</value>
+  </data>
+  <data name="lbl_Promotion_Price" xml:space="preserve">
+    <value>促销价</value>
+  </data>
+  <data name="lbl_Query_Dimension" xml:space="preserve">
+    <value>查询维度</value>
+  </data>
+  <data name="lbl_SalesAmount" xml:space="preserve">
+    <value>销售数量（箱）</value>
+  </data>
+  <data name="lbl_Sales_Amount" xml:space="preserve">
+    <value>销售金额(元)</value>
+  </data>
+  <data name="lbl_Sales_Call_Reports" xml:space="preserve">
+    <value>拜访覆盖报表</value>
+  </data>
+  <data name="lbl_Sales_Data" xml:space="preserve">
+    <value>销售数据</value>
+  </data>
+  <data name="lbl_Sales_Dimension" xml:space="preserve">
+    <value>销量报表</value>
+  </data>
+  <data name="lbl_Sales_District" xml:space="preserve">
+    <value>管理小区</value>
+  </data>
+  <data name="lbl_Sales_Region" xml:space="preserve">
+    <value>管理大区</value>
+  </data>
+  <data name="lbl_Sales_Unit" xml:space="preserve">
+    <value>管理单元</value>
+  </data>
+  <data name="lbl_Scheduled_Calls" xml:space="preserve">
+    <value>计划拜访门店次数</value>
+  </data>
+  <data name="lbl_Search_Result" xml:space="preserve">
+    <value>实时查询结果</value>
+  </data>
+  <data name="lbl_Sell_IN" xml:space="preserve">
+    <value>分销门店数</value>
+  </data>
+  <data name="lbl_Sell_INn" xml:space="preserve">
+    <value>分销率</value>
+  </data>
+  <data name="lbl_Sell_In_Data" xml:space="preserve">
+    <value>分销数据</value>
+  </data>
+  <data name="lbl_Sell_In_Reports" xml:space="preserve">
+    <value>分销达标报表(产品维度)</value>
+  </data>
+  <data name="lbl_SKU" xml:space="preserve">
+    <value>单品</value>
+  </data>
+  <data name="lbl_SKUSellInData" xml:space="preserve">
+    <value>单品分销数据</value>
+  </data>
+  <data name="lbl_SKU_Sell_In" xml:space="preserve">
+    <value>分销单品数</value>
+  </data>
+  <data name="lbl_Standard_Must_to_Have_SKU" xml:space="preserve">
+    <value>应该分销必备SKU数</value>
+  </data>
+  <data name="lbl_StartTime" xml:space="preserve">
+    <value>起始时间</value>
+  </data>
+  <data name="lbl_Start_Time" xml:space="preserve">
+    <value>进店时间</value>
+  </data>
+  <data name="lbl_Stores_Called" xml:space="preserve">
+    <value>已拜访门店数</value>
+  </data>
+  <data name="lbl_Stores_Comply_with_Sell_In_Rate" xml:space="preserve">
+    <value>分销已达标门店数</value>
+  </data>
+  <data name="lbl_Stores_Not_Comply_wit_SellInRate" xml:space="preserve">
+    <value>分销未达标门店数</value>
+  </data>
+  <data name="lbl_Stores_with_Objectives" xml:space="preserve">
+    <value>有目标门店拜访总数</value>
+  </data>
+  <data name="lbl_Store_Code" xml:space="preserve">
+    <value>门店编号</value>
+  </data>
+  <data name="lbl_Store_Name" xml:space="preserve">
+    <value>门店名称</value>
+  </data>
+  <data name="lbl_Store_Not_Called" xml:space="preserve">
+    <value>未拜访门店数</value>
+  </data>
+  <data name="lbl_Store_Unscheduled" xml:space="preserve">
+    <value>未计划门店数</value>
+  </data>
+  <data name="lbl_Sub_Brand" xml:space="preserve">
+    <value>子品牌</value>
+  </data>
+  <data name="lbl_Total_Call_Duration" xml:space="preserve">
+    <value>拜访门店总时间</value>
+  </data>
+  <data name="lbl_Unscheduled_Stores" xml:space="preserve">
+    <value>未计划门店明细</value>
+  </data>
+  <data name="lbl_OK" xml:space="preserve">
+    <value>确  定</value>
+  </data>
+  <data name="lbl_please_Search_Sales_Unit" xml:space="preserve">
+    <value>请选择管理单元！</value>
+  </data>
+  <data name="lbl_DateTime" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="lbl_Organization" xml:space="preserve">
+    <value>组织架构</value>
+  </data>
+  <data name="lbl_Actual_Call" xml:space="preserve">
+    <value>实际拜访门店总数</value>
+  </data>
+  <data name="lbl_Area" xml:space="preserve">
+    <value>专区个数</value>
+    <comment>个数</comment>
+  </data>
+  <data name="lbl_Area_Report" xml:space="preserve">
+    <value>专区执行（汇总）</value>
+  </data>
+  <data name="lbl_Availiability_Rate" xml:space="preserve">
+    <value>分销达标率</value>
+  </data>
+  <data name="lbl_Avg_SKU_SellIN" xml:space="preserve">
+    <value>平均分销单品数报表</value>
+  </data>
+  <data name="lbl_Bulk_Reports" xml:space="preserve">
+    <value>散装执行</value>
+  </data>
+  <data name="lbl_Call_Rate" xml:space="preserve">
+    <value>拜访效率</value>
+  </data>
+  <data name="lbl_CashierDisplay" xml:space="preserve">
+    <value>收银台陈列</value>
+  </data>
+  <data name="lbl_Cashier_Availability" xml:space="preserve">
+    <value>收银台分销报表</value>
+  </data>
+  <data name="lbl_Cashier_Display" xml:space="preserve">
+    <value>糖果有效收银台陈列（KA/A/B）</value>
+  </data>
+  <data name="lbl_Displays" xml:space="preserve">
+    <value>陈列总个数</value>
+  </data>
+  <data name="lbl_Distribution_Report" xml:space="preserve">
+    <value>分销报表</value>
+  </data>
+  <data name="lbl_eff_Cashier" xml:space="preserve">
+    <value>有效收银台总个数</value>
+  </data>
+  <data name="lbl_End_Frame" xml:space="preserve">
+    <value>端边架</value>
+  </data>
+  <data name="lbl_Memo" xml:space="preserve">
+    <value>备注（门店负责人）</value>
+  </data>
+  <data name="lbl_New_effective_time" xml:space="preserve">
+    <value>新品有效时间</value>
+  </data>
+  <data name="lbl_NonSell_in_SKU_Reports" xml:space="preserve">
+    <value>未分销SKU报表</value>
+  </data>
+  <data name="lbl_Reports_Type" xml:space="preserve">
+    <value>报表类型</value>
+  </data>
+  <data name="lbl_Scheduled_Store" xml:space="preserve">
+    <value>计划拜访门店总数</value>
+  </data>
+  <data name="lbl_Secondary_Display" xml:space="preserve">
+    <value>二次陈列执行/收银台陈列（C/X1/D/X2/CVS）</value>
+  </data>
+  <data name="lbl_Secondary_Display_Reports" xml:space="preserve">
+    <value>二次陈列执行（KA/A/B）</value>
+  </data>
+  <data name="lbl_Special_Requirement" xml:space="preserve">
+    <value>特殊需求</value>
+  </data>
+  <data name="lbl_Special_Requirement_Reports" xml:space="preserve">
+    <value>特殊需求报表</value>
+  </data>
+  <data name="lbl_Store_Attrib" xml:space="preserve">
+    <value>门店属性</value>
+  </data>
+  <data name="lbl_Store_Called" xml:space="preserve">
+    <value>拜访客户数</value>
+  </data>
+  <data name="lbl_Store_Sell_in" xml:space="preserve">
+    <value>分销客户数</value>
+  </data>
+  <data name="lbl_Sum" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="lbl_Total_Store" xml:space="preserve">
+    <value>系统门店总数</value>
+  </data>
+  <data name="lbl_Week" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="lbl_Report_of_the_main_shelf" xml:space="preserve">
+    <value>主货架报告（KA/A/B）</value>
+  </data>
+  <data name="lbl_Msg1" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="lbl_Msg10" xml:space="preserve">
+    <value>已达标</value>
+  </data>
+  <data name="lbl_Msg11" xml:space="preserve">
+    <value>未达标</value>
+  </data>
+  <data name="lbl_Msg12" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="lbl_Msg13" xml:space="preserve">
+    <value>未分销产品</value>
+  </data>
+  <data name="lbl_Msg14" xml:space="preserve">
+    <value>新品分销达标明细报表</value>
+  </data>
+  <data name="lbl_Msg15" xml:space="preserve">
+    <value>已拜访门店明细</value>
+  </data>
+  <data name="lbl_Msg16" xml:space="preserve">
+    <value>未拜访门店明细</value>
+  </data>
+  <data name="lbl_Msg17" xml:space="preserve">
+    <value>未计划门店明细</value>
+  </data>
+  <data name="lbl_Msg18" xml:space="preserve">
+    <value>终端编号</value>
+  </data>
+  <data name="lbl_Msg19" xml:space="preserve">
+    <value>终端名称</value>
+  </data>
+  <data name="lbl_Msg2" xml:space="preserve">
+    <value>已分销</value>
+  </data>
+  <data name="lbl_Msg20" xml:space="preserve">
+    <value>二次陈列执行/收银台陈列（明细：C/X1/D/X2/CVS）</value>
+  </data>
+  <data name="lbl_Msg21" xml:space="preserve">
+    <value>二次陈列报表明细</value>
+  </data>
+  <data name="lbl_Msg22" xml:space="preserve">
+    <value>散装执行（明细）</value>
+  </data>
+  <data name="lbl_Msg23" xml:space="preserve">
+    <value>货架占有率报告（明细：KA/A/B)</value>
+  </data>
+  <data name="lbl_Msg24" xml:space="preserve">
+    <value>专区报表（明细）</value>
+  </data>
+  <data name="lbl_Msg25" xml:space="preserve">
+    <value>销量明细报表</value>
+  </data>
+  <data name="lbl_Msg26" xml:space="preserve">
+    <value>门店地址</value>
+  </data>
+  <data name="lbl_Msg27" xml:space="preserve">
+    <value>拜访效率明细</value>
+  </data>
+  <data name="lbl_Msg28" xml:space="preserve">
+    <value>计划拜访门店数</value>
+  </data>
+  <data name="lbl_Msg29" xml:space="preserve">
+    <value>实际拜访门店数</value>
+  </data>
+  <data name="lbl_Msg3" xml:space="preserve">
+    <value>未分销</value>
+  </data>
+  <data name="lbl_Msg30" xml:space="preserve">
+    <value>路线效率</value>
+  </data>
+  <data name="lbl_Msg31" xml:space="preserve">
+    <value>有订单门店数</value>
+  </data>
+  <data name="lbl_Msg32" xml:space="preserve">
+    <value>拜访覆盖明细报表</value>
+  </data>
+  <data name="lbl_Msg33" xml:space="preserve">
+    <value>是否有拜访</value>
+  </data>
+  <data name="lbl_Msg34" xml:space="preserve">
+    <value>拜访状态</value>
+  </data>
+  <data name="lbl_Msg35" xml:space="preserve">
+    <value>已拜访</value>
+  </data>
+  <data name="lbl_Msg36" xml:space="preserve">
+    <value>未拜访</value>
+  </data>
+  <data name="lbl_Msg37" xml:space="preserve">
+    <value>收银台陈列（明细：KA/A/B)</value>
+  </data>
+  <data name="lbl_Msg38" xml:space="preserve">
+    <value>有效收银台总个数</value>
+  </data>
+  <data name="lbl_Msg4" xml:space="preserve">
+    <value>收银台分销明细报表</value>
+  </data>
+  <data name="lbl_Msg5" xml:space="preserve">
+    <value>是否分销</value>
+  </data>
+  <data name="lbl_Msg6" xml:space="preserve">
+    <value>门店分销</value>
+  </data>
+  <data name="lbl_Msg7" xml:space="preserve">
+    <value>分销达标明细报表</value>
+  </data>
+  <data name="lbl_Msg8" xml:space="preserve">
+    <value>新品分销明细报表</value>
+  </data>
+  <data name="lbl_Msg9" xml:space="preserve">
+    <value>分销明细报表</value>
+  </data>
+  <data name="行政架构" xml:space="preserve">
+    <value>行政架构</value>
+  </data>
+  <data name="已发送消息" xml:space="preserve">
+    <value>已发送消息</value>
+  </data>
+  <data name="备注门店负责人" xml:space="preserve">
+    <value>备注(门店负责人)</value>
+  </data>
+  <data name="未分销SKU" xml:space="preserve">
+    <value>未分销SKU</value>
+  </data>
+  <data name="收银台分销列表" xml:space="preserve">
+    <value>收银台分销列表</value>
+  </data>
+  <data name="分销达标率产品" xml:space="preserve">
+    <value>分销达标率(产品)</value>
+  </data>
+  <data name="收银台分销报表" xml:space="preserve">
+    <value>收银台分销报表</value>
+  </data>
+  <data name="特殊要求报表" xml:space="preserve">
+    <value>特殊要求报表</value>
+  </data>
+  <data name="销售代表线路明细" xml:space="preserve">
+    <value>销售代表线路明细</value>
+  </data>
+  <data name="基础数据导入" xml:space="preserve">
+    <value>基础数据导入</value>
+  </data>
+  <data name="专区报表" xml:space="preserve">
+    <value>专区执行</value>
+  </data>
+  <data name="二次陈列收银台陈列" xml:space="preserve">
+    <value>二次陈列执行/收银台陈列</value>
+  </data>
+  <data name="收银台陈列" xml:space="preserve">
+    <value>糖果有效收银台陈列（KA/A/B）</value>
+  </data>
+  <data name="散装报表" xml:space="preserve">
+    <value>散装执行</value>
+  </data>
+  <data name="主货架报表" xml:space="preserve">
+    <value>货架占有率报告</value>
+  </data>
+  <data name="基础数据" xml:space="preserve">
+    <value>基础数据</value>
+  </data>
+  <data name="路线管理" xml:space="preserve">
+    <value>路线管理</value>
+  </data>
+  <data name="订单管理" xml:space="preserve">
+    <value>订单管理</value>
+  </data>
+  <data name="指标管理" xml:space="preserve">
+    <value>指标管理</value>
+  </data>
+  <data name="目标管理" xml:space="preserve">
+    <value>目标管理</value>
+  </data>
+  <data name="系统管理" xml:space="preserve">
+    <value>系统管理</value>
+  </data>
+  <data name="消息管理" xml:space="preserve">
+    <value>消息管理</value>
+  </data>
+  <data name="客户管理" xml:space="preserve">
+    <value>客户管理</value>
+  </data>
+  <data name="产品管理" xml:space="preserve">
+    <value>产品管理</value>
+  </data>
+  <data name="人员管理" xml:space="preserve">
+    <value>人员管理</value>
+  </data>
+  <data name="资产管理" xml:space="preserve">
+    <value>资产管理</value>
+  </data>
+  <data name="报表管理" xml:space="preserve">
+    <value>报表管理</value>
+  </data>
+  <data name="促销管理" xml:space="preserve">
+    <value>促销管理</value>
+  </data>
+  <data name="GIS地图" xml:space="preserve">
+    <value>GIS地图</value>
+  </data>
+  <data name="照片管理" xml:space="preserve">
+    <value>照片管理</value>
+  </data>
+  <data name="人员数据维护" xml:space="preserve">
+    <value>人员数据维护</value>
+  </data>
+  <data name="经销商维护" xml:space="preserve">
+    <value>经销商维护</value>
+  </data>
+  <data name="终端门店维护" xml:space="preserve">
+    <value>终端门店维护</value>
+  </data>
+  <data name="厂商维护" xml:space="preserve">
+    <value>厂商维护</value>
+  </data>
+  <data name="品类维护" xml:space="preserve">
+    <value>品类维护</value>
+  </data>
+  <data name="品牌维护" xml:space="preserve">
+    <value>品牌维护</value>
+  </data>
+  <data name="产品维护" xml:space="preserve">
+    <value>产品维护</value>
+  </data>
+  <data name="客户分销列表" xml:space="preserve">
+    <value>客户分销列表</value>
+  </data>
+  <data name="用户分销列表" xml:space="preserve">
+    <value>用户分销列表</value>
+  </data>
+  <data name="销售代表覆盖列表" xml:space="preserve">
+    <value>销售代表覆盖列表</value>
+  </data>
+  <data name="销售代表线路维护" xml:space="preserve">
+    <value>销售代表线路维护</value>
+  </data>
+  <data name="订单确认" xml:space="preserve">
+    <value>订单确认</value>
+  </data>
+  <data name="订单录入" xml:space="preserve">
+    <value>订单录入</value>
+  </data>
+  <data name="指标类维护" xml:space="preserve">
+    <value>指标类维护</value>
+  </data>
+  <data name="指标组维护" xml:space="preserve">
+    <value>指标组维护</value>
+  </data>
+  <data name="系统用户维护" xml:space="preserve">
+    <value>系统用户维护</value>
+  </data>
+  <data name="用户组维护" xml:space="preserve">
+    <value>用户组维护</value>
+  </data>
+  <data name="权限维护" xml:space="preserve">
+    <value>权限维护</value>
+  </data>
+  <data name="密码维护" xml:space="preserve">
+    <value>密码维护</value>
+  </data>
+  <data name="客户转移" xml:space="preserve">
+    <value>客户转移</value>
+  </data>
+  <data name="拜访历史" xml:space="preserve">
+    <value>拜访历史</value>
+  </data>
+  <data name="发送消息" xml:space="preserve">
+    <value>发送消息</value>
+  </data>
+  <data name="已收到消息" xml:space="preserve">
+    <value>已收到消息</value>
+  </data>
+  <data name="常规明细维护" xml:space="preserve">
+    <value>常规明细维护</value>
+  </data>
+  <data name="促销维护" xml:space="preserve">
+    <value>促销维护</value>
+  </data>
+  <data name="多域数据管理" xml:space="preserve">
+    <value>多域数据管理</value>
+  </data>
+  <data name="分销报表" xml:space="preserve">
+    <value>分销报表</value>
+  </data>
+  <data name="系统列表维护" xml:space="preserve">
+    <value>系统列表维护</value>
+  </data>
+  <data name="目标业务员" xml:space="preserve">
+    <value>目标-业务员</value>
+  </data>
+  <data name="手机用户维护" xml:space="preserve">
+    <value>手机用户维护</value>
+  </data>
+  <data name="子品牌维护" xml:space="preserve">
+    <value>子品牌维护</value>
+  </data>
+  <data name="拜访路线查询" xml:space="preserve">
+    <value>拜访路线查询</value>
+  </data>
+  <data name="组织架构维护" xml:space="preserve">
+    <value>组织架构维护</value>
+  </data>
+  <data name="销售订单打印" xml:space="preserve">
+    <value>销售订单打印</value>
+  </data>
+  <data name="订单查看" xml:space="preserve">
+    <value>订单查看</value>
+  </data>
+  <data name="照片核查" xml:space="preserve">
+    <value>照片核查</value>
+  </data>
+  <data name="会计期管理" xml:space="preserve">
+    <value>会计期管理</value>
+  </data>
+  <data name="促销类型" xml:space="preserve">
+    <value>促销类型</value>
+  </data>
+  <data name="短信发送" xml:space="preserve">
+    <value>短信发送</value>
+  </data>
+  <data name="查询终端" xml:space="preserve">
+    <value>查询终端</value>
+  </data>
+  <data name="门店坐标初始化" xml:space="preserve">
+    <value>门店坐标初始化</value>
+  </data>
+  <data name="促销查看" xml:space="preserve">
+    <value>促销查看</value>
+  </data>
+  <data name="配送商维护" xml:space="preserve">
+    <value>配送商维护</value>
+  </data>
+  <data name="送货单打印" xml:space="preserve">
+    <value>送货单打印</value>
+  </data>
+  <data name="短信查看" xml:space="preserve">
+    <value>短信查看</value>
+  </data>
+  <data name="指标组分配" xml:space="preserve">
+    <value>指标组分配</value>
+  </data>
+  <data name="人员查看" xml:space="preserve">
+    <value>人员查看</value>
+  </data>
+  <data name="系统配置" xml:space="preserve">
+    <value>系统配置</value>
+  </data>
+  <data name="偏差配置" xml:space="preserve">
+    <value>偏差配置</value>
+  </data>
+  <data name="设置串号" xml:space="preserve">
+    <value>设置串号</value>
+  </data>
+  <data name="分销达标率门店" xml:space="preserve">
+    <value>分销达标率(门店)</value>
+  </data>
+  <data name="销量产品" xml:space="preserve">
+    <value>销量（产品）</value>
+  </data>
+  <data name="平均分销单品数" xml:space="preserve">
+    <value>平均分销单品数</value>
+  </data>
+  <data name="拜访效率" xml:space="preserve">
+    <value>拜访效率</value>
+  </data>
+  <data name="销量门店负责人" xml:space="preserve">
+    <value>销量(门店负责人)</value>
+  </data>
+  <data name="拜访报表" xml:space="preserve">
+    <value>覆盖报表</value>
+  </data>
+  <data name="终端门店陈列信息" xml:space="preserve">
+    <value>终端门店陈列信息</value>
+  </data>
+  <data name="实时拜访报表" xml:space="preserve">
+    <value>实时拜访报表</value>
+  </data>
+  <data name="新品分销报表" xml:space="preserve">
+    <value>新品分销报表</value>
+  </data>
+  <data name="新品分销达标率" xml:space="preserve">
+    <value>新品分销达标率</value>
+  </data>
+  <data name="二次陈列报表" xml:space="preserve">
+    <value>二次陈列执行</value>
+  </data>
+  <data name="lbl_Reports_Sales_rep" xml:space="preserve">
+    <value>销量报表(门店负责人)</value>
+  </data>
+  <data name="lbl_Sales_Rep" xml:space="preserve">
+    <value>门店负责人</value>
+  </data>
+  <data name="lblMag104" xml:space="preserve">
+    <value>在线人数：约</value>
+  </data>
+  <data name="lblMSG101" xml:space="preserve">
+    <value>卡夫移动销售管理系统</value>
+  </data>
+  <data name="lblMsg102" xml:space="preserve">
+    <value>欢迎您登录</value>
+  </data>
+  <data name="lblMsg103" xml:space="preserve">
+    <value>您所在的域</value>
+  </data>
+  <data name="lblMsg105" xml:space="preserve">
+    <value>注销</value>
+  </data>
+  <data name="lblMsg106" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="lblMsg107" xml:space="preserve">
+    <value>版权所有:&lt;a href="http://www.ebestmobile.com" target="_blank"&gt;上海意贝斯特信息技术公司&lt;/a&gt;.上海市虹漕路461号漕河泾软件大厦8楼B室  电话： 86-21-64682167</value>
+  </data>
+  <data name="lblMsg108" xml:space="preserve">
+    <value>经销商名称</value>
+  </data>
+  <data name="lblMsg109" xml:space="preserve">
+    <value>经销商编号</value>
+  </data>
+  <data name="lblMsg110" xml:space="preserve">
+    <value>经销商描述</value>
+  </data>
+  <data name="lblMsg111" xml:space="preserve">
+    <value>地理城市</value>
+  </data>
+  <data name="lblMsg112" xml:space="preserve">
+    <value>树状视图</value>
+  </data>
+  <data name="lblMsg113" xml:space="preserve">
+    <value>取  消</value>
+  </data>
+  <data name="lblMsg114" xml:space="preserve">
+    <value>品类列表</value>
+  </data>
+  <data name="lblMsg115" xml:space="preserve">
+    <value>品类代码:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg116" xml:space="preserve">
+    <value>品类名称:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg117" xml:space="preserve">
+    <value>包装维护</value>
+  </data>
+  <data name="lblMsg118" xml:space="preserve">
+    <value>包装代码:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg119" xml:space="preserve">
+    <value>包装名称:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg120" xml:space="preserve">
+    <value>系列名称</value>
+  </data>
+  <data name="lblMsg121" xml:space="preserve">
+    <value>系列代码</value>
+  </data>
+  <data name="lblMsg122" xml:space="preserve">
+    <value>是否新品</value>
+  </data>
+  <data name="lblMsg123" xml:space="preserve">
+    <value>包价/KG价</value>
+  </data>
+  <data name="lblMsg124" xml:space="preserve">
+    <value>调整顺序</value>
+  </data>
+  <data name="lblMsg125" xml:space="preserve">
+    <value>箱包转换</value>
+  </data>
+  <data name="lblMsg126" xml:space="preserve">
+    <value>新品上市时间</value>
+  </data>
+  <data name="lblMsg127" xml:space="preserve">
+    <value>人员姓名</value>
+  </data>
+  <data name="lblMsg128" xml:space="preserve">
+    <value>人员列表</value>
+  </data>
+  <data name="lblMsg129" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="lblMsg130" xml:space="preserve">
+    <value>身份证</value>
+  </data>
+  <data name="lblMsg131" xml:space="preserve">
+    <value>离职操作</value>
+  </data>
+  <data name="lblMsg132" xml:space="preserve">
+    <value>快速查询</value>
+  </data>
+  <data name="lblMsg133" xml:space="preserve">
+    <value>用户列表</value>
+  </data>
+  <data name="lblMsg134" xml:space="preserve">
+    <value>用户账号</value>
+  </data>
+  <data name="lblMsg135" xml:space="preserve">
+    <value>新增系统用户</value>
+  </data>
+  <data name="lblMsg136" xml:space="preserve">
+    <value>人员资料</value>
+  </data>
+  <data name="lblMsg137" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="lblMsg138" xml:space="preserve">
+    <value>密码重置成功</value>
+  </data>
+  <data name="lblMsg139" xml:space="preserve">
+    <value>用户职位</value>
+  </data>
+  <data name="lblMsg140" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="lblMsg141" xml:space="preserve">
+    <value>重置密码</value>
+  </data>
+  <data name="lblMsg142" xml:space="preserve">
+    <value>门店负责人列表</value>
+  </data>
+  <data name="lblMsg143" xml:space="preserve">
+    <value>门店负责人类型</value>
+  </data>
+  <data name="lblMsg144" xml:space="preserve">
+    <value>所属管理员</value>
+  </data>
+  <data name="lblMsg145" xml:space="preserve">
+    <value>移动端用户列表</value>
+  </data>
+  <data name="lblMsg146" xml:space="preserve">
+    <value>线路交换</value>
+  </data>
+  <data name="lblMsg147" xml:space="preserve">
+    <value>所属分销列表</value>
+  </data>
+  <data name="lblMsg148" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="lblMsg149" xml:space="preserve">
+    <value>该用户已经有覆盖路线，请先删除门店负责人覆盖</value>
+  </data>
+  <data name="lblMsg150" xml:space="preserve">
+    <value>单元负责人</value>
+  </data>
+  <data name="lblMsg151" xml:space="preserve">
+    <value>指标类</value>
+  </data>
+  <data name="lblMsg152" xml:space="preserve">
+    <value>二次陈列</value>
+  </data>
+  <data name="lblMsg153" xml:space="preserve">
+    <value>货架占有率%</value>
+  </data>
+  <data name="lblMsg154" xml:space="preserve">
+    <value>产品信息采集 [展开/折叠]</value>
+  </data>
+  <data name="lblMsg155" xml:space="preserve">
+    <value>产品分销</value>
+  </data>
+  <data name="lblMsg156" xml:space="preserve">
+    <value>收银台分销</value>
+  </data>
+  <data name="lblMsg157" xml:space="preserve">
+    <value>照片类型</value>
+  </data>
+  <data name="lblMsg158" xml:space="preserve">
+    <value>未拍摄照片</value>
+  </data>
+  <data name="lblMsg159" xml:space="preserve">
+    <value>原门店负责人</value>
+  </data>
+  <data name="lblMsg160" xml:space="preserve">
+    <value>新门店负责人</value>
+  </data>
+  <data name="lblMsg161" xml:space="preserve">
+    <value>原门店负责人客户列表</value>
+  </data>
+  <data name="lblMsg162" xml:space="preserve">
+    <value>转移</value>
+  </data>
+  <data name="lblMsg163" xml:space="preserve">
+    <value>业务员</value>
+  </data>
+  <data name="lblMsg164" xml:space="preserve">
+    <value>搜索终端</value>
+  </data>
+  <data name="lblMsg165" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="lblMsg166" xml:space="preserve">
+    <value>订单日期</value>
+  </data>
+  <data name="lblMsg167" xml:space="preserve">
+    <value>订单来源</value>
+  </data>
+  <data name="lblMsg168" xml:space="preserve">
+    <value>请求发货日</value>
+  </data>
+  <data name="lblMsg169" xml:space="preserve">
+    <value>配送商</value>
+  </data>
+  <data name="lblMsg170" xml:space="preserve">
+    <value>经销商不能为空</value>
+  </data>
+  <data name="lblMsg171" xml:space="preserve">
+    <value>销售订单预览</value>
+  </data>
+  <data name="lblMsg172" xml:space="preserve">
+    <value>全部打印</value>
+  </data>
+  <data name="lblMsg173" xml:space="preserve">
+    <value>办事处</value>
+  </data>
+  <data name="lblMsg174" xml:space="preserve">
+    <value>订单类型</value>
+  </data>
+  <data name="lblMsg175" xml:space="preserve">
+    <value>订单状态</value>
+  </data>
+  <data name="lblMsg176" xml:space="preserve">
+    <value>订单编号</value>
+  </data>
+  <data name="lblMsg177" xml:space="preserve">
+    <value>要求发货日期</value>
+  </data>
+  <data name="lblMsg178" xml:space="preserve">
+    <value>常规列表</value>
+  </data>
+  <data name="lblMsg179" xml:space="preserve">
+    <value>常规指标代码</value>
+  </data>
+  <data name="lblMsg180" xml:space="preserve">
+    <value>简称</value>
+  </data>
+  <data name="lblMsg181" xml:space="preserve">
+    <value>填写方式</value>
+  </data>
+  <data name="lblMsg182" xml:space="preserve">
+    <value>是否必填</value>
+  </data>
+  <data name="lblMsg183" xml:space="preserve">
+    <value>常规指标名称</value>
+  </data>
+  <data name="lblMsg184" xml:space="preserve">
+    <value>指标类代码</value>
+  </data>
+  <data name="lblMsg185" xml:space="preserve">
+    <value>指标类名称</value>
+  </data>
+  <data name="lblMsg186" xml:space="preserve">
+    <value>指标类型</value>
+  </data>
+  <data name="lblMsg187" xml:space="preserve">
+    <value>回答类型</value>
+  </data>
+  <data name="lblMsg188" xml:space="preserve">
+    <value>必填</value>
+  </data>
+  <data name="lblMsg189" xml:space="preserve">
+    <value>指标类细节</value>
+  </data>
+  <data name="lblMsg190" xml:space="preserve">
+    <value>指标组列表</value>
+  </data>
+  <data name="lblMsg191" xml:space="preserve">
+    <value>指标组名称</value>
+  </data>
+  <data name="lblMsg192" xml:space="preserve">
+    <value>指标类信息</value>
+  </data>
+  <data name="lblMsg193" xml:space="preserve">
+    <value>页面顺序</value>
+  </data>
+  <data name="lblMsg194" xml:space="preserve">
+    <value>序号</value>
+  </data>
+  <data name="lblMsg195" xml:space="preserve">
+    <value>指定客户</value>
+  </data>
+  <data name="lblMsg196" xml:space="preserve">
+    <value>客户列表 指标组:全国标准</value>
+  </data>
+  <data name="lblMsg197" xml:space="preserve">
+    <value>消息类型</value>
+  </data>
+  <data name="lblMsg198" xml:space="preserve">
+    <value>收件用户</value>
+  </data>
+  <data name="lblMsg199" xml:space="preserve">
+    <value>消息内容</value>
+  </data>
+  <data name="lblMsg200" xml:space="preserve">
+    <value>编辑用户</value>
+  </data>
+  <data name="lblMsg201" xml:space="preserve">
+    <value>消息状态</value>
+  </data>
+  <data name="lblMsg202" xml:space="preserve">
+    <value>短信内容</value>
+  </data>
+  <data name="lblMsg203" xml:space="preserve">
+    <value>接收人</value>
+  </data>
+  <data name="lblMsg204" xml:space="preserve">
+    <value>发送日期</value>
+  </data>
+  <data name="lblMsg205" xml:space="preserve">
+    <value>用户组列表</value>
+  </data>
+  <data name="lblMsg206" xml:space="preserve">
+    <value>组名称</value>
+  </data>
+  <data name="lblMsg207" xml:space="preserve">
+    <value>组等级</value>
+  </data>
+  <data name="lblMsg208" xml:space="preserve">
+    <value>选择用户组</value>
+  </data>
+  <data name="lblMsg209" xml:space="preserve">
+    <value>原始密码</value>
+  </data>
+  <data name="lblMsg210" xml:space="preserve">
+    <value>新密码</value>
+  </data>
+  <data name="lblMsg211" xml:space="preserve">
+    <value>密码确认</value>
+  </data>
+  <data name="lblMsg212" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="lblMsg213" xml:space="preserve">
+    <value>组代码</value>
+  </data>
+  <data name="lblMsg214" xml:space="preserve">
+    <value>列描述</value>
+  </data>
+  <data name="lblMsg215" xml:space="preserve">
+    <value>编辑组</value>
+  </data>
+  <data name="lblMsg216" xml:space="preserve">
+    <value>上传数据</value>
+  </data>
+  <data name="lblMsg217" xml:space="preserve">
+    <value>上传CSV文件</value>
+  </data>
+  <data name="lblMsg218" xml:space="preserve">
+    <value>上传并导入文件</value>
+  </data>
+  <data name="lblMsg219" xml:space="preserve">
+    <value>导入数据类型</value>
+  </data>
+  <data name="lblMsg220" xml:space="preserve">
+    <value>下载导入模板</value>
+  </data>
+  <data name="lblMsg221" xml:space="preserve">
+    <value>本周单周</value>
+  </data>
+  <data name="lblMsg222" xml:space="preserve">
+    <value>错误列表</value>
+  </data>
+  <data name="lblMsg223" xml:space="preserve">
+    <value>主机架构维护</value>
+  </data>
+  <data name="lblMsg224" xml:space="preserve">
+    <value>组织属性</value>
+  </data>
+  <data name="lblMsg225" xml:space="preserve">
+    <value>上级组织</value>
+  </data>
+  <data name="lblMsg226" xml:space="preserve">
+    <value>覆盖人数</value>
+  </data>
+  <data name="lblMsg227" xml:space="preserve">
+    <value>组织等级</value>
+  </data>
+  <data name="lblMsg228" xml:space="preserve">
+    <value>是否启用</value>
+  </data>
+  <data name="lblMsg229" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="lblMsg230" xml:space="preserve">
+    <value>新增下一级</value>
+  </data>
+  <data name="lblMsg231" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="lblMsg232" xml:space="preserve">
+    <value>手机验证开关</value>
+  </data>
+  <data name="lblMsg233" xml:space="preserve">
+    <value>手机验证码</value>
+  </data>
+  <data name="lblMsg234" xml:space="preserve">
+    <value>可拍照数量</value>
+  </data>
+  <data name="lblMsg235" xml:space="preserve">
+    <value>可删除时间</value>
+  </data>
+  <data name="lblMsg236" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="lblMsg237" xml:space="preserve">
+    <value>打印预览</value>
+  </data>
+  <data name="lblMsg238" xml:space="preserve">
+    <value>照片预览</value>
+  </data>
+  <data name="lblMsg239" xml:space="preserve">
+    <value>制造商名称:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg240" xml:space="preserve">
+    <value>品类名称</value>
+  </data>
+  <data name="lblMsg241" xml:space="preserve">
+    <value>常规指标代码:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg242" xml:space="preserve">
+    <value>常规指标名称:&lt;font color=red&gt;*&lt;/font&gt;</value>
+  </data>
+  <data name="lblMsg243" xml:space="preserve">
+    <value>品类代码</value>
+  </data>
+  <data name="lblMsg244" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="lblMsg245" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="lbl_LoginOut" xml:space="preserve">
+    <value>你确定要注销出系统吗？</value>
+  </data>
+  <data name="其他报告" xml:space="preserve">
+    <value>其他报告</value>
+  </data>
+  <data name="商贸报告" xml:space="preserve">
+    <value>商贸报告</value>
+  </data>
+  <data name="效率报告" xml:space="preserve">
+    <value>效率报告</value>
+  </data>
+  <data name="CPR报表" xml:space="preserve">
+    <value>CPR报表</value>
+  </data>
+  <data name="lblMsg246" xml:space="preserve">
+    <value>是否已分配组织</value>
+  </data>
+  <data name="lblMsg247" xml:space="preserve">
+    <value>挂接终端</value>
+  </data>
+  <data name="lblMsg248" xml:space="preserve">
+    <value>请不要重复添加!</value>
+  </data>
+  <data name="lblMsg249" xml:space="preserve">
+    <value>维护经销商</value>
+  </data>
+  <data name="lblMsg250" xml:space="preserve">
+    <value>邮件地址</value>
+  </data>
+  <data name="lblMsg251" xml:space="preserve">
+    <value>联系电话</value>
+  </data>
+  <data name="lblMsg252" xml:space="preserve">
+    <value>已存在此代码!</value>
+  </data>
+  <data name="lblMsg253" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="lblMsg254" xml:space="preserve">
+    <value>终端列表</value>
+  </data>
+  <data name="lblMsg255" xml:space="preserve">
+    <value>全部包含</value>
+  </data>
+  <data name="lblMsg256" xml:space="preserve">
+    <value>全部取消</value>
+  </data>
+  <data name="lblMsg257" xml:space="preserve">
+    <value>渠道类型</value>
+  </data>
+  <data name="lblMsg258" xml:space="preserve">
+    <value>固定电话</value>
+  </data>
+  <data name="lblMsg259" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="lblMsg260" xml:space="preserve">
+    <value>省份</value>
+  </data>
+  <data name="lblMsg261" xml:space="preserve">
+    <value>地级市</value>
+  </data>
+  <data name="lblMsg262" xml:space="preserve">
+    <value>县级市</value>
+  </data>
+  <data name="lblMsg263" xml:space="preserve">
+    <value>是否挂接经销商</value>
+  </data>
+  <data name="lblMsg264" xml:space="preserve">
+    <value>已挂接</value>
+  </data>
+  <data name="lblMsg265" xml:space="preserve">
+    <value>未挂接</value>
+  </data>
+  <data name="lblMsg266" xml:space="preserve">
+    <value>是否包含指标组</value>
+  </data>
+  <data name="lblMsg267" xml:space="preserve">
+    <value>编号</value>
+  </data>
+  <data name="lblMsg268" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="lblMsg269" xml:space="preserve">
+    <value>所属业代</value>
+  </data>
+  <data name="lblMsg270" xml:space="preserve">
+    <value>面积</value>
+  </data>
+  <data name="lblMsg271" xml:space="preserve">
+    <value>面积不能为空!</value>
+  </data>
+  <data name="lblMsg272" xml:space="preserve">
+    <value>请填写联系人!</value>
+  </data>
+  <data name="lblMsg273" xml:space="preserve">
+    <value>请选择客户组织</value>
+  </data>
+  <data name="lblMsg274" xml:space="preserve">
+    <value>请选择门店类型</value>
+  </data>
+  <data name="lblMsg275" xml:space="preserve">
+    <value>组织架构不能为空!</value>
+  </data>
+  <data name="lblMsg276" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="lblMsg277" xml:space="preserve">
+    <value>纬度</value>
+  </data>
+  <data name="lblMsg278" xml:space="preserve">
+    <value>经度</value>
+  </data>
+  <data name="lblMsg279" xml:space="preserve">
+    <value>请选择业务员</value>
+  </data>
+  <data name="lblMsg280" xml:space="preserve">
+    <value>指标组</value>
+  </data>
+  <data name="lblMsg281" xml:space="preserve">
+    <value>请选择指标组</value>
+  </data>
+  <data name="lblMsg282" xml:space="preserve">
+    <value>请选择客户分销列表!</value>
+  </data>
+  <data name="lblMsg283" xml:space="preserve">
+    <value>请选择客户属性</value>
+  </data>
+  <data name="lblMsg284" xml:space="preserve">
+    <value>所属经销商</value>
+  </data>
+  <data name="lblMsg285" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="lblMsg286" xml:space="preserve">
+    <value>分配品牌</value>
+  </data>
+  <data name="lblMsg287" xml:space="preserve">
+    <value>资产类型</value>
+  </data>
+  <data name="lblMsg288" xml:space="preserve">
+    <value>资产编号</value>
+  </data>
+  <data name="lblMsg289" xml:space="preserve">
+    <value>投放日期</value>
+  </data>
+  <data name="lblMsg290" xml:space="preserve">
+    <value>资产状态</value>
+  </data>
+  <data name="lblMsg291" xml:space="preserve">
+    <value>经销商挂接</value>
+  </data>
+  <data name="lblMsg292" xml:space="preserve">
+    <value>新增门店成功!</value>
+  </data>
+  <data name="lblMsg293" xml:space="preserve">
+    <value>导出字段</value>
+  </data>
+  <data name="lblMsg294" xml:space="preserve">
+    <value>单价</value>
+  </data>
+  <data name="lblMsg295" xml:space="preserve">
+    <value>发货数量</value>
+  </data>
+  <data name="lblMsg296" xml:space="preserve">
+    <value>收货数量</value>
+  </data>
+  <data name="lblMsg297" xml:space="preserve">
+    <value>收货时间</value>
+  </data>
+  <data name="lblMsg298" xml:space="preserve">
+    <value>客户签收</value>
+  </data>
+  <data name="lblMsg299" xml:space="preserve">
+    <value>由于角色类型传送失败导致无法导出Excel,请返回上级页面重新尝试</value>
+  </data>
+  <data name="lblMsg300" xml:space="preserve">
+    <value>无法导出Excel,请返回上级页面重新尝试</value>
+  </data>
+  <data name="lblMsg301" xml:space="preserve">
+    <value>资产异动查询</value>
+  </data>
+  <data name="lblMsg302" xml:space="preserve">
+    <value>请选择省份!</value>
+  </data>
+  <data name="lblMsg303" xml:space="preserve">
+    <value>全部提交</value>
+  </data>
+  <data name="lblMsg304" xml:space="preserve">
+    <value>必备SKU</value>
+  </data>
+  <data name="lblMsg305" xml:space="preserve">
+    <value>系统ID</value>
+  </data>
+  <data name="lblMsg306" xml:space="preserve">
+    <value>操作成功</value>
+  </data>
+  <data name="lblMsg307" xml:space="preserve">
+    <value>品类代码不能为空</value>
+  </data>
+  <data name="lblMsg308" xml:space="preserve">
+    <value>品类名称不能为空</value>
+  </data>
+  <data name="lblMsg309" xml:space="preserve">
+    <value>已存在此代码</value>
+  </data>
+  <data name="lblMsg310" xml:space="preserve">
+    <value>已存在此名称</value>
+  </data>
+  <data name="lblMsg311" xml:space="preserve">
+    <value>包装列表</value>
+  </data>
+  <data name="lblMsg312" xml:space="preserve">
+    <value>包装代码不能为空</value>
+  </data>
+  <data name="lblMsg313" xml:space="preserve">
+    <value>包装名称不能为空</value>
+  </data>
+  <data name="lblMsg314" xml:space="preserve">
+    <value>制造商名称不能为空!</value>
+  </data>
+  <data name="lblMsg315" xml:space="preserve">
+    <value>品类不能为空!</value>
+  </data>
+  <data name="lblMsg316" xml:space="preserve">
+    <value>保  存</value>
+  </data>
+  <data name="lblMsg317" xml:space="preserve">
+    <value>系列维护</value>
+  </data>
+  <data name="lblMsg318" xml:space="preserve">
+    <value>系列代码不能为空!</value>
+  </data>
+  <data name="lblMsg319" xml:space="preserve">
+    <value>系列名称不能为空!</value>
+  </data>
+  <data name="lblMsg320" xml:space="preserve">
+    <value>品牌名称</value>
+  </data>
+  <data name="lblMsg321" xml:space="preserve">
+    <value>品牌不能为空!</value>
+  </data>
+  <data name="lblMsg322" xml:space="preserve">
+    <value>--选择品牌--</value>
+  </data>
+  <data name="lblMsg323" xml:space="preserve">
+    <value>--选择制造商--</value>
+  </data>
+  <data name="lblMsg324" xml:space="preserve">
+    <value>--选择品类--</value>
+  </data>
+  <data name="lblMsg325" xml:space="preserve">
+    <value>产品代码不能为空!</value>
+  </data>
+  <data name="lblMsg326" xml:space="preserve">
+    <value>产品名称不能为空!</value>
+  </data>
+  <data name="lblMsg327" xml:space="preserve">
+    <value>产品简称不能为空!</value>
+  </data>
+  <data name="lblMsg328" xml:space="preserve">
+    <value>系列不能为空!</value>
+  </data>
+  <data name="lblMsg329" xml:space="preserve">
+    <value>基本规格不能为空!</value>
+  </data>
+  <data name="lblMsg330" xml:space="preserve">
+    <value>支价应为数字</value>
+  </data>
+  <data name="lblMsg331" xml:space="preserve">
+    <value>箱价应为数字</value>
+  </data>
+  <data name="lblMsg332" xml:space="preserve">
+    <value>包/箱</value>
+  </data>
+  <data name="lblMsg333" xml:space="preserve">
+    <value>规格转换应为数字</value>
+  </data>
+  <data name="lblMsg334" xml:space="preserve">
+    <value>请输入箱包转换</value>
+  </data>
+  <data name="lblMsg335" xml:space="preserve">
+    <value>当前</value>
+  </data>
+  <data name="lblMsg336" xml:space="preserve">
+    <value>共</value>
+  </data>
+  <data name="lblMsg337" xml:space="preserve">
+    <value>--选择系列--</value>
+  </data>
+  <data name="lblMsg338" xml:space="preserve">
+    <value>--选择规格--</value>
+  </data>
+  <data name="lblMsg339" xml:space="preserve">
+    <value>调整产品顺序</value>
+  </data>
+  <data name="lblMsg340" xml:space="preserve">
+    <value>幅度</value>
+  </data>
+  <data name="lblMsg341" xml:space="preserve">
+    <value>上  移</value>
+  </data>
+  <data name="lblMsg342" xml:space="preserve">
+    <value>下  移</value>
+  </data>
+  <data name="lblMsg343" xml:space="preserve">
+    <value>保存成功!</value>
+  </data>
+  <data name="lblMsg344" xml:space="preserve">
+    <value>用户管理</value>
+  </data>
+  <data name="lblMsg345" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="lblMsg346" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="lblMsg347" xml:space="preserve">
+    <value>人员数据</value>
+  </data>
+  <data name="lblMsg348" xml:space="preserve">
+    <value>姓名不能为空</value>
+  </data>
+  <data name="lblMsg349" xml:space="preserve">
+    <value>请填写手机</value>
+  </data>
+  <data name="lblMsg350" xml:space="preserve">
+    <value>请填写正确的手机号码</value>
+  </data>
+  <data name="lblMsg351" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="lblMsg352" xml:space="preserve">
+    <value>请输入正确的Email</value>
+  </data>
+  <data name="lblMsg353" xml:space="preserve">
+    <value>配置日期</value>
+  </data>
+  <data name="lblMsg354" xml:space="preserve">
+    <value>用户资产</value>
+  </data>
+  <data name="lblMsg355" xml:space="preserve">
+    <value>单位</value>
+  </data>
+  <data name="lblMsg356" xml:space="preserve">
+    <value>单位不能为空</value>
+  </data>
+  <data name="lblMsg357" xml:space="preserve">
+    <value>资产型号</value>
+  </data>
+  <data name="lblMsg358" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="lblMsg359" xml:space="preserve">
+    <value>数量不能为空!</value>
+  </data>
+  <data name="lblMsg360" xml:space="preserve">
+    <value>数量必须为正整数!</value>
+  </data>
+  <data name="lblMsg361" xml:space="preserve">
+    <value>资产编号不能为空!</value>
+  </data>
+  <data name="lblMsg362" xml:space="preserve">
+    <value>原值</value>
+  </data>
+  <data name="lblMsg363" xml:space="preserve">
+    <value>原值不能为空!</value>
+  </data>
+  <data name="lblMsg364" xml:space="preserve">
+    <value>原值格式错误，最大16位整数，2位小数!</value>
+  </data>
+  <data name="lblMsg365" xml:space="preserve">
+    <value>出厂编号</value>
+  </data>
+  <data name="lblMsg366" xml:space="preserve">
+    <value>出厂编号不能为空!</value>
+  </data>
+  <data name="lblMsg367" xml:space="preserve">
+    <value>折旧年限</value>
+  </data>
+  <data name="lblMsg368" xml:space="preserve">
+    <value>折旧年限格式错误,最大5位整数2位小数!</value>
+  </data>
+  <data name="lblMsg369" xml:space="preserve">
+    <value>首次启用日期</value>
+  </data>
+  <data name="lblMsg370" xml:space="preserve">
+    <value>首次启用日期不能为空!</value>
+  </data>
+  <data name="lblMsg371" xml:space="preserve">
+    <value>状态不能为空!</value>
+  </data>
+  <data name="lblMsg372" xml:space="preserve">
+    <value>报废日期</value>
+  </data>
+  <data name="lblMsg373" xml:space="preserve">
+    <value>配置日期不能为空!</value>
+  </data>
+  <data name="lblMsg374" xml:space="preserve">
+    <value>预留字段一</value>
+  </data>
+  <data name="lblMsg375" xml:space="preserve">
+    <value>预留字段一格式错误，最大16位整数2位小数</value>
+  </data>
+  <data name="lblMsg376" xml:space="preserve">
+    <value>回收日期</value>
+  </data>
+  <data name="lblMsg377" xml:space="preserve">
+    <value>预留字段二</value>
+  </data>
+  <data name="lblMsg378" xml:space="preserve">
+    <value>预留字段二格式错误，最大16位整数2位小数</value>
+  </data>
+  <data name="lblMsg379" xml:space="preserve">
+    <value>预留字段三</value>
+  </data>
+  <data name="lblMsg380" xml:space="preserve">
+    <value>预留字段四</value>
+  </data>
+  <data name="lblMsg381" xml:space="preserve">
+    <value>预留字段五</value>
+  </data>
+  <data name="lblMsg382" xml:space="preserve">
+    <value>描述不能为空!</value>
+  </data>
+  <data name="lblMsg383" xml:space="preserve">
+    <value>资产异动</value>
+  </data>
+  <data name="lblMsg384" xml:space="preserve">
+    <value>变更日期</value>
+  </data>
+  <data name="lblMsg385" xml:space="preserve">
+    <value>变更人员</value>
+  </data>
+  <data name="lblMsg386" xml:space="preserve">
+    <value>系统用户列表</value>
+  </data>
+  <data name="lblMsg387" xml:space="preserve">
+    <value>用户帐号</value>
+  </data>
+  <data name="lblMsg388" xml:space="preserve">
+    <value>用户姓名</value>
+  </data>
+  <data name="lblMsg389" xml:space="preserve">
+    <value>用户角色</value>
+  </data>
+  <data name="lblMsg390" xml:space="preserve">
+    <value>密码重置成功</value>
+  </data>
+  <data name="lblMsg391" xml:space="preserve">
+    <value>密码重置失败</value>
+  </data>
+  <data name="lblMsg392" xml:space="preserve">
+    <value>你确定要重置密码吗？</value>
+  </data>
+  <data name="lblMsg393" xml:space="preserve">
+    <value>请填写用户帐号</value>
+  </data>
+  <data name="lblMsg394" xml:space="preserve">
+    <value>请选择人员</value>
+  </data>
+  <data name="lblMsg395" xml:space="preserve">
+    <value>请选择角色</value>
+  </data>
+  <data name="lblMsg396" xml:space="preserve">
+    <value>请选择组织架构!</value>
+  </data>
+  <data name="lblMsg397" xml:space="preserve">
+    <value>地址不能为空!</value>
+  </data>
+  <data name="lblMsg398" xml:space="preserve">
+    <value>添加出错!</value>
+  </data>
+  <data name="lblMsg399" xml:space="preserve">
+    <value>已存在该用户帐号!</value>
+  </data>
+  <data name="lblMsg400" xml:space="preserve">
+    <value>该用户已经有覆盖的路线，请先删除门店负责人覆盖!</value>
+  </data>
+  <data name="lblMsg401" xml:space="preserve">
+    <value>门店负责人线路转移</value>
+  </data>
+  <data name="lblMsg402" xml:space="preserve">
+    <value>原业代姓名</value>
+  </data>
+  <data name="lblMsg403" xml:space="preserve">
+    <value>目标业代姓名</value>
+  </data>
+  <data name="lblMsg404" xml:space="preserve">
+    <value>原业代</value>
+  </data>
+  <data name="lblMsg405" xml:space="preserve">
+    <value>帐号</value>
+  </data>
+  <data name="lblMsg406" xml:space="preserve">
+    <value>目标业代</value>
+  </data>
+  <data name="lblMsg407" xml:space="preserve">
+    <value>交  换</value>
+  </data>
+  <data name="lblMsg408" xml:space="preserve">
+    <value>设置手机串号</value>
+  </data>
+  <data name="lblMsg409" xml:space="preserve">
+    <value>手机串号</value>
+  </data>
+  <data name="lblMsg410" xml:space="preserve">
+    <value>本页全选</value>
+  </data>
+  <data name="lblMsg411" xml:space="preserve">
+    <value>清空串号</value>
+  </data>
+  <data name="lblMsg412" xml:space="preserve">
+    <value>是否验证</value>
+  </data>
+  <data name="lblMsg413" xml:space="preserve">
+    <value>覆盖管理</value>
+  </data>
+  <data name="lblMsg414" xml:space="preserve">
+    <value>门店负责人覆盖列表</value>
+  </data>
+  <data name="lblMsg415" xml:space="preserve">
+    <value>修改覆盖</value>
+  </data>
+  <data name="lblMsg416" xml:space="preserve">
+    <value>品牌代码</value>
+  </data>
+  <data name="lblMsg417" xml:space="preserve">
+    <value>产品组名称</value>
+  </data>
+  <data name="lblMsg418" xml:space="preserve">
+    <value>规格</value>
+  </data>
+  <data name="lblMsg419" xml:space="preserve">
+    <value>新品上市日期</value>
+  </data>
+  <data name="lblMsg420" xml:space="preserve">
+    <value>显示顺序</value>
+  </data>
+  <data name="lblMsg421" xml:space="preserve">
+    <value>所属组织</value>
+  </data>
+  <data name="lblMsg422" xml:space="preserve">
+    <value>客户编号</value>
+  </data>
+  <data name="lblMsg423" xml:space="preserve">
+    <value>客户名称</value>
+  </data>
+  <data name="lblMsg424" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="lblMsg425" xml:space="preserve">
+    <value>拜访时间</value>
+  </data>
+  <data name="lblMsg426" xml:space="preserve">
+    <value>拜访类型</value>
+  </data>
+  <data name="lblMsg427" xml:space="preserve">
+    <value>拜访模式</value>
+  </data>
+  <data name="lblMsg428" xml:space="preserve">
+    <value>手机平台</value>
+  </data>
+  <data name="lblMsg429" xml:space="preserve">
+    <value>配送单位</value>
+  </data>
+  <data name="lblMsg430" xml:space="preserve">
+    <value>业代</value>
+  </data>
+  <data name="lblMsg431" xml:space="preserve">
+    <value>订单号</value>
+  </data>
+  <data name="lblMsg432" xml:space="preserve">
+    <value>终端客户</value>
+  </data>
+  <data name="lblMsg433" xml:space="preserve">
+    <value>客户地址</value>
+  </data>
+  <data name="lblMsg434" xml:space="preserve">
+    <value>联系方式</value>
+  </data>
+  <data name="lblMsg435" xml:space="preserve">
+    <value>订单数量</value>
+  </data>
+  <data name="lblMsg436" xml:space="preserve">
+    <value>要求到达日期</value>
+  </data>
+  <data name="lblMsg437" xml:space="preserve">
+    <value>线路描述</value>
+  </data>
+  <data name="lblMsg438" xml:space="preserve">
+    <value>本周拜访</value>
+  </data>
+  <data name="lblMsg439" xml:space="preserve">
+    <value>拜访顺序</value>
+  </data>
+  <data name="lblMsg440" xml:space="preserve">
+    <value>销售代表</value>
+  </data>
+  <data name="lblMsg441" xml:space="preserve">
+    <value>线路号码</value>
+  </data>
+  <data name="lblMsg442" xml:space="preserve">
+    <value>是否有序</value>
+  </data>
+  <data name="lblMsg443" xml:space="preserve">
+    <value>调整拜访顺序</value>
+  </data>
+  <data name="lblMsg444" xml:space="preserve">
+    <value>拜访周期调整</value>
+  </data>
+  <data name="lblMsg445" xml:space="preserve">
+    <value>有序</value>
+  </data>
+  <data name="lblMsg446" xml:space="preserve">
+    <value>无序</value>
+  </data>
+  <data name="lblMsg447" xml:space="preserve">
+    <value>门店负责人线路维护</value>
+  </data>
+  <data name="lblMsg448" xml:space="preserve">
+    <value>周一路线</value>
+  </data>
+  <data name="lblMsg449" xml:space="preserve">
+    <value>周二路线</value>
+  </data>
+  <data name="lblMsg450" xml:space="preserve">
+    <value>周三路线</value>
+  </data>
+  <data name="lblMsg451" xml:space="preserve">
+    <value>周四路线</value>
+  </data>
+  <data name="lblMsg452" xml:space="preserve">
+    <value>周五路线</value>
+  </data>
+  <data name="lblMsg453" xml:space="preserve">
+    <value>周六路线</value>
+  </data>
+  <data name="lblMsg454" xml:space="preserve">
+    <value>周日路线</value>
+  </data>
+  <data name="lblMsg455" xml:space="preserve">
+    <value>拜访方式</value>
+  </data>
+  <data name="lblMsg456" xml:space="preserve">
+    <value>销售代表路线明细</value>
+  </data>
+  <data name="lblMsg457" xml:space="preserve">
+    <value>查询路线 [展开/折叠]</value>
+  </data>
+  <data name="lblMsg458" xml:space="preserve">
+    <value>按照规则生成当月线路 [展开/折叠]</value>
+  </data>
+  <data name="lblMsg459" xml:space="preserve">
+    <value>注意: 根据线路规则重新生成后会覆盖原来的每日线路!</value>
+  </data>
+  <data name="lblMsg460" xml:space="preserve">
+    <value>[展开/折叠]</value>
+  </data>
+  <data name="lblMsg461" xml:space="preserve">
+    <value>日期1</value>
+  </data>
+  <data name="lblMsg462" xml:space="preserve">
+    <value>日期2</value>
+  </data>
+  <data name="lblMsg463" xml:space="preserve">
+    <value>线路预览</value>
+  </data>
+  <data name="lblMsg464" xml:space="preserve">
+    <value>拜访序号</value>
+  </data>
+  <data name="lblMsg465" xml:space="preserve">
+    <value>导  出</value>
+  </data>
+  <data name="lblMsg466" xml:space="preserve">
+    <value>生成线路必须要指定起始时间和结束时间!</value>
+  </data>
+  <data name="lblMsg467" xml:space="preserve">
+    <value>生成成功!</value>
+  </data>
+  <data name="lblMsg468" xml:space="preserve">
+    <value>生成失败!</value>
+  </data>
+  <data name="lblMsg469" xml:space="preserve">
+    <value>请指定需要交换的日期!</value>
+  </data>
+  <data name="lblMsg470" xml:space="preserve">
+    <value>线路交换成功!</value>
+  </data>
+  <data name="lblMsg471" xml:space="preserve">
+    <value>线内</value>
+  </data>
+  <data name="lblMsg472" xml:space="preserve">
+    <value>线外</value>
+  </data>
+  <data name="lblMsg473" xml:space="preserve">
+    <value>正常拜访</value>
+  </data>
+  <data name="lblMsg474" xml:space="preserve">
+    <value>电话订单</value>
+  </data>
+  <data name="lblMsg475" xml:space="preserve">
+    <value>异常拜访</value>
+  </data>
+  <data name="lblMsg476" xml:space="preserve">
+    <value>GPS无信号</value>
+  </data>
+  <data name="lblMsg477" xml:space="preserve">
+    <value>偏差较大</value>
+  </data>
+  <data name="lblMsg478" xml:space="preserve">
+    <value>订单列表</value>
+  </data>
+  <data name="lblMsg479" xml:space="preserve">
+    <value>手机上传</value>
+  </data>
+  <data name="lblMsg480" xml:space="preserve">
+    <value>选择终端</value>
+  </data>
+  <data name="lblMsg481" xml:space="preserve">
+    <value>提示:*为必选项!</value>
+  </data>
+  <data name="lblMsg482" xml:space="preserve">
+    <value>订单来源不能为空!</value>
+  </data>
+  <data name="lblMsg483" xml:space="preserve">
+    <value>请求发货日期不能为空!</value>
+  </data>
+  <data name="lblMsg484" xml:space="preserve">
+    <value>请求发货日期不能小于订单日期!</value>
+  </data>
+  <data name="lblMsg485" xml:space="preserve">
+    <value>经销商不能为空!</value>
+  </data>
+  <data name="lblMsg486" xml:space="preserve">
+    <value>业务员不能为空!</value>
+  </data>
+  <data name="lblMsg487" xml:space="preserve">
+    <value>订包</value>
+  </data>
+  <data name="lblMsg488" xml:space="preserve">
+    <value>订箱</value>
+  </data>
+  <data name="lblMsg489" xml:space="preserve">
+    <value>促销</value>
+  </data>
+  <data name="lblMsg490" xml:space="preserve">
+    <value>添加产品</value>
+  </data>
+  <data name="lblMsg491" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="lblMsg492" xml:space="preserve">
+    <value>瓶</value>
+  </data>
+  <data name="lblMsg493" xml:space="preserve">
+    <value>箱</value>
+  </data>
+  <data name="lblMsg494" xml:space="preserve">
+    <value>不允许生成空订单!</value>
+  </data>
+  <data name="lblMsg495" xml:space="preserve">
+    <value>订单无法确认 理由:会计期关闭</value>
+  </data>
+  <data name="lblMsg496" xml:space="preserve">
+    <value>订单无法确认 理由:收货日期错误</value>
+  </data>
+  <data name="lblMsg497" xml:space="preserve">
+    <value>订单生成成功,将跳转到选择终端页面!</value>
+  </data>
+  <data name="lblMsg498" xml:space="preserve">
+    <value>补录</value>
+  </data>
+  <data name="lblMsg499" xml:space="preserve">
+    <value>请您仔细确认您的订单</value>
+  </data>
+  <data name="lblMsg500" xml:space="preserve">
+    <value>请求发货日期</value>
+  </data>
+  <data name="lblMsg501" xml:space="preserve">
+    <value>订货整箱总数</value>
+  </data>
+  <data name="lblMsg502" xml:space="preserve">
+    <value>订货散货总数</value>
+  </data>
+  <data name="lblMsg503" xml:space="preserve">
+    <value>赠货整箱总数</value>
+  </data>
+  <data name="lblMsg504" xml:space="preserve">
+    <value>赠货散货总数</value>
+  </data>
+  <data name="lblMsg505" xml:space="preserve">
+    <value>订单明细</value>
+  </data>
+  <data name="lblMsg506" xml:space="preserve">
+    <value>收货单价</value>
+  </data>
+  <data name="lblMsg507" xml:space="preserve">
+    <value>收货日期</value>
+  </data>
+  <data name="lblMsg508" xml:space="preserve">
+    <value>赠品明细</value>
+  </data>
+  <data name="lblMsg509" xml:space="preserve">
+    <value>生成订单</value>
+  </data>
+  <data name="lblMsg510" xml:space="preserve">
+    <value>生成并确认</value>
+  </data>
+  <data name="lblMsg511" xml:space="preserve">
+    <value>修  改</value>
+  </data>
+  <data name="lblMsg512" xml:space="preserve">
+    <value>选择产品</value>
+  </data>
+  <data name="lblMsg513" xml:space="preserve">
+    <value>请选择产品!</value>
+  </data>
+  <data name="lblMsg514" xml:space="preserve">
+    <value>常规维护</value>
+  </data>
+  <data name="lblMsg515" xml:space="preserve">
+    <value>代码不能为空!</value>
+  </data>
+  <data name="lblMsg516" xml:space="preserve">
+    <value>代码应为正整数!</value>
+  </data>
+  <data name="lblMsg517" xml:space="preserve">
+    <value>名称不能为空!</value>
+  </data>
+  <data name="lblMsg518" xml:space="preserve">
+    <value>指标类列表</value>
+  </data>
+  <data name="lblMsg519" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="lblMsg520" xml:space="preserve">
+    <value>是/否(单选)</value>
+  </data>
+  <data name="lblMsg521" xml:space="preserve">
+    <value>是/否(多选)</value>
+  </data>
+  <data name="lblMsg522" xml:space="preserve">
+    <value>文字描述</value>
+  </data>
+  <data name="lblMsg523" xml:space="preserve">
+    <value>数字描述</value>
+  </data>
+  <data name="lblMsg524" xml:space="preserve">
+    <value>指标列表</value>
+  </data>
+  <data name="lblMsg525" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="lblMsg526" xml:space="preserve">
+    <value>详细</value>
+  </data>
+  <data name="lblMsg527" xml:space="preserve">
+    <value>指标维护</value>
+  </data>
+  <data name="lblMsg528" xml:space="preserve">
+    <value>查询品类</value>
+  </data>
+  <data name="lblMsg529" xml:space="preserve">
+    <value>类型不能为空!</value>
+  </data>
+  <data name="lblMsg530" xml:space="preserve">
+    <value>指标类不能为空!</value>
+  </data>
+  <data name="lblMsg531" xml:space="preserve">
+    <value>编辑品类</value>
+  </data>
+  <data name="lblMsg532" xml:space="preserve">
+    <value>请选择一个有效的品类!</value>
+  </data>
+  <data name="lblMsg533" xml:space="preserve">
+    <value>指标组维护列表</value>
+  </data>
+  <data name="lblMsg534" xml:space="preserve">
+    <value>页面顺序应为非零数字</value>
+  </data>
+  <data name="lblMsg535" xml:space="preserve">
+    <value>序号应为正整数</value>
+  </data>
+  <data name="lblMsg536" xml:space="preserve">
+    <value>合并表格</value>
+  </data>
+  <data name="lblMsg537" xml:space="preserve">
+    <value>单独显示</value>
+  </data>
+  <data name="lblMsg538" xml:space="preserve">
+    <value>指标组客户维护</value>
+  </data>
+  <data name="lblMsg539" xml:space="preserve">
+    <value>客户类别</value>
+  </data>
+  <data name="lblMsg540" xml:space="preserve">
+    <value>消息维护</value>
+  </data>
+  <data name="lblMsg541" xml:space="preserve">
+    <value>请选择消息类型</value>
+  </data>
+  <data name="lblMsg542" xml:space="preserve">
+    <value>消息不能为空</value>
+  </data>
+  <data name="lblMsg543" xml:space="preserve">
+    <value>消息发送成功!</value>
+  </data>
+  <data name="lblMsg544" xml:space="preserve">
+    <value>操作失败!</value>
+  </data>
+  <data name="lblMsg545" xml:space="preserve">
+    <value>发送消息列表</value>
+  </data>
+  <data name="lblMsg546" xml:space="preserve">
+    <value>消息列表</value>
+  </data>
+  <data name="lblMsg547" xml:space="preserve">
+    <value>发送人</value>
+  </data>
+  <data name="lblMsg548" xml:space="preserve">
+    <value>已发送信息</value>
+  </data>
+  <data name="lblMsg549" xml:space="preserve">
+    <value>收件人</value>
+  </data>
+  <data name="lblMsg550" xml:space="preserve">
+    <value>用户组名称</value>
+  </data>
+  <data name="lblMsg551" xml:space="preserve">
+    <value>用户组名称不能为空!</value>
+  </data>
+  <data name="lblMsg552" xml:space="preserve">
+    <value>用户类型</value>
+  </data>
+  <data name="lblMsg553" xml:space="preserve">
+    <value>有路线</value>
+  </data>
+  <data name="lblMsg554" xml:space="preserve">
+    <value>无路线</value>
+  </data>
+  <data name="lblMsg555" xml:space="preserve">
+    <value>用户组等级</value>
+  </data>
+  <data name="lblMsg556" xml:space="preserve">
+    <value>角色授权</value>
+  </data>
+  <data name="lblMsg557" xml:space="preserve">
+    <value>查询表单</value>
+  </data>
+  <data name="lblMsg558" xml:space="preserve">
+    <value>请输入原始密码!</value>
+  </data>
+  <data name="lblMsg559" xml:space="preserve">
+    <value>请输入新密码!</value>
+  </data>
+  <data name="lblMsg560" xml:space="preserve">
+    <value>请输入密码确认!</value>
+  </data>
+  <data name="lblMsg561" xml:space="preserve">
+    <value>密码确认输入不正确!</value>
+  </data>
+  <data name="lblMsg562" xml:space="preserve">
+    <value>原密码输入错误!</value>
+  </data>
+  <data name="lblMsg563" xml:space="preserve">
+    <value>密码修改成功!</value>
+  </data>
+  <data name="lblMsg564" xml:space="preserve">
+    <value>密码修改失败!</value>
+  </data>
+  <data name="lblMsg565" xml:space="preserve">
+    <value>两次密码输入不同!</value>
+  </data>
+  <data name="lblMsg566" xml:space="preserve">
+    <value>输入组表单</value>
+  </data>
+  <data name="lblMsg567" xml:space="preserve">
+    <value>输入列表单</value>
+  </data>
+  <data name="lblMsg568" xml:space="preserve">
+    <value>新增组</value>
+  </data>
+  <data name="lblMsg569" xml:space="preserve">
+    <value>新增列</value>
+  </data>
+  <data name="lblMsg570" xml:space="preserve">
+    <value>编辑列</value>
+  </data>
+  <data name="lblMsg571" xml:space="preserve">
+    <value>请输入编号和名称!</value>
+  </data>
+  <data name="lblMsg572" xml:space="preserve">
+    <value>请输入组名称和描述!</value>
+  </data>
+  <data name="lblMsg573" xml:space="preserve">
+    <value>门店主数据</value>
+  </data>
+  <data name="lblMsg574" xml:space="preserve">
+    <value>产品主数据</value>
+  </data>
+  <data name="lblMsg575" xml:space="preserve">
+    <value>拜访路线</value>
+  </data>
+  <data name="lblMsg576" xml:space="preserve">
+    <value>供货方式</value>
+  </data>
+  <data name="lblMsg577" xml:space="preserve">
+    <value>分销标准(必备分销)</value>
+  </data>
+  <data name="lblMsg578" xml:space="preserve">
+    <value>请选择导入的数据类型!</value>
+  </data>
+  <data name="lblMsg579" xml:space="preserve">
+    <value>错误信息</value>
+  </data>
+  <data name="lblMsg580" xml:space="preserve">
+    <value>本周双周</value>
+  </data>
+  <data name="lblMsg581" xml:space="preserve">
+    <value>请选择上传文件!</value>
+  </data>
+  <data name="lblMsg582" xml:space="preserve">
+    <value>文件类型错误或正在使用!</value>
+  </data>
+  <data name="lblMsg583" xml:space="preserve">
+    <value>文件上传失败!</value>
+  </data>
+  <data name="lblMsg584" xml:space="preserve">
+    <value>插入数据</value>
+  </data>
+  <data name="lblMsg585" xml:space="preserve">
+    <value>条</value>
+  </data>
+  <data name="lblMsg586" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="lblMsg587" xml:space="preserve">
+    <value>耗时</value>
+  </data>
+  <data name="lblMsg588" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="lblMsg589" xml:space="preserve">
+    <value>找不到列</value>
+  </data>
+  <data name="lblMsg590" xml:space="preserve">
+    <value>导入程序终止</value>
+  </data>
+  <data name="lblMsg591" xml:space="preserve">
+    <value>职务</value>
+  </data>
+  <data name="lblMsg592" xml:space="preserve">
+    <value>行</value>
+  </data>
+  <data name="lblMsg593" xml:space="preserve">
+    <value>职务不能为空</value>
+  </data>
+  <data name="lblMsg594" xml:space="preserve">
+    <value>电话不能为空</value>
+  </data>
+  <data name="lblMsg595" xml:space="preserve">
+    <value>在系统中不存在</value>
+  </data>
+  <data name="lblMsg596" xml:space="preserve">
+    <value>用户组</value>
+  </data>
+  <data name="lblMsg597" xml:space="preserve">
+    <value>新增人员出错</value>
+  </data>
+  <data name="lblMsg598" xml:space="preserve">
+    <value>系统生成日期</value>
+  </data>
+  <data name="lblMsg599" xml:space="preserve">
+    <value>客户编号不能为空</value>
+  </data>
+  <data name="lblMsg600" xml:space="preserve">
+    <value>客户名称不能为空</value>
+  </data>
+  <data name="lblMsg601" xml:space="preserve">
+    <value>客户类型不能为空</value>
+  </data>
+  <data name="lblMsg602" xml:space="preserve">
+    <value>客户属性不能为空</value>
+  </data>
+  <data name="lblMsg603" xml:space="preserve">
+    <value>省份不能为空</value>
+  </data>
+  <data name="lblMsg604" xml:space="preserve">
+    <value>地级市不能为空</value>
+  </data>
+  <data name="lblMsg605" xml:space="preserve">
+    <value>县级市不能为空</value>
+  </data>
+  <data name="lblMsg606" xml:space="preserve">
+    <value>管理单元不能为空</value>
+  </data>
+  <data name="lblMsg607" xml:space="preserve">
+    <value>找不到管理单元</value>
+  </data>
+  <data name="lblMsg608" xml:space="preserve">
+    <value>行政架构在系统中不存在</value>
+  </data>
+  <data name="lblMsg609" xml:space="preserve">
+    <value>新增连锁集团出错</value>
+  </data>
+  <data name="lblMsg610" xml:space="preserve">
+    <value>新增销售渠道出错</value>
+  </data>
+  <data name="lblMsg611" xml:space="preserve">
+    <value>新增客户属性出错</value>
+  </data>
+  <data name="lblMsg612" xml:space="preserve">
+    <value>新增门店出错</value>
+  </data>
+  <data name="lblMsg613" xml:space="preserve">
+    <value>新增客户联系信息出错</value>
+  </data>
+  <data name="lblMsg614" xml:space="preserve">
+    <value>所有覆盖</value>
+  </data>
+  <data name="lblMsg615" xml:space="preserve">
+    <value>新增所有覆盖信息出错</value>
+  </data>
+  <data name="lblMsg616" xml:space="preserve">
+    <value>新增ROUTE_CUSTOMERS的0路线出错</value>
+  </data>
+  <data name="lblMsg617" xml:space="preserve">
+    <value>分销列表不能为空</value>
+  </data>
+  <data name="lblMsg618" xml:space="preserve">
+    <value>分销列表格式错误: 城市-类型</value>
+  </data>
+  <data name="lblMsg619" xml:space="preserve">
+    <value>行政架构中找不到城市或存在多个同名城市</value>
+  </data>
+  <data name="lblMsg620" xml:space="preserve">
+    <value>找不到产品代码</value>
+  </data>
+  <data name="lblMsg621" xml:space="preserve">
+    <value>拜访频率</value>
+  </data>
+  <data name="lblMsg622" xml:space="preserve">
+    <value>拜访频率不能为空</value>
+  </data>
+  <data name="lblMsg623" xml:space="preserve">
+    <value>门店负责人不能为空</value>
+  </data>
+  <data name="lblMsg624" xml:space="preserve">
+    <value>门店编号不能为空</value>
+  </data>
+  <data name="lblMsg625" xml:space="preserve">
+    <value>拜访路线不能为空</value>
+  </data>
+  <data name="lblMsg626" xml:space="preserve">
+    <value>开始时间不能为空</value>
+  </data>
+  <data name="lblMsg627" xml:space="preserve">
+    <value>拜访频率格式错误，范围大于0的数字</value>
+  </data>
+  <data name="lblMsg628" xml:space="preserve">
+    <value>开始时间格式错误，必须是日期</value>
+  </data>
+  <data name="lblMsg629" xml:space="preserve">
+    <value>找不到门店编号</value>
+  </data>
+  <data name="lblMsg630" xml:space="preserve">
+    <value>源数据</value>
+  </data>
+  <data name="lblMsg631" xml:space="preserve">
+    <value>在组织架构</value>
+  </data>
+  <data name="lblMsg632" xml:space="preserve">
+    <value>找不到门店负责人</value>
+  </data>
+  <data name="lblMsg633" xml:space="preserve">
+    <value>拜访路线格式错误: 范围必须是1-7</value>
+  </data>
+  <data name="lblMsg634" xml:space="preserve">
+    <value>新增ROUTES所有覆盖信息出错</value>
+  </data>
+  <data name="lblMsg635" xml:space="preserve">
+    <value>路线</value>
+  </data>
+  <data name="lblMsg636" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="lblMsg637" xml:space="preserve">
+    <value>新增ROUTE_CUSTOMERS的路线出错</value>
+  </data>
+  <data name="lblMsg638" xml:space="preserve">
+    <value>产品描述</value>
+  </data>
+  <data name="lblMsg639" xml:space="preserve">
+    <value>拼音检索</value>
+  </data>
+  <data name="lblMsg640" xml:space="preserve">
+    <value>中间包数</value>
+  </data>
+  <data name="lblMsg641" xml:space="preserve">
+    <value>最小计量单位重量</value>
+  </data>
+  <data name="lblMsg642" xml:space="preserve">
+    <value>产品类型</value>
+  </data>
+  <data name="lblMsg643" xml:space="preserve">
+    <value>产品状态</value>
+  </data>
+  <data name="lblMsg644" xml:space="preserve">
+    <value>排列顺序</value>
+  </data>
+  <data name="lblMsg645" xml:space="preserve">
+    <value>产品描述不能为空</value>
+  </data>
+  <data name="lblMsg646" xml:space="preserve">
+    <value>子品牌不能为空</value>
+  </data>
+  <data name="lblMsg647" xml:space="preserve">
+    <value>中间包数不能为空</value>
+  </data>
+  <data name="lblMsg648" xml:space="preserve">
+    <value>最小计量单位重量不能为空</value>
+  </data>
+  <data name="lblMsg649" xml:space="preserve">
+    <value>箱价不能为空</value>
+  </data>
+  <data name="lblMsg650" xml:space="preserve">
+    <value>产品类型不能为空</value>
+  </data>
+  <data name="lblMsg651" xml:space="preserve">
+    <value>产品状态不能为空</value>
+  </data>
+  <data name="lblMsg652" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="lblMsg653" xml:space="preserve">
+    <value>新增品类出错</value>
+  </data>
+  <data name="lblMsg654" xml:space="preserve">
+    <value>新增品牌出错</value>
+  </data>
+  <data name="lblMsg655" xml:space="preserve">
+    <value>新增系列出错</value>
+  </data>
+  <data name="lblMsg656" xml:space="preserve">
+    <value>新品</value>
+  </data>
+  <data name="lblMsg657" xml:space="preserve">
+    <value>散装</value>
+  </data>
+  <data name="lblMsg658" xml:space="preserve">
+    <value>保存产品出错</value>
+  </data>
+  <data name="lblMsg659" xml:space="preserve">
+    <value>保存规格转换出错</value>
+  </data>
+  <data name="lblMsg660" xml:space="preserve">
+    <value>供货商名称</value>
+  </data>
+  <data name="lblMsg661" xml:space="preserve">
+    <value>订货E-MAIL</value>
+  </data>
+  <data name="lblMsg662" xml:space="preserve">
+    <value>供货方电话</value>
+  </data>
+  <data name="lblMsg663" xml:space="preserve">
+    <value>供货方传真</value>
+  </data>
+  <data name="lblMsg664" xml:space="preserve">
+    <value>供货商名称不能为空</value>
+  </data>
+  <data name="lblMsg665" xml:space="preserve">
+    <value>请填写!</value>
+  </data>
+  <data name="lblMsg666" xml:space="preserve">
+    <value>覆盖人数不能为空</value>
+  </data>
+  <data name="lblMsg667" xml:space="preserve">
+    <value>覆盖人数必须为1-12位正整数</value>
+  </data>
+  <data name="lblMsg668" xml:space="preserve">
+    <value>父结点不能编辑</value>
+  </data>
+  <data name="lblMsg669" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="lblMsg670" xml:space="preserve">
+    <value>上级组织不能包含本组织以及以下的组织</value>
+  </data>
+  <data name="lblMsg671" xml:space="preserve">
+    <value>行政架构维护</value>
+  </data>
+  <data name="lblMsg672" xml:space="preserve">
+    <value>保存失败</value>
+  </data>
+  <data name="lblMsg673" xml:space="preserve">
+    <value>订单时间偏差</value>
+  </data>
+  <data name="lblMsg674" xml:space="preserve">
+    <value>GPS偏差(米)</value>
+  </data>
+  <data name="lblMsg675" xml:space="preserve">
+    <value>编辑偏差</value>
+  </data>
+  <data name="lblMsg676" xml:space="preserve">
+    <value>时间偏差</value>
+  </data>
+  <data name="lblMsg677" xml:space="preserve">
+    <value>请填写时间偏差!</value>
+  </data>
+  <data name="lblMsg678" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="lblMsg679" xml:space="preserve">
+    <value>GPS偏差</value>
+  </data>
+  <data name="lblMsg680" xml:space="preserve">
+    <value>请填入GPS偏差!</value>
+  </data>
+  <data name="lblMsg681" xml:space="preserve">
+    <value>GPS偏差格式错误!</value>
+  </data>
+  <data name="lblMsg682" xml:space="preserve">
+    <value>米</value>
+  </data>
+  <data name="lblMsg683" xml:space="preserve">
+    <value>监督核查</value>
+  </data>
+  <data name="lblMsg684" xml:space="preserve">
+    <value>销售代表名称</value>
+  </data>
+  <data name="lblMsg685" xml:space="preserve">
+    <value>拍摄时间</value>
+  </data>
+  <data name="lblMsg686" xml:space="preserve">
+    <value>业务员所属组织</value>
+  </data>
+  <data name="lblMsg687" xml:space="preserve">
+    <value>该用户今天已经登录过，无法删除，请在</value>
+  </data>
+  <data name="lblMsg688" xml:space="preserve">
+    <value>后再操作</value>
+  </data>
+  <data name="lblMsg689" xml:space="preserve">
+    <value>注意: 失效客户会取消线路及覆盖中的存在</value>
+  </data>
+  <data name="lblMsg690" xml:space="preserve">
+    <value>注意:此操作会选中所有终端并提交，请慎重!</value>
+  </data>
+  <data name="lblMsg691" xml:space="preserve">
+    <value>注意:此操作会取消所有终端并提交，请慎重!</value>
+  </data>
+  <data name="lblMsg692" xml:space="preserve">
+    <value>如果当前选定存在取消关联会清空该组织下的终端与经销商的关系,您确认要继续吗?</value>
+  </data>
+  <data name="lblMsg693" xml:space="preserve">
+    <value>管理单元不能为空</value>
+  </data>
+  <data name="lblMsg694" xml:space="preserve">
+    <value>新增登录帐号出错</value>
+  </data>
+  <data name="lblMsg695" xml:space="preserve">
+    <value>指标组细节维护</value>
+  </data>
+  <data name="lblMsg696" xml:space="preserve">
+    <value>分配角色</value>
+  </data>
+  <data name="lblMsg697" xml:space="preserve">
+    <value>订单日期不能为空!</value>
+  </data>
+  <data name="lblMsg698" xml:space="preserve">
+    <value>请输入数值!</value>
+  </data>
+  <data name="lblMsg699" xml:space="preserve">
+    <value>经销商自销</value>
+  </data>
+  <data name="lblMsg700" xml:space="preserve">
+    <value>客户分配列表</value>
+  </data>
+  <data name="lblMsg701" xml:space="preserve">
+    <value>原门店负责人不能为空</value>
+  </data>
+  <data name="lblMsg702" xml:space="preserve">
+    <value>新门店负责人不能为空</value>
+  </data>
+  <data name="lblMsg703" xml:space="preserve">
+    <value>不能转移给自己</value>
+  </data>
+  <data name="lblMsg704" xml:space="preserve">
+    <value>已经存在目标用户覆盖列表当中!</value>
+  </data>
+  <data name="lblMsg705" xml:space="preserve">
+    <value>起始时间不能晚于结束时间</value>
+  </data>
+  <data name="lblMsg706" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="lblMsg707" xml:space="preserve">
+    <value>请选择进行转移的人员</value>
+  </data>
+  <data name="lblMsg708" xml:space="preserve">
+    <value>由于选择的人员不属于同一个组织，无法进行转移</value>
+  </data>
+  <data name="lblMsg709" xml:space="preserve">
+    <value>本周需要拜访</value>
+  </data>
+  <data name="lblMsg710" xml:space="preserve">
+    <value>临时路线</value>
+  </data>
+  <data name="lblMsg711" xml:space="preserve">
+    <value>编辑客户</value>
+  </data>
+  <data name="lblMsg712" xml:space="preserve">
+    <value>请选择拜访方式</value>
+  </data>
+  <data name="lblMsg713" xml:space="preserve">
+    <value>终端名称不能为空!</value>
+  </data>
+  <data name="lblMsg714" xml:space="preserve">
+    <value>行政架构不能为空!</value>
+  </data>
+  <data name="lblMsg715" xml:space="preserve">
+    <value>供货方处门店代码</value>
+  </data>
+  <data name="lblMsg716" xml:space="preserve">
+    <value>接收邮件</value>
+  </data>
+  <data name="lblMsg717" xml:space="preserve">
+    <value>接收传真</value>
+  </data>
+  <data name="lblMsg718" xml:space="preserve">
+    <value>若要修改组织架构请先去除经销商关联</value>
+  </data>
+  <data name="lblMsg719" xml:space="preserve">
+    <value>联系电话错误！</value>
+  </data>
+  <data name="lblMsg720" xml:space="preserve">
+    <value>若要修改组织架构请先去除该人员与帐号</value>
+  </data>
+  <data name="lblMsg721" xml:space="preserve">
+    <value>的关联!</value>
+  </data>
+  <data name="lblMsg722" xml:space="preserve">
+    <value>请先除去与人员</value>
+  </data>
+  <data name="lblMsg723" xml:space="preserve">
+    <value>与帐号</value>
+  </data>
+  <data name="lblMsg724" xml:space="preserve">
+    <value>的关联!</value>
+  </data>
+  <data name="lblMsg725" xml:space="preserve">
+    <value>供货方处门店代码</value>
+  </data>
+  <data name="lblMsg726" xml:space="preserve">
+    <value>用户名或者密码不存在!</value>
+  </data>
+  <data name="lblMsg727" xml:space="preserve">
+    <value>简称不能为空!</value>
+  </data>
+  <data name="lblMsg728" xml:space="preserve">
+    <value>总共&lt;font color=blue&gt;{0}&lt;/font&gt;条记录&amp;nbsp;&amp;nbsp;共{1}页&amp;nbsp;&amp;nbsp;当前第{2}页</value>
+  </data>
+  <data name="lblMsg729" xml:space="preserve">
+    <value>门店负责人帐号</value>
+  </data>
+  <data name="lblMsg730" xml:space="preserve">
+    <value>门店负责人姓名</value>
+  </data>
+  <data name="lblMsg731" xml:space="preserve">
+    <value>注意: 离职操作将会清空路线等基础数据\n是否继续？</value>
+  </data>
+  <data name="lblMsg732" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="lblMsg733" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="lblMsg734" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="lblMsg735" xml:space="preserve">
+    <value>缩小</value>
+  </data>
+  <data name="lblMsg736" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="lblMsg737" xml:space="preserve">
+    <value>水平翻转</value>
+  </data>
+  <data name="lblMsg738" xml:space="preserve">
+    <value>垂直翻转</value>
+  </data>
+  <data name="lblMsg739" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="lblMsg740" xml:space="preserve">
+    <value>新增指标类</value>
+  </data>
+  <data name="lblMsg741" xml:space="preserve">
+    <value>回答类型不能为空!</value>
+  </data>
+  <data name="lblMsg742" xml:space="preserve">
+    <value>填写方式不能为空!</value>
+  </data>
+  <data name="lblMsg743" xml:space="preserve">
+    <value>结束时间不能早于开始时间!</value>
+  </data>
+  <data name="lblMsg744" xml:space="preserve">
+    <value>新增移动终端用户</value>
+  </data>
+  <data name="lblMsg745" xml:space="preserve">
+    <value>门店负责人覆盖维护</value>
+  </data>
+  <data name="lblMsg746" xml:space="preserve">
+    <value>由于客户与业代不属于同一组织，导致无法新增线路。失败客户：</value>
+  </data>
+  <data name="lblMsg747" xml:space="preserve">
+    <value>拜访历史明细</value>
+  </data>
+  <data name="lblMsg748" xml:space="preserve">
+    <value>拜访信息</value>
+  </data>
+  <data name="lblMsg749" xml:space="preserve">
+    <value>拜访备注</value>
+  </data>
+  <data name="lblMsg750" xml:space="preserve">
+    <value>指标信息采集</value>
+  </data>
+  <data name="lblMsg751" xml:space="preserve">
+    <value>指标明细</value>
+  </data>
+  <data name="lblMsg752" xml:space="preserve">
+    <value>采集结果</value>
+  </data>
+  <data name="lblMsg753" xml:space="preserve">
+    <value>确认时间</value>
+  </data>
+  <data name="lblMsg754" xml:space="preserve">
+    <value>到货日期不能为空</value>
+  </data>
+  <data name="lblMsg755" xml:space="preserve">
+    <value>到货日期不正确</value>
+  </data>
+  <data name="lblMsg756" xml:space="preserve">
+    <value>确认人</value>
+  </data>
+  <data name="lblMsg757" xml:space="preserve">
+    <value>订单备注</value>
+  </data>
+  <data name="lblMsg758" xml:space="preserve">
+    <value>本品名称</value>
+  </data>
+  <data name="lblMsg759" xml:space="preserve">
+    <value>发货数量应为最大8位正整数</value>
+  </data>
+  <data name="lblMsg760" xml:space="preserve">
+    <value>发货数量不能为空</value>
+  </data>
+  <data name="lblMsg761" xml:space="preserve">
+    <value>收货数量应为最多8位正整数</value>
+  </data>
+  <data name="lblMsg762" xml:space="preserve">
+    <value>收货数量不能为空</value>
+  </data>
+  <data name="lblMsg763" xml:space="preserve">
+    <value>收货数量整数部分6位，小数部分4位</value>
+  </data>
+  <data name="lblMsg764" xml:space="preserve">
+    <value>收货单价不能为空</value>
+  </data>
+  <data name="lblMsg765" xml:space="preserve">
+    <value>促销单</value>
+  </data>
+  <data name="lblMsg766" xml:space="preserve">
+    <value>取消后不能恢复,确认要取消吗?</value>
+  </data>
+  <data name="lblMsg767" xml:space="preserve">
+    <value>赠品产品</value>
+  </data>
+  <data name="lblMsg768" xml:space="preserve">
+    <value>本品产品</value>
+  </data>
+  <data name="lblMsg769" xml:space="preserve">
+    <value>已确认</value>
+  </data>
+  <data name="lblMsg770" xml:space="preserve">
+    <value>订单无法确认 理由:该订单行已经在上月确认过，不允许跨月确认</value>
+  </data>
+  <data name="lblMsg771" xml:space="preserve">
+    <value>操作失败：该订单已确认</value>
+  </data>
+  <data name="lblMsg772" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="lblMsg773" xml:space="preserve">
+    <value>送货单</value>
+  </data>
+  <data name="lblMsg774" xml:space="preserve">
+    <value>业代及电话</value>
+  </data>
+  <data name="lblMsg775" xml:space="preserve">
+    <value>要货日期</value>
+  </data>
+  <data name="lblMsg776" xml:space="preserve">
+    <value>金额</value>
+  </data>
+  <data name="lblMsg777" xml:space="preserve">
+    <value>客户签字</value>
+  </data>
+  <data name="lblMsg778" xml:space="preserve">
+    <value>送货时间</value>
+  </data>
+  <data name="lblMsg779" xml:space="preserve">
+    <value>交单时间</value>
+  </data>
+  <data name="lblMsg780" xml:space="preserve">
+    <value>送货员</value>
+  </data>
+  <data name="lblMsg781" xml:space="preserve">
+    <value>司机</value>
+  </data>
+  <data name="lblMsg782" xml:space="preserve">
+    <value>财务</value>
+  </data>
+  <data name="lblMsg783" xml:space="preserve">
+    <value>页码</value>
+  </data>
+  <data name="lblMsg784" xml:space="preserve">
+    <value>请选择办事处</value>
+  </data>
+  <data name="lblMsg785" xml:space="preserve">
+    <value>销售订单</value>
+  </data>
+  <data name="lblMsg786" xml:space="preserve">
+    <value>门店负责人及联系方式</value>
+  </data>
+  <data name="lblMsg787" xml:space="preserve">
+    <value>订单总金额</value>
+  </data>
+  <data name="lblMsg788" xml:space="preserve">
+    <value>订货门店</value>
+  </data>
+  <data name="lblMsg789" xml:space="preserve">
+    <value>促销装</value>
+  </data>
+  <data name="lblMsg790" xml:space="preserve">
+    <value>要求到货时间</value>
+  </data>
+  <data name="lblMsg791" xml:space="preserve">
+    <value>单价(未税)</value>
+  </data>
+  <data name="lblMsg792" xml:space="preserve">
+    <value>金额(未税)</value>
+  </data>
+  <data name="lblMsg793" xml:space="preserve">
+    <value>交单时间</value>
+  </data>
+  <data name="lblMsg794" xml:space="preserve">
+    <value>经销商财务签字</value>
+  </data>
+  <data name="lblMsg795" xml:space="preserve">
+    <value>经销商盖章</value>
+  </data>
+  <data name="lblMsg796" xml:space="preserve">
+    <value>备注：终端客户收货后必须签字，经销商财务签字是要确认终端收货数量的真实性，要求经销商在报送办事处前必须盖章确
+认真实性。</value>
+  </data>
+  <data name="lblMsg797" xml:space="preserve">
+    <value>打印时间</value>
+  </data>
+  <data name="lblMsg798" xml:space="preserve">
+    <value>到货日期</value>
+  </data>
+  <data name="lblMsg799" xml:space="preserve">
+    <value>拜访周期</value>
+  </data>
+  <data name="lblMsg800" xml:space="preserve">
+    <value>用户线编号获取失败，请尝试重新打开本页</value>
+  </data>
+  <data name="lblMsg801" xml:space="preserve">
+    <value>操作失败，请返回并重新尝试,信息:</value>
+  </data>
+  <data name="lblMsg802" xml:space="preserve">
+    <value>请选择要交换的线路</value>
+  </data>
+  <data name="lblMsg803" xml:space="preserve">
+    <value>请选择线路!</value>
+  </data>
+  <data name="lblMsg804" xml:space="preserve">
+    <value>修改用户路线</value>
+  </data>
+  <data name="lblMsg805" xml:space="preserve">
+    <value>置  顶</value>
+  </data>
+  <data name="lblMsg806" xml:space="preserve">
+    <value>置  底</value>
+  </data>
+  <data name="lblMsg807" xml:space="preserve">
+    <value>传递业务员信息时发生异常，请返回重新尝试。</value>
+  </data>
+  <data name="lblMsg808" xml:space="preserve">
+    <value>没有业务员信息，请返回重新尝试。</value>
+  </data>
+  <data name="lblMsg809" xml:space="preserve">
+    <value>没有业务员线路信息，请返回重新尝试。</value>
+  </data>
+  <data name="lblMsg810" xml:space="preserve">
+    <value>页</value>
+  </data>
+  <data name="lblMsg811" xml:space="preserve">
+    <value>收货数不能大于发货数</value>
+  </data>
+  <data name="lblMsg812" xml:space="preserve">
+    <value>传递业务员线路时发生异常，请返回重新尝试。</value>
+  </data>
+  <data name="lblMsg813" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="lblMsg814" xml:space="preserve">
+    <value>补损订单</value>
+  </data>
+  <data name="lblMsg815" xml:space="preserve">
+    <value>赠品订单</value>
+  </data>
+  <data name="lblMsg816" xml:space="preserve">
+    <value>正常订单</value>
+  </data>
+  <data name="lblMsg817" xml:space="preserve">
+    <value>换货订单</value>
+  </data>
+  <data name="lblMsg818" xml:space="preserve">
+    <value>退货订单</value>
+  </data>
+  <data name="lblMsg819" xml:space="preserve">
+    <value>未确认</value>
+  </data>
+  <data name="lblMsg820" xml:space="preserve">
+    <value>部分确认</value>
+  </data>
+  <data name="lblMsg821" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="lblMsg822" xml:space="preserve">
+    <value>已发送</value>
+  </data>
+  <data name="lblMsg823" xml:space="preserve">
+    <value>请选择一个有效的常规名称!</value>
+  </data>
+  <data name="lblMsg824" xml:space="preserve">
+    <value>查询常规</value>
+  </data>
+  <data name="lblMsg825" xml:space="preserve">
+    <value>常规代码</value>
+  </data>
+  <data name="lblMsg826" xml:space="preserve">
+    <value>常规名称</value>
+  </data>
+  <data name="lblMsg827" xml:space="preserve">
+    <value>编辑常规</value>
+  </data>
+  <data name="lblMsg828" xml:space="preserve">
+    <value>未定义的拜访类型</value>
+  </data>
+  <data name="lblMsg829" xml:space="preserve">
+    <value>含量</value>
+  </data>
+  <data name="lblMsg830" xml:space="preserve">
+    <value>包装</value>
+  </data>
+  <data name="Freshness" xml:space="preserve">
+    <value>新鲜度报表</value>
+  </data>
+  <data name="Retail_Price" xml:space="preserve">
+    <value>价格报表</value>
+  </data>
+  <data name="lblMsg831" xml:space="preserve">
+    <value>线路</value>
+  </data>
+  <data name="CPR配置" xml:space="preserve">
+    <value>CPR配置</value>
+  </data>
+  <data name="终端门店审核" xml:space="preserve">
+    <value>终端门店审核</value>
+  </data>
+  <data name="lbl_Audit" xml:space="preserve">
+    <value>审核</value>
+  </data>
+  <data name="lblAudit" xml:space="preserve">
+    <value>确定要审核吗？</value>
+  </data>
+  <data name="lblChoose" xml:space="preserve">
+    <value>请选择要审核的门店！</value>
+  </data>
+  <data name="txt_Flavour" xml:space="preserve">
+    <value>口味</value>
+  </data>
+  <data name="txt_TaskList" xml:space="preserve">
+    <value>指标列表</value>
+  </data>
+  <data name="txt_MobileUser" xml:space="preserve">
+    <value>手机用户</value>
+  </data>
+  <data name="txt_RecUser" xml:space="preserve">
+    <value>最后操作人</value>
+  </data>
+  <data name="销量趋势报表" xml:space="preserve">
+    <value>销量趋势图</value>
+  </data>
+  <data name="月销量报表" xml:space="preserve">
+    <value>月销量报表</value>
+  </data>
+  <data name="业代月销量完成报表" xml:space="preserve">
+    <value>业代月销量完成表</value>
+  </data>
+  <data name="业代销量排名报表" xml:space="preserve">
+    <value>业代销量排名表</value>
+  </data>
+  <data name="日拜访报表" xml:space="preserve">
+    <value>日拜访表(实时)</value>
+  </data>
+  <data name="月拜访报表" xml:space="preserve">
+    <value>月拜访报表</value>
+  </data>
+  <data name="拜访效率报表" xml:space="preserve">
+    <value>拜访效率表</value>
+  </data>
+  <data name="终端分销报表" xml:space="preserve">
+    <value>终端分销表</value>
+  </data>
+  <data name="线路分析报表" xml:space="preserve">
+    <value>线路分析表</value>
+  </data>
+  <data name="KPI月报表" xml:space="preserve">
+    <value>KPI月报表</value>
+  </data>
+  <data name="促销活动分析" xml:space="preserve">
+    <value>促销活动分析表</value>
+  </data>
+  <data name="明细数据表" xml:space="preserve">
+    <value>明细数据表</value>
+  </data>
+  <data name="终端质量评估表" xml:space="preserve">
+    <value>终端质量评估表</value>
+  </data>
+  <data name="产品供货分析表" xml:space="preserve">
+    <value>产品供货分析表</value>
+  </data>
+</root>

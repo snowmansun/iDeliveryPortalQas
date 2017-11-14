@@ -1,0 +1,258 @@
+﻿@model Mde.Model.DataModel.MD_Organization
+@{
+    ViewBag.Title = "Organization";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section style{
+    <style>
+        .tree-file, .tree-folder, .tree-folder-open {
+            display: none;
+        }
+        .panel.window,.window-shadow {
+            margin-top:-100px;
+        }
+        .panel-body.dialog-content {
+            padding:10px;
+        }
+    </style>
+}
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            InitTree();
+
+            $("#btnClose").click(function () {
+                $("#UpdateDialog").dialog("close");
+            });
+
+            $("#btnOK").click(function () {
+                var jsonData = {
+                    ID: $("#HidID").val(),
+                    Code: $("#Code").val(),
+                    Name: $("#Name").val(),
+                    ParentId: GetComboTreeValue($("#Organization")),
+                    Valid: $("[name = Active]:checkbox").is(":checked"),
+                    Mode: $("#HidMode").val(),
+                    Level: $("#HidLevel").val()
+                };
+                $.ajax({
+                    type: "post",
+                    data: jsonData,
+                    dataType: "json",
+                    url: "@Url.Action("SaveOrganization", "Master")",
+                    success: function (data) {
+                        if (data.result == "succeed") {
+                            $("#UpdateDialog").dialog('close');
+                            RefreshGrid();
+                        }
+                        else
+                            $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SaveFailed，" + data.msg);
+                    }
+                });
+            });
+        });
+
+        
+        function GetComboTreeValue(control) {
+            var value = control.combotree("getValues");
+            if (value != "") {
+                var node = control.combotree("tree").tree("getRoots");
+                for (var i = 0; i < node.length; i++) {
+                    if (node[i].checked) {
+                        var obj = $.inArray(node[i].id, value);
+                        if (obj > -1) {
+                            value.splice(obj, 1);
+                        }
+                    }
+                }
+
+                value = value.join(",");
+            }
+
+            return value;
+        }
+
+        //刷新数据
+        function RefreshGrid() {
+            $("#gridtree").treegrid({
+                url: "@Url.Action("LoadOrganizationData", "Master")"
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function InitTree() {
+            $('#gridtree').treegrid({
+                url: "@Url.Action("LoadOrganizationData", "Master")",
+                fit: true,
+                fitColumns: true,
+                treeField: "Name",
+                rownumbers: true,
+                idField: 'Id',
+                columns: [
+                    [
+                        { field: 'Name', title: 'Name', width: 300 },
+                        { field: 'Code', title: 'Code', width: 50 },
+                        {
+                            field: 'Valid', title: '@Resources.Language.txt_Active', width: 50,
+                            formatter: function (value, row, index) {
+                                if (value == 1) {
+                                    return "Y";
+                                }
+                                if (value == 0) {
+                                    return "N";
+                                }
+                            }
+                        }
+                    ]
+                ],
+                toolbar: [
+                    {
+                        id: 'btnAdd_1',
+                        text: '@Resources.Language.btn_New',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            ShowDialog(1);
+                        }
+                    },
+                    {
+                        id: 'btnEdit_2',
+                        text: '@Resources.Language.btn_Edit',
+                        iconCls: 'icon-edit',
+                        handler: function () {
+                            ShowDialog(2);
+                        }
+                    }
+                ],
+                rowStyler: function (row) {
+                    if (row.Valid == 0) {
+                        return "color:Red";
+                    }
+                }
+            });
+            CheckButtonRole("@Url.Action("GetRoleFromCache","Base")");
+        }
+
+        function ShowDialog(type) {
+            var title, mode;
+
+            $("#UpdateDialog").find("form").form("clear");
+            $("#UpdateDialog").find("form").form("reset");
+
+            var row = $("#gridtree").treegrid('getSelected');
+            if (!row) {
+                $.messager.alert("@Resources.Message.msg_AlertTitle", "@Resources.Message.msg_SelectRecord");
+                return;
+            }
+
+            if (type == 1) {
+                title = "@Resources.Language.btn_New";
+                mode = "Add";
+
+                $("#divCombobox").hide();
+                $("#spanParentOrg").show();
+                $("#spanParentOrg").html(row.Name);
+            }
+            else {
+                title = "@Resources.Language.btn_Edit";
+                mode = "Edit";
+
+                $("#divCombobox").show();
+                $("#spanParentOrg").hide();
+
+                InitOrganizationData($("#Organization"));
+
+                $("#Code").val(row.Code);
+                $("#Name").val(row.Name);
+                $('#Organization').combotree('setValue', row.ParentId);
+                $("[name = Active]:checkbox").attr("checked", row.Valid);
+            }
+            $("#HidID").val(row.Id);
+            $("#HidLevel").val(row.Level);
+            $("#HidMode").val(mode);
+
+            $("#UpdateDialog").dialog({ title: title });
+            $("#UpdateDialog").dialog('open');
+        }
+
+        function InitOrganizationData(control) {
+            control.combotree({
+                url: "@Url.Action("GetOrganizationTreeData", "Master")",
+                method: 'get',
+                editable: false,
+                //multiple: true,
+                cascadeCheck: true,
+                lines: true,
+                onLoadSuccess: function (node, data) {
+                    $(this).tree("collapseAll");
+                    $("span").remove(".tree-icon tree-file icon-none");
+                }
+            });
+        }
+    </script>
+}
+
+<!--查询条件-->
+<div class="easyui-layout main" fit="true">
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true, border:false">
+            <!--明细列表-->
+            <div data-options="region:'center',border:false" style="padding:10px 0">
+                <table id="gridtree" class="easyui-treegrid">
+                </table>
+            </div>
+            <!--编辑弹出层开始-->
+            <div id="UpdateDialog" class="easyui-dialog" style="width: 400px; height: 230px;"
+                data-options="buttons:'#dlg-buttons',closed:true, modal:true">
+                <form id="FormUpdate" method="post">
+                    <table border="0" class="table-input">
+                        <tr>
+                            <td style="vertical-align: top; text-align: right; padding: 10px 5px;">
+                                <label style="display: inline-block;">@Resources.Language.txt_Code:</label>
+                            </td>
+                            <td style="vertical-align: top; padding: 5px 0;">
+                                <input type="text" style="width: 180px" class="easyui-validatebox" name="Code" id="Code" data-options="required:true,validType:['length[0,50]']" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: right; padding: 10px 5px;">
+                                <label style="display: inline-block;">@Resources.Language.txt_Name:</label>
+                            </td>
+                            <td style="vertical-align: top; padding: 5px 0;">
+                                <input type="text" style="width: 180px" class="easyui-validatebox" name="Name" id="Name" data-options="required:true,validType:['length[0,50]']" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: right; padding: 7px 5px;">
+                                <label style="display: inline-block;">@Resources.Language.txt_ParentOrg:</label>
+                            </td>
+                            <td style="vertical-align: top; padding: 10px 0;">
+                                <div id="divCombobox">
+                                    <select id="Organization" name="Organization" class="easyui-combotree" style="width: 180px;" data-options="required:true,panelHeight:'300',panelWidth:300"></select>
+                                </div>
+                                <span id="spanParentOrg" style="padding:10px 0;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: right; padding:7px 5px;">
+                                <label style="display: inline-block;">@Resources.Language.txt_Active:</label>
+                            </td>
+                            <td style="vertical-align: top; padding: 5px 0;">
+                                <input type="checkbox" name="Active" />
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="HidID" />
+                    <input type="hidden" id="HidLevel" />
+                    <input type="hidden" id="HidMode" />
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnOK">@Resources.Language.btn_Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnClose">@Resources.Language.btn_Close</a>
+            </div>
+            <!--编辑弹出层结束-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿body {
+}
+
+#w {
+    width:500px;height:200px;padding:10px;
+}
+#max_div {
+    margin:auto;width:228px;height:80px;padding-top:10px;
+}
+.input_style {
+    margin-bottom:10px;width:250px;
+}
+#save_buttons {
+    margin-left:20px;margin-right:10px;
+}
+.center_text {
+    width:100%;height:100%
+}
+#top_operate{
+    padding:5px;border:1px solid #ddd;
+}
+#button {
+    margin-top:20px;
+}
+.div_pwd {
+    width:110px;float:left;text-align:right
+}
+.win_table tr { height:35px;}
+.txt_Organization{text-align:right}
